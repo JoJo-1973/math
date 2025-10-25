@@ -2,21 +2,34 @@
 ; I/O macros
 ; ----------
 
-!macro FACtoString fac {
+; Macro +FAC_to_String: Convert FAC to a string. The operation destroys FAC and ARG, unless label __PRESERVE is defined.
+!macro FAC_to_String {
   !ifdef __PRESERVE {
-    +PutFACinPAD 1              ; Save FAC1 in scratchpad
-    +PutFACinPAD 2              ; Save FAC2 in scratchpad
+    +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
+    +Store_ARG_in_Scratch
   }
 
-  !if (fac - 2) {
-    } else {
-    +CopyFAC2toFAC1
-  }
-  jsr FOUT                      ; FOUT places converted FAC1 in $0100 destroying FAC1/2 in the process
+  jsr FOUT                      ; FOUT places converted FAC in $0100 destroying FAC and ARG in the process.
 
   !ifdef __PRESERVE {
-    +GetFACfromPAD 1            ; Restore FAC1
-    +GetFACfromPAD 2            ; Restore FAC2
+    +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
+    +Load_ARG_from_Scratch
+  }
+}
+
+; Macro +ARG_to_String: Convert ARG to a string. The operation destroys FAC and ARG, unless label __PRESERVE is defined.
+!macro ARG_to_String {
+  !ifdef __PRESERVE {
+    +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
+    +Store_ARG_in_Scratch
+  }
+
+  +Transfer_ARG_to_FAC          ; Copy ARG in FAC.
+  jsr FOUT                      ; FOUT places converted FAC in $0100 destroying FAC and ARG in the process.
+
+  !ifdef __PRESERVE {
+    +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
+    +Load_ARG_from_Scratch
   }
 }
 

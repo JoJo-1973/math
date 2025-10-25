@@ -4,6 +4,7 @@
 !source <c64_symbols.asm>
 
 !source "fp_memory.asm"
+!source "fp_io.asm"
 
 ; Local variables
 _SCRATCH_1        = $4E         ; These two areas are used only by BASIC and are safe to use as scratchpad area
