@@ -15,6 +15,8 @@
     +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
     +Load_ARG_from_Scratch
   }
+
+  +Adjust_Signs
 }
 
 ; Macro +ARG_to_String: Convert ARG to a string. The operation destroys FAC and ARG, unless label __PRESERVE is defined.
@@ -31,42 +33,64 @@
     +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
     +Load_ARG_from_Scratch
   }
+
+  +Adjust_Signs
 }
 
-; Convert a string to a FAC
-!macro StringtoFAC addr,fac {
+; Macro +String_to_FAC: Convert a string to float and stores it into FAC. The operation destroys ARG, unless label __PRESERVE is defined.
+!macro String_to_FAC addr {
   !ifdef __PRESERVE {
-    !if (fac - 2) {
-      +PutFACinPAD 2            ; Save FAC2 in scratchpad
-    } else {
-      +PutFACinPAD 1            ; Save FAC1 in scratchpad
-    }
+    +Store_ARG_in_Scratch       ; Save a copy of ARG.
   }
 
-  lda #<addr                    ; Prepare the pointer in CHRGOT
+  lda #<addr                    ; Store the address of the string in TXTPTR
   sta TXTPTR
   lda #>addr
   sta TXTPTR+1
-  jsr CHRGOT                    ; Place first character of the string in the pipeline
-  jsr FIN                       ; and start the conversion, which incidentally destroys FAC2
+  jsr CHRGOT                    ; and place the first character of the string in the input stream
+  jsr FIN                       ; then start the conversion, destroying ARG in the process.
 
-  !if (fac - 2) {
-    !ifdef __PRESERVE {
-      +GetFACfromPAD 2          ; Restore FAC2
-    }
-  } else {
-    +CopyFAC1toFAC2             ; Move the result to FAC2
-    !ifdef __PRESERVE {
-      +GetFACfromPAD 1          ; Restore FAC1
-    }
+  !ifdef __PRESERVE {
+    +Load_ARG_from_Scratch      ; Restore ARG from the copy.
   }
-  +AdjustSigns
+
+  +Adjust_Signs
 }
 
-; Print the contents of the selected FAC to the screen
-!macro PrintFAC fac {
-  +FACtoString fac
-  lda #$00                      ; String is stored at $0100
-  ldy #$01
+; Macro +String_to_ARG: Convert a string to float and stores it into ARG. The operation destroys FAC, unless label __PRESERVE is defined.
+!macro String_to_ARG addr {
+  !ifdef __PRESERVE {
+    +Store_FAC_in_Scratch       ; Save a copy of FAC.
+  }
+
+  lda #<addr                    ; Store the address of the string in TXTPTR
+  sta TXTPTR
+  lda #>addr
+  sta TXTPTR+1
+  jsr CHRGOT                    ; and place the first character of the string in the input stream
+  jsr FIN                       ; then start the conversion, destroying ARG in the process.
+  jsr MOVAF                     ; FAC can be moved to ARG.
+
+  !ifdef __PRESERVE {
+    +Load_FAC_from_Scratch      ; Restore FAC from the copy.
+  }
+
+  +Adjust_Signs
+}
+
+
+; Macro +Print_FAC: Print FAC to screen. The operation destroys FAC and ARG, unless label __PRESERVE is defined.
+!macro Print_FAC {
+  +FAC_to_String
+  lda #<STACK                   ; String is stored at bottom of stack.
+  ldy #>STACK
+  jsr STROUT
+}
+
+; Macro +Print_ARG: Print ARG to screen. The operation destroys FAC and ARG, unless label __PRESERVE is defined.
+!macro Print_FAC {
+  +ARG_to_String
+  lda #<STACK                   ; String is stored at bottom of stack.
+  ldy #>STACK
   jsr STROUT
 }
