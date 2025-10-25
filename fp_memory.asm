@@ -1,77 +1,100 @@
-; ----------------------------
-; Macros for internal use only
-; ----------------------------
+; --------------------------
+; Memory manipulation macros
+; --------------------------
 
-; Adjust ARISGN according to the law of signs when FAC1 or FAC2 are modified
-!macro AdjustSigns {
-  lda FAC1_SIGN                 ; Apply the law of signs
-  eor FAC2_SIGN                 ; Bit #7 is 0 (+) when signs are like and 1 when signs are unlike (-)
-  sta ARISGN
+; Macro +Load_[FAC/ARG]: Load FAC or ARG with a 5-bytes floating point value stored at a memory address.
+!macro Load_FAC addr {
+  lda #<addr                    ; Point .A/.Y to address.
+  ldy #>addr
+
+  jsr MOVFM                     ; Copy to ARG and adjust signs.
+  +Adjust_Signs
 }
 
-; Copy a FAC to scratchpad area
-!macro PutFACinPAD fac {
-  !if (fac - 2) {
-    lda FAC1_ROUND              ; Copy FAC1 to Scratchpad #1
-    sta SCRATCHPAD+6
-    lda FAC1+5
-    sta SCRATCHPAD+5
-    lda FAC1+4
-    sta SCRATCHPAD+4
-    lda FAC1+3
-    sta SCRATCHPAD+3
-    lda FAC1+2
-    sta SCRATCHPAD+2
-    lda FAC1+1
-    sta SCRATCHPAD+1
-    lda FAC1
-    sta SCRATCHPAD
-  } else {
-    lda FAC2_SIGN               ; Copy FAC2 to Scratchpad #2
-    sta SCRATCHPAD2+5
-    lda FAC2_MANT+3
-    sta SCRATCHPAD2+4
-    lda FAC2_MANT+2
-    sta SCRATCHPAD2+3
-    lda FAC2_MANT+1
-    sta SCRATCHPAD2+2
-    lda FAC2_MANT
-    sta SCRATCHPAD2+1
-    lda FAC2_EXP
-    sta SCRATCHPAD2
-  }
+!macro Load_ARG addr {
+  lda #<addr                    ; Point .A/.Y to address.
+  ldy #>addr
+
+  jsr CONUPK                    ; Copy to ARG and adjust signs.
+  +Adjust_Signs
 }
 
-; Copy a FAC from scratchpad area
-!macro GetFACfromPAD fac {
-  !if (fac - 2) {
-    lda SCRATCHPAD+6            ; Copy Scratchpad #1 to FAC1
-    sta FAC1_ROUND
-    lda SCRATCHPAD+5
-    sta FAC1_SIGN
-    lda SCRATCHPAD+4
-    sta FAC1_MANT+3
-    lda SCRATCHPAD+3
-    sta FAC1_MANT+2
-    lda SCRATCHPAD+2
-    sta FAC1_MANT+1
-    lda SCRATCHPAD+1
-    sta FAC1_MANT
-    lda SCRATCHPAD
-    sta FAC1_EXP
-  } else {
-    lda SCRATCHPAD2+5           ; Copy Scratchpad #2 to FAC2
-    sta FAC2_SIGN
-    lda SCRATCHPAD2+4
-    sta FAC2_MANT+3
-    lda SCRATCHPAD2+3
-    sta FAC2_MANT+2
-    lda SCRATCHPAD2+2
-    sta FAC2_MANT+1
-    lda SCRATCHPAD2+1
-    sta FAC2_MANT
-    lda SCRATCHPAD2
-    sta FAC2_EXP
-  }
-  +AdjustSigns
+; Macro +Store_[FAC/ARG]: Store FAC or ARG to a memory address in 5-bytes format.
+!macro Store_FAC addr {
+  ldx #<addr                    ; Point .X/.Y to address.
+  ldy #>addr
+
+  jsr ROUND                     ; Round FAC1 then store it.
+  jsr MOV2F+16                  ; MOV2F has multiple entry points, skip them.
+}
+
+!macro Store_ARG addr {
+  ldx #<addr                    ; Point .X/.Y to address.
+  ldy #>addr
+  stx INDEX                     ; Store address in INDEX, the pointer used by kernal for this kind of operations.
+  sty INDEX+1
+
+  ldy #$04                      ; 5 bytes to move.
+
+  lda ARGLO                     ; Store LSB of mantissa.
+  sta (INDEX),y
+  dey
+
+  lda ARGMO                     ; Store 3rd MSB of mantissa.
+  sta (INDEX),y
+  dey
+
+  lda ARGMOH                    ; Store 2nd MSB of mantissa:
+  sta (INDEX),y
+  dey
+
+  lda ARGSGN                    ; Create a bitmask in .A:
+  ora #%01111111                ; $7F if ARGSGN is negative, $FF if ARGSGN is positive
+  and ARGHO                     ; and apply it to MSB of mantissa, then store it.
+  sta (INDEX),y
+  dey
+
+  lda ARGEXP                    ; Store exponent byte.
+  sta (INDEX),y
+  rts
+}
+
+; Macro +Transfer_FAC_to_ARG: Copy a rounded value of FAC into ARG.
+!macro Transfer_FAC_to_ARG {
+  jsr MOVAF                     ; Copy FAC to ARG:
+  stx ARISGN                    ; now FAC and ARG have same signs.
+}
+
+; Macro +Transfer_ARG_to_FAC: Copy ARG into FAC.
+!macro Transfer_ARG_to_FAC {
+  jsr MOVFA                     ; Copy ARG to FAC:
+  stx ARISGN                    ; now FAC and ARG have same signs.
+}
+
+; Macro +Swap_FAC_and_ARG: Swap contents of FAC and ARG.
+!macro Swap_FAC_and_ARG {
+  jsr ROUND                     ; Anything moving out of FAC must be rounded before.
+  +Store_FAC_in_Scratch         ; Save rounded FAC in _SCRATCH_1.
+
+  jsr MOVFA                     ; Copy ARG to FAC.
+
+  lda _SCRATCH_1                ; Restore exponent byte of FAC into ARG.
+  sta ARGEXP
+
+  lda _SCRATCH_1+1              ; Restore MSB of mantissa of FAC into ARG.
+  sta ARGHO
+
+  lda _SCRATCH_1+2              ; Restore 2nd MSB of mantissa of FAC into ARG.
+  sta ARGMOH
+
+  lda _SCRATCH_1+3              ; Restore 3rd MSB of mantissa of FAC into ARG.
+  sta ARGMO
+
+  lda _SCRATCH_1+4              ; Restore LSB of mantissa of FAC into ARG.
+  sta ARGLO
+
+  lda _SCRATCH_1+5              ; Restore sign byte of FAC into ARG.
+  sta ARGSGN
+
+  +Adjust_Signs
 }

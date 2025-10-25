@@ -3,9 +3,7 @@
 
 !source <c64_symbols.asm>
 
-;!source "macro_internal.asm"        ; Internal use only
-;!source "macro_string_conv.asm"     ; Floating point to/from string
-;!source "macro_data_manip.asm"      ; Load and store FAC into RAM
+!source "fp_memory.asm"
 
 ; Local variables
 _SCRATCH_1        = $4E         ; These two areas are used only by BASIC and are safe to use as scratchpad area
@@ -67,7 +65,7 @@ _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. T
 ; will be used to keep ARISGN consistent.
 
 !macro Adjust_Signs {
-  lda FACSGN                    ; Apply the law of signs: bit #7 of ARISGN is 0 (+) when signs are like and 1 when signs are unlike (-)
+  lda FACSGN                    ; Apply the law of signs: bit #7 of ARISGN is 0 (+) when signs are like and 1 when signs are unlike (-).
   eor ARGSGN
   sta ARISGN
 }
@@ -75,92 +73,92 @@ _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. T
 ; Macro +Store[FAC/ARG]_in_Scratch: these macros copy the content of FAC or ARG in their reserved scratch area.
 ; For INTERNAL USE ONLY!
 !macro Store_FAC_in_Scratch {
-  lda FACEXP                    ; Store exponent byte
+  lda FACEXP                    ; Store exponent byte.
   sta _SCRATCH_1
 
-  lda FACHO                     ; Store MSB of mantissa
+  lda FACHO                     ; Store MSB of mantissa.
   sta _SCRATCH_1+1
 
-  lda FACMOH                    ; Store 2nd MSB of mantissa
+  lda FACMOH                    ; Store 2nd MSB of mantissa.
   sta _SCRATCH_1+2
 
-  lda FACMO                     ; Store 3rd MSB of mantissa
+  lda FACMO                     ; Store 3rd MSB of mantissa.
   sta _SCRATCH_1+3
 
-  lda FACLO                     ; Store LSB of mantissa
+  lda FACLO                     ; Store LSB of mantissa.
   sta _SCRATCH_1+4
 
-  lda FACSGN                    ; Store sign byte
+  lda FACSGN                    ; Store sign byte.
   sta _SCRATCH_1+5
 
-  lda FACOV                     ; Store rounding byte
+  lda FACOV                     ; Store rounding byte.
   sta _SCRATCH_1+6
 }
 
 !macro Store_ARG_in_Scratch {
-  lda ARGEXP                    ; Store exponent byte
+  lda ARGEXP                    ; Store exponent byte.
   sta _SCRATCH_2
 
-  lda ARGHO                     ; Store MSB of mantissa
+  lda ARGHO                     ; Store MSB of mantissa.
   sta _SCRATCH_2+1
 
-  lda ARGMOH                    ; Store 2nd MSB of mantissa
+  lda ARGMOH                    ; Store 2nd MSB of mantissa.
   sta _SCRATCH_2+2
 
-  lda ARGMO                     ; Store 3rd MSB of mantissa
+  lda ARGMO                     ; Store 3rd MSB of mantissa.
   sta _SCRATCH_2+3
 
-  lda ARGLO                     ; Store LSB of mantissa
+  lda ARGLO                     ; Store LSB of mantissa.
   sta _SCRATCH_2+4
 
-  lda ARGSGN                    ; Store sign byte
+  lda ARGSGN                    ; Store sign byte.
   sta _SCRATCH_2+5
 }
 
 ; Macro +Load_[FAC/ARG]_from_Scratch: these macros restore the content of FAC or ARG from their reserved scratch area.
 ; For INTERNAL USE ONLY!
 !macro Load_FAC_from_Scratch {
-  lda _SCRATCH_1                ; Restore exponent byte
+  lda _SCRATCH_1                ; Restore exponent byte.
   sta FACEXP
 
-  lda _SCRATCH_1+1              ; Restore MSB of mantissa
+  lda _SCRATCH_1+1              ; Restore MSB of mantissa.
   sta FACHO
 
-  lda _SCRATCH_1+2              ; Restore 2nd MSB of mantissa
+  lda _SCRATCH_1+2              ; Restore 2nd MSB of mantissa.
   sta FACMOH
 
-  lda _SCRATCH_1+3              ; Restore 3rd MSB of mantissa
+  lda _SCRATCH_1+3              ; Restore 3rd MSB of mantissa.
   sta FACMO
 
-  lda _SCRATCH_1+4              ; Restore LSB of mantissa
+  lda _SCRATCH_1+4              ; Restore LSB of mantissa.
   sta FACLO
 
-  lda _SCRATCH_1+5              ; Restore sign byte
+  lda _SCRATCH_1+5              ; Restore sign byte.
   sta FACSGN
 
-  lda _SCRATCH_1+6              ; Restore rounding byte
+  lda _SCRATCH_1+6              ; Restore rounding byte.
   sta FACOV
 
   +Adjust_Signs
 }
 
 !macro Load_ARG_from_Scratch {
-  lda _SCRATCH_2                ; Restore exponent byte
+  lda _SCRATCH_2                ; Restore exponent byte.
   sta ARGEXP
 
-  lda _SCRATCH_2+1              ; Restore MSB of mantissa
+  lda _SCRATCH_2+1              ; Restore MSB of mantissa.
   sta ARGHO
 
-  lda _SCRATCH_2+2              ; Restore 2nd MSB of mantissa
+  lda _SCRATCH_2+2              ; Restore 2nd MSB of mantissa.
   sta ARGMOH
 
-  lda _SCRATCH_2+3              ; Restore 3rd MSB of mantissa
+  lda _SCRATCH_2+3              ; Restore 3rd MSB of mantissa.
   sta ARGMO
 
-  lda _SCRATCH_2+4              ; Restore LSB of mantissa
+  lda _SCRATCH_2+4              ; Restore LSB of mantissa.
   sta ARGLO
 
-  lda _SCRATCH_2+5              ; Restore sign byte
+  lda _SCRATCH_2+5              ; Restore sign byte.
   sta ARGSGN
 
   +Adjust_Signs
