@@ -4,6 +4,7 @@
 !source <c64_symbols.asm>
 
 !source "fp_memory.asm"
+!source "fp_constants.asm"
 !source "fp_io.asm"
 
 ; Local variables

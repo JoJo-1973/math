@@ -2,6 +2,62 @@
 ; Loading constants into FAC
 ; --------------------------
 
+; Macro +Load_[FAC/ARG]_with: Load [FAC/ARG] with a 5-bytes floating point value.
+!macro Load_FAC_with exp, ho, moh, mo, lo {
+  lda #exp                      ; Exponent byte.
+  sta FACEXP
+
+  lda #(ho or %10000000)        ; Restore bit #7 of MSB of mantissa.
+  sta FACHO
+
+  lda #moh                      ; 2nd MSB of mantissa.
+  sta FACMOH
+
+  lda #mo                       ; 3rd MSB of mantissa.
+  sta FACMO
+
+  lda #lo                       ; LSB of mantissa.
+  sta FACLO
+
+  !if (ho and %10000000) {      ; Check sign of 5-bytes floating point value.
+    lda #$FF
+  } else {
+    lda #$00
+  }
+  sta FACSGN                    ; Sign byte.
+
+  lda #$00                      ; Rounding byte of FAC.
+  sta FACOV
+
+  +Adjust_Signs
+}
+
+!macro Load_ARG_with exp, ho, moh, mo, lo {
+  lda #exp                      ; Exponent byte.
+  sta ARGEXP
+
+  lda #(ho or %10000000)        ; Restore bit #7 of MSB of mantissa.
+  sta ARGHO
+
+  lda #moh                      ; 2nd MSB of mantissa.
+  sta ARGMOH
+
+  lda #mo                       ; 3rd MSB of mantissa.
+  sta ARGMO
+
+  lda #lo                       ; LSB of mantissa.
+  sta ARGLO
+
+  !if (ho and %10000000) {      ; Check sign of 5-bytes floating point value.
+    lda #$FF
+  } else {
+    lda #$00
+  }
+  sta ARGSGN                    ; Sign byte.
+
+  +Adjust_Signs
+}
+
 ; Load a constant stored into FAC
 !macro LoadFAC v1,v2 {
   !if (v1 - 2) {
@@ -20,7 +76,32 @@
   }
 }
 
-; Load zero in FAC
+; Macro +Load_[FAC/ARG]_with_0: Load [FAC/ARG] with 0.
+!macro Load_FAC_with_0 {
+  lda #$00
+  sta FACEXP
+  sta FACHO
+  sta FACMOH
+  sta FACMO
+  sta FACLO
+  sta FACSGN
+  sta FACOV
+
+  +Adjust_Signs
+}
+
+!macro Load_ARG_with_0 {
+  lda #$00
+  sta ARGEXP
+  sta ARGHO
+  sta ARGMOH
+  sta ARGMO
+  sta ARGLO
+  sta ARGSGN
+
+  +Adjust_Signs
+}
+
 !macro Load0inFAC v1 {
   !if (v1 - 2) {
     lda #$00
