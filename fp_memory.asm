@@ -19,6 +19,23 @@
   +Adjust_Signs
 }
 
+; Macro +Load_[FAC/ARG]_Ptr: Load FAC or ARG with a 5-bytes floating point value stored at a memory address in a pointer.
+!macro Load_FAC_Ptr ptr {
+  lda ptr                       ; Point .A/.Y to address.
+  ldy ptr+1
+
+  jsr MOVFM                     ; Copy to ARG and adjust signs.
+  +Adjust_Signs
+}
+
+!macro Load_ARG_Ptr ptr {
+  lda ptr                       ; Point .A/.Y to address.
+  ldy ptr+1
+
+  jsr CONUPK                    ; Copy to ARG and adjust signs.
+  +Adjust_Signs
+}
+
 ; Macro +Store_[FAC/ARG]: Store FAC or ARG to a memory address in 5-bytes format.
 !macro Store_FAC addr {
   ldx #<addr                    ; Point .X/.Y to address.
@@ -31,6 +48,46 @@
 !macro Store_ARG addr {
   ldx #<addr                    ; Point .X/.Y to address.
   ldy #>addr
+  stx INDEX                     ; Store address in INDEX, the pointer used by kernal for this kind of operations.
+  sty INDEX+1
+
+  ldy #$04                      ; 5 bytes to move.
+
+  lda ARGLO                     ; Store LSB of mantissa.
+  sta (INDEX),y
+  dey
+
+  lda ARGMO                     ; Store 3rd MSB of mantissa.
+  sta (INDEX),y
+  dey
+
+  lda ARGMOH                    ; Store 2nd MSB of mantissa:
+  sta (INDEX),y
+  dey
+
+  lda ARGSGN                    ; Create a bitmask in .A:
+  ora #%01111111                ; $7F if ARGSGN is negative, $FF if ARGSGN is positive
+  and ARGHO                     ; and apply it to MSB of mantissa, then store it.
+  sta (INDEX),y
+  dey
+
+  lda ARGEXP                    ; Store exponent byte.
+  sta (INDEX),y
+  rts
+}
+
+; Macro +Store_[FAC/ARG]_Ptr: Store FAC or ARG to a memory address in a pointer in 5-bytes format.
+!macro Store_FAC_Ptr ptr {
+  ldx ptr                       ; Point .X/.Y to address.
+  ldy ptr+1
+
+  jsr ROUND                     ; Round FAC1 then store it.
+  jsr MOV2F+16                  ; MOV2F has multiple entry points, skip them.
+}
+
+!macro Store_ARG_Ptr ptr {
+  ldx ptr                       ; Point .X/.Y to address.
+  ldy ptr+1
   stx INDEX                     ; Store address in INDEX, the pointer used by kernal for this kind of operations.
   sty INDEX+1
 
