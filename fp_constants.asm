@@ -7,26 +7,40 @@
   lda #exp                      ; Exponent byte.
   sta FACEXP
 
-  lda #(ho or %10000000)        ; Restore bit #7 of MSB of mantissa.
+  !if ((ho or %10000000) - exp) {
+    lda #(ho or %10000000)      ; Restore bit #7 of MSB of mantissa.
+  }
   sta FACHO
 
-  lda #moh                      ; 2nd MSB of mantissa.
+  !if (moh - (ho or %10000000)) {
+    lda #moh                    ; 2nd MSB of mantissa.
+  }
   sta FACMOH
 
-  lda #mo                       ; 3rd MSB of mantissa.
+  !if (mo - moh) {
+    lda #mo                     ; 3rd MSB of mantissa.
+  }
   sta FACMO
 
-  lda #lo                       ; LSB of mantissa.
+  !if (lo - mo) {
+    lda #lo                     ; LSB of mantissa.
+  }
   sta FACLO
 
   !if (ho and %10000000) {      ; Check sign of 5-bytes floating point value.
-    lda #$FF
+    !if ($80 - lo) {
+      lda #$80
+    }
   } else {
-    lda #$00
+    !if (lo) {
+      lda #$00
+    }
   }
   sta FACSGN                    ; Sign byte.
 
-  lda #$00                      ; Rounding byte of FAC.
+  !if (ho and %10000000) {
+    lda #$00                    ; Rounding byte of FAC.
+  }
   sta FACOV
 
   +Adjust_Signs
@@ -36,395 +50,193 @@
   lda #exp                      ; Exponent byte.
   sta ARGEXP
 
-  lda #(ho or %10000000)        ; Restore bit #7 of MSB of mantissa.
+  !if ((ho or %10000000) - exp) {
+    lda #(ho or %10000000)      ; Restore bit #7 of MSB of mantissa.
+  }
   sta ARGHO
 
-  lda #moh                      ; 2nd MSB of mantissa.
+  !if (moh - (ho or %10000000)) {
+    lda #moh                    ; 2nd MSB of mantissa.
+  }
   sta ARGMOH
 
-  lda #mo                       ; 3rd MSB of mantissa.
+  !if (mo - moh) {
+    lda #mo                     ; 3rd MSB of mantissa.
+  }
   sta ARGMO
 
-  lda #lo                       ; LSB of mantissa.
+  !if (lo - mo) {
+    lda #lo                     ; LSB of mantissa.
+  }
   sta ARGLO
 
   !if (ho and %10000000) {      ; Check sign of 5-bytes floating point value.
-    lda #$FF
+    !if ($80 - lo) {
+      lda #$80
+    }
   } else {
-    lda #$00
+    !if (lo) {
+      lda #$00
+    }
   }
   sta ARGSGN                    ; Sign byte.
 
   +Adjust_Signs
 }
 
-; Load a constant stored into FAC
-!macro LoadFAC v1,v2 {
-  !if (v1 - 2) {
-    ldy #<v2
-    lda #>v2
-    jsr GIVAYF
-    +AdjustSigns
-  } else {
-    +PutFACinPAD 1
-    ldy #<v2
-    lda #>v2
-    jsr GIVAYF
-    +CopyFAC1toFAC2
-    +GetFACfromPAD 1
-    +AdjustSigns
-  }
-}
-
-; Macro +Load_[FAC/ARG]_with_0: Load [FAC/ARG] with 0.
+; Macro +Load_[FAC/ARG]_with_...: Load [FAC/ARG] with predefined constants.
 !macro Load_FAC_with_0 {
-  lda #$00
-  sta FACEXP
-  sta FACHO
-  sta FACMOH
-  sta FACMO
-  sta FACLO
-  sta FACSGN
-  sta FACOV
-
-  +Adjust_Signs
+  +Load_FAC_with $00,$00,$00,$00,$00
 }
 
 !macro Load_ARG_with_0 {
-  lda #$00
-  sta ARGEXP
-  sta ARGHO
-  sta ARGMOH
-  sta ARGMO
-  sta ARGLO
-  sta ARGSGN
-
-  +Adjust_Signs
+  +Load_ARG_with $00,$00,$00,$00,$00
 }
 
-!macro Load0inFAC v1 {
-  !if (v1 - 2) {
-    lda #$00
-    sta FAC1_EXP
-    sta FAC1_MANT
-    sta FAC1_MANT+1
-    sta FAC1_MANT+2
-    sta FAC1_MANT+3
-    sta FAC1_SIGN
-    sta FAC1_ROUND
-    +AdjustSigns
-  } else {
-    lda #$00
-    sta FAC2_EXP
-    sta FAC2_MANT
-    sta FAC2_MANT+1
-    sta FAC2_MANT+2
-    sta FAC2_MANT+3
-    sta FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_FAC_with_0.25 {
+  +Load_FAC FR4
 }
 
-; Load 1/4 in FAC
-!macro Load0.25inFAC v1 {
-  +LoadMEMinFAC v1,FR4
+!macro Load_ARG_with_0.25 {
+  +Load_ARG FR4
 }
 
-; Load 1/2 in FAC
-!macro Load0.5inFAC v1 {
-  +LoadMEMinFAC v1,FHALF
+!macro Load_FAC_with_0.5 {
+  +Load_FAC FHALF
 }
 
-; Load 1 in FAC
-!macro Load1inFAC v1 {
-  !if (v1 - 2) {
-    ldx #$81
-    stx FAC1_EXP
-    dex
-    stx FAC1_MANT
-    ldx #$00
-    stx FAC1_MANT+1
-    stx FAC1_MANT+2
-    stx FAC1_MANT+3
-    stx FAC1_SIGN
-    stx FAC1_ROUND
-    +AdjustSigns
-  } else {
-    ldx #$81
-    stx FAC2_EXP
-    dex
-    stx FAC2_MANT
-    ldx #$00
-    stx FAC2_MANT+1
-    stx FAC2_MANT+2
-    stx FAC2_MANT+3
-    stx FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_ARG_with_0.5 {
+  +Load_ARG FHALF
 }
 
-; Load 2 in FAC
-!macro Load2inFAC v1 {
-  !if (v1 - 2) {
-    ldx #$82
-    stx FAC1_EXP
-    dex
-    dex
-    stx FAC1_MANT
-    ldx #$00
-    stx FAC1_MANT+1
-    stx FAC1_MANT+2
-    stx FAC1_MANT+3
-    stx FAC1_SIGN
-    stx FAC1_ROUND
-    +AdjustSigns
-  } else {
-    ldx #$82
-    stx FAC2_EXP
-    dex
-    dex
-    stx FAC2_MANT
-    ldx #$00
-    stx FAC2_MANT+1
-    stx FAC2_MANT+2
-    stx FAC2_MANT+3
-    stx FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_FAC_with_1 {
+  +Load_FAC FONE
 }
 
-; Load 10 in FAC
-!macro Load10inFAC v1 {
-  +LoadMEMinFAC v1,TENC
+!macro Load_ARG_with_1 {
+  +Load_ARG FONE
 }
 
-; Load PI/4 in FAC
-!macro LoadPI4inFAC v1 {
-  !if (v1 - 2) {
-    +LoadPI2inFAC 1
-    dec FAC1_EXP
-  } else {
-    +LoadPI2inFAC 2
-    dec FAC2_EXP
-  }
+!macro Load_FAC_with_2 {
+  +Load_FAC_with_1
+  inc FACEXP
 }
 
-; Load PI/2 in FAC
-!macro LoadPI2inFAC v1 {
-  +LoadMEMinFAC v1,PI2
+!macro Load_ARG_with_2 {
+  +Load_ARG_with_1
+  inc ARGEXP
 }
 
-; Load PI in FAC
-!macro LoadPIinFAC v1 {
-  +LoadMEMinFAC v1,PIVAL
+!macro Load_FAC_with_10 {
+  +Load_FAC TENC
 }
 
-; Load 2*PI in FAC
-!macro Load2PIinFAC v1 {
-  +LoadMEMinFAC v1,TWOPI
+!macro Load_ARG_with_10 {
+  +Load_ARG TENC
 }
 
-; Load PI/180 in FAC
-!macro LoadPI180inFAC v1 {
-  !if (v1 - 2) {
-    lda #$7B
-    sta FAC1_EXP
-    lda #$8E
-    sta FAC1_MANT
-    lda #$FA
-    sta FAC1_MANT+1
-    lda #$35
-    sta FAC1_MANT+2
-    lda #$11
-    sta FAC1_MANT+3
-    lda #$00
-    sta FAC1_SIGN
-    lda #$00
-    sta FAC1_ROUND
-    +AdjustSigns
-  } else {
-    lda #$7B
-    sta FAC2_EXP
-    lda #$8E
-    sta FAC2_MANT
-    lda #$FA
-    sta FAC2_MANT+1
-    lda #$35
-    sta FAC2_MANT+2
-    lda #$11
-    sta FAC2_MANT+3
-    lda #$00
-    sta FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_FAC_with_PI4 {
+  +Load_FAC_with_PI2
+  dec FACEXP
 }
 
-; Load 180/PI in FAC
-!macro Load180PIinFAC v1 {
-  !if (v1 - 2) {
-    lda #$86
-    sta FAC1_EXP
-    lda #$E5
-    sta FAC1_MANT
-    lda #$2E
-    sta FAC1_MANT+1
-    lda #$E0
-    sta FAC1_MANT+2
-    lda #$D4
-    sta FAC1_MANT+3
-    lda #$00
-    sta FAC1_SIGN
-    sta FAC1_ROUND
-    +AdjustSigns
-  } else {
-    lda #$86
-    sta FAC2_EXP
-    lda #$E5
-    sta FAC2_MANT
-    lda #$2E
-    sta FAC2_MANT+1
-    lda #$E0
-    sta FAC2_MANT+2
-    lda #$D4
-    sta FAC2_MANT+3
-    lda #$00
-    sta FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_ARG_with_PI4 {
+  +Load_ARG_with_PI2
+  dec ARGEXP
 }
 
-; Load SQR(2) in FAC
-!macro LoadSQR2inFAC v1 {
-  !if (v1 - 2) {
-    lda #$81
-    sta FAC1_EXP
-    lda #$B5
-    sta FAC1_MANT
-    lda #$04
-    sta FAC1_MANT+1
-    lda #$F3
-    sta FAC1_MANT+2
-    lda #$34
-    sta FAC1_MANT+3
-    lda #$00
-    sta FAC1_SIGN
-    sta FAC1_ROUND
-    +AdjustSigns
-  } else {
-    lda #$81
-    sta FAC2_EXP
-    lda #$B5
-    sta FAC2_MANT
-    lda #$04
-    sta FAC2_MANT+1
-    lda #$F3
-    sta FAC2_MANT+2
-    lda #$34
-    sta FAC2_MANT+3
-    lda #$00
-    sta FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_FAC_with_PI2 {
+  +Load_FAC PI2
 }
 
-; Load SQR(3) in FAC
-!macro LoadSQR3inFAC v1 {
-  !if (v1 - 2) {
-    lda #$81
-    sta FAC1_EXP
-    lda #$DD
-    sta FAC1_MANT
-    lda #$B3
-    sta FAC1_MANT+1
-    lda #$D7
-    sta FAC1_MANT+2
-    lda #$42
-    sta FAC1_MANT+3
-    lda #$00
-    sta FAC1_SIGN
-    sta FAC1_ROUND
-    +AdjustSigns
-  } else {
-    lda #$81
-    sta FAC2_EXP
-    lda #$DD
-    sta FAC2_MANT
-    lda #$B3
-    sta FAC2_MANT+1
-    lda #$D7
-    sta FAC2_MANT+2
-    lda #$42
-    sta FAC2_MANT+3
-    lda #$00
-    sta FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_ARG_with_PI2 {
+  +Load_ARG PI2
 }
 
-; Load EXP(1) in FAC
-!macro LoadeinFAC v1 {
-  !if (v1 - 2) {
-    lda #$82
-    sta FAC1_EXP
-    lda #$AD
-    sta FAC1_MANT
-    lda #$F8
-    sta FAC1_MANT+1
-    lda #$54
-    sta FAC1_MANT+2
-    lda #$58
-    sta FAC1_MANT+3
-    lda #$00
-    sta FAC1_SIGN
-    sta FAC1_ROUND
-    +AdjustSigns
-  } else {
-    lda #$82
-    sta FAC2_EXP
-    lda #$AD
-    sta FAC2_MANT
-    lda #$F8
-    sta FAC2_MANT+1
-    lda #$54
-    sta FAC2_MANT+2
-    lda #$58
-    sta FAC2_MANT+3
-    lda #$00
-    sta FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_FAC_with_PI {
+  +Load_FAC PIVAL
 }
 
-; Load LN(10) in FAC
-!macro LoadLN10inFAC v1 {
-  !if (v1 - 2) {
-    lda #$82
-    sta FAC1_EXP
-    lda #$93
-    sta FAC1_MANT
-    lda #$5D
-    sta FAC1_MANT+1
-    lda #$8D
-    sta FAC1_MANT+2
-    lda #$DD
-    sta FAC1_MANT+3
-    lda #$00
-    sta FAC1_SIGN
-    sta FAC1_ROUND
-    +AdjustSigns
-  } else {
-    lda #$82
-    sta FAC2_EXP
-    lda #$93
-    sta FAC2_MANT
-    lda #$5D
-    sta FAC2_MANT+1
-    lda #$8D
-    sta FAC2_MANT+2
-    lda #$DD
-    sta FAC2_MANT+3
-    lda #$00
-    sta FAC2_SIGN
-    +AdjustSigns
-  }
+!macro Load_ARG_with_PI {
+  +Load_ARG PIVAL
+}
+
+!macro Load_FAC_with_2PI {
+  +Load_FAC TWOPI
+}
+
+!macro Load_ARG_with_2PI {
+  +Load_ARG TWOPI
+}
+
+!macro Load_FAC_with_PI180 {
+  +Load_FAC_with $7B, $0E, $FA, $35, $12
+}
+
+!macro Load_ARG_with_PI180 {
+  +Load_ARG_with $7B, $0E, $FA, $35, $12
+}
+
+!macro Load_FAC_with_PI200 {
+  +Load_FAC_with $7B, $00, $AD, $FC, $90
+}
+
+!macro Load_ARG_with_PI200 {
+  +Load_ARG_with $7B, $00, $AD, $FC, $90
+}
+
+!macro Load_FAC_with_180PI {
+  +Load_FAC_with $86, $65, $2E, $E0, $D4
+}
+
+!macro Load_ARG_with_180PI {
+  +Load_ARG_with $86, $65, $2E, $E0, $D4
+}
+
+!macro Load_FAC_with_200PI {
+  +Load_FAC_with $86, $7E, $A5, $DD, $5E
+}
+
+!macro Load_ARG_with_200PI {
+  +Load_ARG_with $86, $7E, $A5, $DD, $5E
+}
+
+!macro Load_FAC_with_SQR2 {
+  +Load_FAC FSQR2
+}
+
+!macro Load_ARG_with_SQR2 {
+  +Load_ARG FSQR2
+}
+
+!macro Load_FAC_with_SQR3 {
+  +Load_FAC_with $81, $5D, $B3, $D7, $43
+}
+
+!macro Load_ARG_with_SQR3 {
+  +Load_ARG_with $81, $5D, $B3, $D7, $43
+}
+
+!macro Load_FAC_with_e {
+  +Load_FAC_with $82, $2D, $F8, $54, $59
+}
+
+!macro Load_ARG_with_e {
+  +Load_ARG_with $82, $2D, $F8, $54, $59
+}
+
+!macro Load_FAC_with_LOG2 {
+  +Load_FAC FLOG2
+}
+
+!macro Load_ARG_with_LOG2 {
+  +Load_ARG FLOG2
+}
+
+!macro Load_FAC_with_LOG10 {
+  +Load_FAC_with $82, $13, $5D, $8D, $DE
+}
+
+!macro Load_ARG_with_LOG10 {
+  +Load_ARG_with $82, $13, $5D, $8D, $DE
 }
