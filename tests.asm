@@ -16,6 +16,17 @@ INIT_UNARY:
   +Load_ARG_with $81, $C6, $66, $66, $66
   rts
 
+INIT_SIGNUM:
+  +PrintAt 12,20,.MSG_SIGNUM
+  +PrintAt 13,20,.MSG_SIGNUM
+
+  +Load_FAC_with_PI
+  +Load_ARG_with $81, $C6, $66, $66, $66
+  rts
+
+.MSG_SIGNUM:
+  !text "SIGN:",0
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -322,6 +333,48 @@ ABS:
 
 DESC_ABS:
   !text "ABSOLUTE VALUE",0
+
+; ------------------------------
+
+SIGNUM:
+  +Sign_FAC
+  pha
+  +Store_FAC_in_Scratch
+  +Store_ARG_in_Scratch
+
+  clc
+  ldx #12
+  ldy #26
+  jsr PLOT
+
+  pla
+  tax
+  lda #0
+  jsr LINPRT
+  +Load_FAC_from_Scratch
+  +Load_ARG_from_Scratch
+
+  +Sign_ARG
+  pha
+  +Store_FAC_in_Scratch
+  +Store_ARG_in_Scratch
+
+  clc
+  ldx #13
+  ldy #26
+  jsr PLOT
+
+  pla
+  tax
+  lda #0
+  jsr LINPRT
+  +Load_FAC_from_Scratch
+  +Load_ARG_from_Scratch
+
+  rts
+
+DESC_SIGNUM:
+  !text "SIGN",0
 
 ; ------------------------------
 

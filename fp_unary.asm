@@ -50,10 +50,11 @@
   bcs +++++                     ; and deliver it if .C = 1
   lda #$01                      ; else deliver positive sign answer
 +++++
-  rts
 }
 
 ; Macro Int_[FAC/ARG]: Rounds FAC/ARG towards minus infinity.
+; Operation on ARG is discouraged because of the swaps of FAC and ARG:
+; the macro is provided just in case.
 !macro Int_FAC {
   jsr INT
 }
