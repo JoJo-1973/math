@@ -3,51 +3,51 @@
 ; --------------------------
 
 ; Macro +Load_[FAC/ARG]: Load FAC or ARG with a 5-bytes floating point value stored at a memory address.
-!macro Load_FAC addr {
-  lda #<addr                    ; Point .A/.Y to address.
-  ldy #>addr
+!macro Load_FAC addr_ {
+  lda #<addr_                   ; Point .A/.Y to address.
+  ldy #>addr_
 
   jsr MOVFM                     ; Copy to ARG and adjust signs.
   +Adjust_Signs
 }
 
-!macro Load_ARG addr {
-  lda #<addr                    ; Point .A/.Y to address.
-  ldy #>addr
+!macro Load_ARG addr_ {
+  lda #<addr_                   ; Point .A/.Y to address.
+  ldy #>addr_
 
   jsr CONUPK                    ; Copy to ARG and adjust signs.
   +Adjust_Signs
 }
 
 ; Macro +Load_[FAC/ARG]_Ptr: Load FAC or ARG with a 5-bytes floating point value stored at a memory address in a pointer.
-!macro Load_FAC_Ptr ptr {
-  lda ptr                       ; Point .A/.Y to address.
-  ldy ptr+1
+!macro Load_FAC_Ptr ptr_ {
+  lda ptr_                      ; Point .A/.Y to address.
+  ldy ptr_+1
 
   jsr MOVFM                     ; Copy to ARG and adjust signs.
   +Adjust_Signs
 }
 
-!macro Load_ARG_Ptr ptr {
-  lda ptr                       ; Point .A/.Y to address.
-  ldy ptr+1
+!macro Load_ARG_Ptr ptr_ {
+  lda ptr_                      ; Point .A/.Y to address.
+  ldy ptr_+1
 
   jsr CONUPK                    ; Copy to ARG and adjust signs.
   +Adjust_Signs
 }
 
 ; Macro +Store_[FAC/ARG]: Store FAC or ARG to a memory address in 5-bytes format.
-!macro Store_FAC addr {
-  ldx #<addr                    ; Point .X/.Y to address.
-  ldy #>addr
+!macro Store_FAC addr_ {
+  ldx #<addr_                   ; Point .X/.Y to address.
+  ldy #>addr_
 
   jsr ROUND                     ; Round FAC1 then store it.
   jsr MOV2F+16                  ; MOV2F has multiple entry points, skip them.
 }
 
-!macro Store_ARG addr {
-  ldx #<addr                    ; Point .X/.Y to address.
-  ldy #>addr
+!macro Store_ARG addr_ {
+  ldx #<addr_                   ; Point .X/.Y to address.
+  ldy #>addr_
   stx INDEX                     ; Store address in INDEX, the pointer used by kernal for this kind of operations.
   sty INDEX+1
 
@@ -77,17 +77,17 @@
 }
 
 ; Macro +Store_[FAC/ARG]_Ptr: Store FAC or ARG to a memory address in a pointer in 5-bytes format.
-!macro Store_FAC_Ptr ptr {
-  ldx ptr                       ; Point .X/.Y to address.
-  ldy ptr+1
+!macro Store_FAC_Ptr ptr_ {
+  ldx ptr_                      ; Point .X/.Y to address.
+  ldy ptr_+1
 
   jsr ROUND                     ; Round FAC1 then store it.
   jsr MOV2F+16                  ; MOV2F has multiple entry points, skip them.
 }
 
-!macro Store_ARG_Ptr ptr {
-  ldx ptr                       ; Point .X/.Y to address.
-  ldy ptr+1
+!macro Store_ARG_Ptr ptr_ {
+  ldx ptr_                      ; Point .X/.Y to address.
+  ldy ptr_+1
   stx INDEX                     ; Store address in INDEX, the pointer used by kernal for this kind of operations.
   sty INDEX+1
 

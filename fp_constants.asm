@@ -3,42 +3,42 @@
 ; --------------------------
 
 ; Macro +Load_[FAC/ARG]_with: Load [FAC/ARG] with a 5-bytes floating point value.
-!macro Load_FAC_with exp, ho, moh, mo, lo {
-  lda #exp                      ; Exponent byte.
+!macro Load_FAC_with exp_, ho_, moh_, mo_, lo_ {
+  lda #exp_                     ; Exponent byte.
   sta FACEXP
 
-  !if ((ho or %10000000) - exp) {
-    lda #(ho or %10000000)      ; Restore bit #7 of MSB of mantissa.
+  !if ((ho_ or %10000000) - exp_) {
+    lda #(ho_ or %10000000)     ; Restore bit #7 of MSB of mantissa.
   }
   sta FACHO
 
-  !if (moh - (ho or %10000000)) {
-    lda #moh                    ; 2nd MSB of mantissa.
+  !if (moh_ - (ho_ or %10000000)) {
+    lda #moh_                   ; 2nd MSB of mantissa.
   }
   sta FACMOH
 
-  !if (mo - moh) {
-    lda #mo                     ; 3rd MSB of mantissa.
+  !if (mo_ - moh_) {
+    lda #mo_                    ; 3rd MSB of mantissa.
   }
   sta FACMO
 
-  !if (lo - mo) {
-    lda #lo                     ; LSB of mantissa.
+  !if (lo_ - mo_) {
+    lda #lo_                    ; LSB of mantissa.
   }
   sta FACLO
 
-  !if (ho and %10000000) {      ; Check sign of 5-bytes floating point value.
-    !if ($80 - lo) {
+  !if (ho_ and %10000000) {     ; Check sign of 5-bytes floating point value.
+    !if ($80 - lo_) {
       lda #$80
     }
   } else {
-    !if (lo) {
+    !if (lo_) {
       lda #$00
     }
   }
   sta FACSGN                    ; Sign byte.
 
-  !if (ho and %10000000) {
+  !if (ho_ and %10000000) {
     lda #$00                    ; Rounding byte of FAC.
   }
   sta FACOV
@@ -46,36 +46,36 @@
   +Adjust_Signs
 }
 
-!macro Load_ARG_with exp, ho, moh, mo, lo {
-  lda #exp                      ; Exponent byte.
+!macro Load_ARG_with exp_, ho_, moh_, mo_, lo_ {
+  lda #exp_                     ; Exponent byte.
   sta ARGEXP
 
-  !if ((ho or %10000000) - exp) {
-    lda #(ho or %10000000)      ; Restore bit #7 of MSB of mantissa.
+  !if ((ho_ or %10000000) - exp_) {
+    lda #(ho_ or %10000000)     ; Restore bit #7 of MSB of mantissa.
   }
   sta ARGHO
 
-  !if (moh - (ho or %10000000)) {
-    lda #moh                    ; 2nd MSB of mantissa.
+  !if (moh_ - (ho_ or %10000000)) {
+    lda #moh_                   ; 2nd MSB of mantissa.
   }
   sta ARGMOH
 
-  !if (mo - moh) {
-    lda #mo                     ; 3rd MSB of mantissa.
+  !if (mo_ - moh_) {
+    lda #mo_                    ; 3rd MSB of mantissa.
   }
   sta ARGMO
 
-  !if (lo - mo) {
-    lda #lo                     ; LSB of mantissa.
+  !if (lo_ - mo_) {
+    lda #lo_                    ; LSB of mantissa.
   }
   sta ARGLO
 
-  !if (ho and %10000000) {      ; Check sign of 5-bytes floating point value.
-    !if ($80 - lo) {
+  !if (ho_ and %10000000) {     ; Check sign of 5-bytes floating point value.
+    !if ($80 - lo_) {
       lda #$80
     }
   } else {
-    !if (lo) {
+    !if (lo_) {
       lda #$00
     }
   }
