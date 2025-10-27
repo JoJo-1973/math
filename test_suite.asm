@@ -118,7 +118,7 @@ MAIN:
 
 
 .Exit:
-  jsr CLRSCR
+  +PrintAt 0,0,MSG_DONE
   rts
 
 .Run_Test:
@@ -137,27 +137,29 @@ MSG_ARG:
   !text 18," ARG: ",146,0
 MSG_ANYKEY:
   !text 18,"   PRESS ANY KEY TO CONTINUE   ",146,0
+MSG_DONE:
+  !text 147,18,"TEST COMPLETED!",146,13,0
 
 ; Place all tests here
 TEST_JUMP_TABLE:
   !word LOAD_0.25 , DESC_0.25
   !word LOAD_0.5  , DESC_0.5
-  !word LOAD_1    , DESC_0.25
-  !word LOAD_2    , DESC_0.25
-  !word LOAD_10   , DESC_0.25
-  !word LOAD_PI4  , DESC_0.25
-  !word LOAD_PI2  , DESC_0.25
-  !word LOAD_PI   , DESC_0.25
-  !word LOAD_2PI  , DESC_0.25
-  !word LOAD_PI180, DESC_0.25
-  !word LOAD_180PI, DESC_0.25
-  !word LOAD_PI200, DESC_0.25
-  !word LOAD_200PI, DESC_0.25
-  !word LOAD_SQR2 , DESC_0.25
-  !word LOAD_SQR3 , DESC_0.25
-  !word LOAD_e    , DESC_0.25
-  !word LOAD_LOG2 , DESC_0.25
-  !word LOAD_LOG10, DESC_0.25
+  !word LOAD_1    , DESC_1
+  !word LOAD_2    , DESC_2
+  !word LOAD_10   , DESC_10
+  !word LOAD_PI4  , DESC_PI4
+  !word LOAD_PI2  , DESC_PI2
+  !word LOAD_PI   , DESC_PI
+  !word LOAD_2PI  , DESC_2PI
+  !word LOAD_PI180, DESC_PI180
+  !word LOAD_180PI, DESC_180PI
+  !word LOAD_PI200, DESC_PI200
+  !word LOAD_200PI, DESC_200PI
+  !word LOAD_SQR2 , DESC_SQR2
+  !word LOAD_SQR3 , DESC_SQR3
+  !word LOAD_e    , DESC_e
+  !word LOAD_LOG2 , DESC_LOG2
+  !word LOAD_LOG10, DESC_LOG10
 END_TEST_JUMP_TABLE:
 
 

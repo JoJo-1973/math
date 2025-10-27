@@ -32,6 +32,9 @@ LOAD_1:
   +Load_ARG_with_1
   rts
 
+DESC_1:
+  !text "LOAD WITH CONSTANT 1",0
+
 LOAD_2:
   +Load_FAC_with_2
   nop
@@ -39,6 +42,9 @@ LOAD_2:
   nop
   +Load_ARG_with_2
   rts
+
+DESC_2:
+  !text "LOAD WITH CONSTANT 2",0
 
 LOAD_10:
   +Load_FAC_with_10
@@ -48,6 +54,9 @@ LOAD_10:
   +Load_ARG_with_10
   rts
 
+DESC_10:
+  !text "LOAD WITH CONSTANT 10",0
+
 LOAD_PI4:
   +Load_FAC_with_PI4
   nop
@@ -55,6 +64,9 @@ LOAD_PI4:
   nop
   +Load_ARG_with_PI4
   rts
+
+DESC_PI4:
+  !text "LOAD WITH CONSTANT ",126,"/4",0
 
 LOAD_PI2:
   +Load_FAC_with_PI2
@@ -64,6 +76,9 @@ LOAD_PI2:
   +Load_ARG_with_PI2
   rts
 
+DESC_PI2:
+  !text "LOAD WITH CONSTANT ",126,"/2",0
+
 LOAD_PI:
   +Load_FAC_with_PI
   nop
@@ -71,6 +86,9 @@ LOAD_PI:
   nop
   +Load_ARG_with_PI
   rts
+
+DESC_PI:
+  !text "LOAD WITH CONSTANT ",126,0
 
 LOAD_2PI:
   +Load_FAC_with_2PI
@@ -80,6 +98,9 @@ LOAD_2PI:
   +Load_ARG_with_2PI
   rts
 
+DESC_2PI:
+  !text "LOAD WITH CONSTANT 2",126,",0
+
 LOAD_PI180:
   +Load_FAC_with_PI180
   nop
@@ -87,6 +108,9 @@ LOAD_PI180:
   nop
   +Load_ARG_with_PI180
   rts
+
+DESC_PI180:
+  !text "LOAD WITH CONSTANT ",126,"/180",0
 
 LOAD_180PI:
   +Load_FAC_with_180PI
@@ -96,6 +120,9 @@ LOAD_180PI:
   +Load_ARG_with_180PI
   rts
 
+DESC_180PI:
+  !text "LOAD WITH CONSTANT 180/",126,0
+
 LOAD_PI200:
   +Load_FAC_with_PI200
   nop
@@ -103,6 +130,9 @@ LOAD_PI200:
   nop
   +Load_ARG_with_PI200
   rts
+
+DESC_PI200:
+  !text "LOAD WITH CONSTANT ",126,"/200",0
 
 LOAD_200PI:
   +Load_FAC_with_200PI
@@ -112,6 +142,9 @@ LOAD_200PI:
   +Load_ARG_with_200PI
   rts
 
+DESC_200PI:
+  !text "LOAD WITH CONSTANT 200/",126,0
+
 LOAD_SQR2:
   +Load_FAC_with_SQR2
   nop
@@ -119,6 +152,9 @@ LOAD_SQR2:
   nop
   +Load_ARG_with_SQR2
   rts
+
+DESC_SQR2:
+  !text "LOAD WITH CONSTANT SQR(2)",0
 
 LOAD_SQR3:
   +Load_FAC_with_SQR3
@@ -128,6 +164,9 @@ LOAD_SQR3:
   +Load_ARG_with_SQR3
   rts
 
+DESC_SQR3:
+  !text "LOAD WITH CONSTANT SQR(3)",0
+
 LOAD_e:
   +Load_FAC_with_e
   nop
@@ -135,6 +174,9 @@ LOAD_e:
   nop
   +Load_ARG_with_e
   rts
+
+DESC_e:
+  !text "LOAD WITH CONSTANT EXP(1)",0
 
 LOAD_LOG2:
   +Load_FAC_with_LOG2
@@ -144,6 +186,9 @@ LOAD_LOG2:
   +Load_ARG_with_LOG2
   rts
 
+DESC_LOG2:
+  !text "LOAD WITH CONSTANT LOG(2)",0
+
 LOAD_LOG10:
   +Load_FAC_with_LOG10
   nop
@@ -152,3 +197,5 @@ LOAD_LOG10:
   +Load_ARG_with_LOG10
   rts
 
+DESC_LOG10:
+  !text "LOAD WITH CONSTANT LOG(10)",0
