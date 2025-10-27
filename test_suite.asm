@@ -19,8 +19,6 @@
 
 ; Global variables
 
-__PRESERVE        = 1
-
 _TEST_NUM         = TEMP_1
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 6
 _TEST_DESC_PTR    = ZP_1
@@ -92,14 +90,14 @@ MAIN:
   ldx #4
   ldy #6
   jsr PLOT
-  +Print_FAC
+  +Print_FAC 1
 
 ;  +Load_ARG_with_0              ; Print ARG "before".
   clc
   ldx #5
   ldy #6
   jsr PLOT
-  +Print_ARG
+  +Print_ARG 1
 
   pla
   tay
@@ -114,13 +112,13 @@ MAIN:
   ldx #12
   ldy #6
   jsr PLOT
-  +Print_FAC
+  +Print_FAC 1
 
   clc                           ; Print ARG "after".
   ldx #13
   ldy #6
   jsr PLOT
-  +Print_ARG
+  +Print_ARG 1
 
 .Loop_Any_Key:
   jsr GETIN
