@@ -88,7 +88,7 @@
 }
 
 ; Macro +Print_ARG: Print ARG to screen. The operation destroys FAC and ARG, unless label __PRESERVE is defined.
-!macro Print_FAC {
+!macro Print_ARG {
   +ARG_to_String
   lda #<STACK                   ; String is stored at bottom of stack.
   ldy #>STACK
