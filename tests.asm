@@ -11,6 +11,13 @@ INIT_TRANSFER:
   +Load_ARG_with_PI
   rts
 
+INIT_UNARY:
+  +Load_FAC_with_PI
+  +Load_ARG_with $81, $C6, $66, $66, $66
+  rts
+
+; ------------------------------
+
 LOAD_0.25:
   +Load_FAC_with_0.25
   nop
@@ -21,6 +28,8 @@ LOAD_0.25:
 
 DESC_0.25:
   !text "LOAD WITH CONSTANT 1/4",0
+
+; ------------------------------
 
 LOAD_0.5:
   +Load_FAC_with_0.5
@@ -33,6 +42,8 @@ LOAD_0.5:
 DESC_0.5:
   !text "LOAD WITH CONSTANT 1/2",0
 
+; ------------------------------
+
 LOAD_1:
   +Load_FAC_with_1
   nop
@@ -43,6 +54,8 @@ LOAD_1:
 
 DESC_1:
   !text "LOAD WITH CONSTANT 1",0
+
+; ------------------------------
 
 LOAD_MINUS_1:
   +Load_FAC_with_MINUS_1
@@ -55,6 +68,8 @@ LOAD_MINUS_1:
 DESC_MINUS_1:
   !text "LOAD WITH CONSTANT -1",0
 
+; ------------------------------
+
 LOAD_2:
   +Load_FAC_with_2
   nop
@@ -65,6 +80,8 @@ LOAD_2:
 
 DESC_2:
   !text "LOAD WITH CONSTANT 2",0
+
+; ------------------------------
 
 LOAD_10:
   +Load_FAC_with_10
@@ -77,6 +94,8 @@ LOAD_10:
 DESC_10:
   !text "LOAD WITH CONSTANT 10",0
 
+; ------------------------------
+
 LOAD_0.1:
   +Load_FAC_with_0.1
   nop
@@ -87,6 +106,8 @@ LOAD_0.1:
 
 DESC_0.1:
   !text "LOAD WITH CONSTANT 1/10",0
+
+; ------------------------------
 
 LOAD_PI4:
   +Load_FAC_with_PI4
@@ -99,6 +120,8 @@ LOAD_PI4:
 DESC_PI4:
   !text "LOAD WITH CONSTANT ",126,"/4",0
 
+; ------------------------------
+
 LOAD_PI2:
   +Load_FAC_with_PI2
   nop
@@ -109,6 +132,8 @@ LOAD_PI2:
 
 DESC_PI2:
   !text "LOAD WITH CONSTANT ",126,"/2",0
+
+; ------------------------------
 
 LOAD_PI:
   +Load_FAC_with_PI
@@ -121,6 +146,8 @@ LOAD_PI:
 DESC_PI:
   !text "LOAD WITH CONSTANT ",126,0
 
+; ------------------------------
+
 LOAD_2PI:
   +Load_FAC_with_2PI
   nop
@@ -131,6 +158,8 @@ LOAD_2PI:
 
 DESC_2PI:
   !text "LOAD WITH CONSTANT 2",126,",0
+
+; ------------------------------
 
 LOAD_PI180:
   +Load_FAC_with_PI180
@@ -143,6 +172,8 @@ LOAD_PI180:
 DESC_PI180:
   !text "LOAD WITH CONSTANT ",126,"/180",0
 
+; ------------------------------
+
 LOAD_180PI:
   +Load_FAC_with_180PI
   nop
@@ -153,6 +184,8 @@ LOAD_180PI:
 
 DESC_180PI:
   !text "LOAD WITH CONSTANT 180/",126,0
+
+; ------------------------------
 
 LOAD_PI200:
   +Load_FAC_with_PI200
@@ -165,6 +198,8 @@ LOAD_PI200:
 DESC_PI200:
   !text "LOAD WITH CONSTANT ",126,"/200",0
 
+; ------------------------------
+
 LOAD_200PI:
   +Load_FAC_with_200PI
   nop
@@ -175,6 +210,8 @@ LOAD_200PI:
 
 DESC_200PI:
   !text "LOAD WITH CONSTANT 200/",126,0
+
+; ------------------------------
 
 LOAD_SQR2:
   +Load_FAC_with_SQR2
@@ -187,6 +224,8 @@ LOAD_SQR2:
 DESC_SQR2:
   !text "LOAD WITH CONSTANT SQR(2)",0
 
+; ------------------------------
+
 LOAD_SQR3:
   +Load_FAC_with_SQR3
   nop
@@ -197,6 +236,8 @@ LOAD_SQR3:
 
 DESC_SQR3:
   !text "LOAD WITH CONSTANT SQR(3)",0
+
+; ------------------------------
 
 LOAD_e:
   +Load_FAC_with_e
@@ -209,6 +250,8 @@ LOAD_e:
 DESC_e:
   !text "LOAD WITH CONSTANT EXP(1)",0
 
+; ------------------------------
+
 LOAD_LOG2:
   +Load_FAC_with_LOG2
   nop
@@ -219,6 +262,8 @@ LOAD_LOG2:
 
 DESC_LOG2:
   !text "LOAD WITH CONSTANT LOG(2)",0
+
+; ------------------------------
 
 LOAD_LOG10:
   +Load_FAC_with_LOG10
@@ -231,12 +276,16 @@ LOAD_LOG10:
 DESC_LOG10:
   !text "LOAD WITH CONSTANT LOG(10)",0
 
+; ------------------------------
+
 COPY_FAC_ARG:
   +Transfer_FAC_to_ARG
   rts
 
 DESC_FAC_ARG:
   !text "COPY FAC TO ARG",0
+
+; ------------------------------
 
 COPY_ARG_FAC:
   +Transfer_ARG_to_FAC
@@ -245,9 +294,41 @@ COPY_ARG_FAC:
 DESC_ARG_FAC:
   !text "COPY ARG TO FAC",0
 
+; ------------------------------
+
 SWAP_FAC_ARG:
   +Swap_FAC_and_ARG
   rts
 
 DESC_SWAP:
   !text "SWAP FAC AND ARG",0
+
+; ------------------------------
+
+NEGATE:
+  +Negate_FAC
+  +Negate_ARG
+  rts
+
+DESC_NEGATE:
+  !text "NEGATE VALUE",0
+
+; ------------------------------
+
+ABS:
+  +Abs_FAC
+  +Abs_ARG
+  rts
+
+DESC_ABS:
+  !text "ABSOLUTE VALUE",0
+
+; ------------------------------
+
+INTG:
+  +Int_FAC
+  +Int_ARG
+  rts
+
+DESC_INTG:
+  !text "INTEGER VALUE",0

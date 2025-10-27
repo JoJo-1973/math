@@ -2,48 +2,64 @@
 ; Unary functions
 ; ---------------
 
-; Change sign: FAC = -FAC
-!macro NegateFAC v1 {
-  !if (v1 - 2) {
-    lda FAC1_SIGN
-    eor #$FF
-    sta FAC1_SIGN
-    +AdjustSigns
-  } else {
-    lda FAC2_SIGN
-    eor #$FF
-    sta FAC2_SIGN
-    +AdjustSigns
-  }
+; Macro Negate_[FAC/ARG]: Change the sign of FAC/ARG.
+!macro Negate_FAC {
+  lda FACSGN
+  eor #$FF
+  sta FACSGN
+
+  +Adjust_Signs
 }
 
-; Absolute value: FAC = ABS(FAC)
-!macro AbsFAC v1
-  !if (v1 - 2) {
-    lsr FAC1_SIGN               ; Just replace bit #7 with 0
-    +AdjustSigns
-  } else {
-    lsr FAC2_SIGN               ; Just replace bit #7 with 0
-    +AdjustSigns
-  }
+!macro Negate_ARG {
+  lda ARGSGN
+  eor #$FF
+  sta ARGSGN
+
+  +Adjust_Signs
 }
 
-; Sign of FAC
-; .A = $FF if FAC < 0
-; .A = $00 if FAC = 0
-; .A = $01 if FAC > 0
-!macro SignFAC v1
-  !if (v1 - 2) {
-    jsr SIGN
-  } else {
-    lda FAC2_EXP
-    beq +++++                   ; If .A = 0, exit
-    lda FAC2_SIGN               ; else put sign bit in carry
-    rol a
-    lda #$FF                    ; Prepare negative sign answer
-    bcs +++++                   ; and deliver it if C = 1
-    lda #$01                    ; else deliver positive sign answer
+; Macro Abs_[FAC/ARG]: Compute the absolute value of FAC/ARG.
+!macro Abs_FAC {
+  lsr FACSGN                    ; Just replace bit #7 of sign with 0.
+
+  +Adjust_Signs
+}
+
+!macro Abs_ARG {
+  lsr ARGSGN                    ; Just replace bit #7 of sign with 0.
+
+  +Adjust_Signs
+}
+
+; Macro Sign_[FAC/ARG]: Sign of FAC/ARG.
+; .A = $FF if FAC/ARG < 0
+; .A = $00 if FAC/ARG = 0
+; .A = $01 if FAC/ARG > 0
+!macro Sign_FAC {
+  jsr SIGN
+}
+
+!macro Sign_ARG {
+  lda ARGEXP
+  beq +++++                     ; If .A = 0, exit
+
+  lda ARGSGN                    ; else rotate sign bit in carry.
+  rol a
+  lda #$FF                      ; Prepare negative sign answer
+  bcs +++++                     ; and deliver it if .C = 1
+  lda #$01                      ; else deliver positive sign answer
 +++++
-    rts
-  }
+  rts
+}
+
+; Macro Int_[FAC/ARG]: Rounds FAC/ARG towards minus infinity.
+!macro Int_FAC {
+  jsr INT
+}
+
+!macro Int_ARG {
+  +Swap_FAC_and_ARG
+  jsr INT
+  +Swap_FAC_and_ARG
 }
