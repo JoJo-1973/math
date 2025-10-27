@@ -27,6 +27,11 @@ INIT_SIGNUM:
 .MSG_SIGNUM:
   !text "SIGN:",0
 
+INIT_MAXR:
+  +Load_FAC_with_eps
+  +Load_ARG_with_eps
+  rts
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -289,6 +294,19 @@ DESC_LOG10:
 
 ; ------------------------------
 
+LOAD_MAXR:
+  +Load_FAC_with_MAXR
+  nop
+  nop
+  nop
+  +Load_ARG_with_MAXR
+  rts
+
+DESC_MAXR:
+  !text "EPS & MAXR",0
+
+; ------------------------------
+
 COPY_FAC_ARG:
   +Transfer_FAC_to_ARG
   rts
@@ -318,6 +336,9 @@ DESC_SWAP:
 
 NEGATE:
   +Negate_FAC
+  nop
+  nop
+  nop
   +Negate_ARG
   rts
 
@@ -328,6 +349,9 @@ DESC_NEGATE:
 
 ABS:
   +Abs_FAC
+  nop
+  nop
+  nop
   +Abs_ARG
   rts
 
@@ -353,6 +377,10 @@ SIGNUM:
   jsr LINPRT
   +Load_FAC_from_Scratch
   +Load_ARG_from_Scratch
+
+  nop
+  nop
+  nop
 
   +Sign_ARG
   pha
@@ -380,6 +408,9 @@ DESC_SIGNUM:
 
 INTG:
   +Int_FAC
+  nop
+  nop
+  nop
   +Int_ARG
   rts
 

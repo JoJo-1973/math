@@ -42,14 +42,14 @@
 
 !macro Sign_ARG {
   lda ARGEXP
-  beq +++++                     ; If .A = 0, exit
+  beq @Exit                     ; If .A = 0, exit
 
   lda ARGSGN                    ; else rotate sign bit in carry.
   rol a
   lda #$FF                      ; Prepare negative sign answer
-  bcs +++++                     ; and deliver it if .C = 1
+  bcs @Exit                     ; and deliver it if .C = 1
   lda #$01                      ; else deliver positive sign answer
-+++++
+@Exit
 }
 
 ; Macro Int_[FAC/ARG]: Rounds FAC/ARG towards minus infinity.

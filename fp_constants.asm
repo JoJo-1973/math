@@ -256,3 +256,19 @@
 !macro Load_ARG_with_LOG10 {
   +Load_ARG_with $82, $13, $5D, $8D, $DE
 }
+
+!macro Load_FAC_with_MAXR {
+  +Load_FAC_with $FF, $7F, $FF, $FF, $FF
+}
+
+!macro Load_ARG_with_MAXR {
+  +Load_ARG_with $FF, $7F, $FF, $FF, $FF
+}
+
+!macro Load_FAC_with_eps {
+  +Load_FAC_with $01, $00 ,$00, $00, $00
+}
+
+!macro Load_ARG_with_eps {
+  +Load_ARG_with $01, $00 ,$00, $00, $00
+}
