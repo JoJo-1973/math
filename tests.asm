@@ -10,6 +10,9 @@ LOAD_0.25:
   +Load_ARG_with_0.25
   rts
 
+DESC_0.25:
+  !text "LOAD WITH CONSTANT 1/4",0
+
 LOAD_0.5:
   +Load_FAC_with_0.5
   nop
@@ -17,6 +20,9 @@ LOAD_0.5:
   nop
   +Load_ARG_with_0.5
   rts
+
+DESC_0.5:
+  !text "LOAD WITH CONSTANT 1/2",0
 
 LOAD_1:
   +Load_FAC_with_1

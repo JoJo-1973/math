@@ -22,7 +22,8 @@
 __PRESERVE        = 1
 
 _TEST_NUM         = TEMP_1
-_TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
+_TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 4
+_TEST_DESC_PTR    = ZP_1
 _JUMP_VECTOR      = FREMEM
 
 INIT:
@@ -55,6 +56,28 @@ MAIN:
 
   +PrintAt 23,9,MSG_ANYKEY
 
+  lda _TEST_NUM
+  asl
+  asl
+  tay
+
+  lda TEST_JUMP_TABLE,y         ; Set jump vector address
+  sta _JUMP_VECTOR
+  lda TEST_JUMP_TABLE+1,y
+  sta _JUMP_VECTOR+1
+
+  lda TEST_JUMP_TABLE+2,y       ; Print description message
+  sta ZP_1
+  lda TEST_JUMP_TABLE+3,y
+  sta ZP_1+1
+  clc
+  ldx #0
+  ldy #10
+  jsr PLOT
+  lda ZP_1
+  ldy ZP_1+1
+  jsr STROUT
+
   +Load_FAC_with_0              ; Print FAC "before".
   clc
   ldx #4
@@ -68,14 +91,6 @@ MAIN:
   ldy #6
   jsr PLOT
   +Print_ARG
-
-  lda _TEST_NUM                 ; Set jump vector address
-  asl
-  tay
-  lda TEST_JUMP_TABLE,y
-  sta _JUMP_VECTOR
-  lda TEST_JUMP_TABLE+1,y
-  sta _JUMP_VECTOR+1
 
   jsr .Run_Test                 ; Run the test.
 
@@ -125,24 +140,24 @@ MSG_ANYKEY:
 
 ; Place all tests here
 TEST_JUMP_TABLE:
-  !word LOAD_0.25
-  !word LOAD_0.5
-  !word LOAD_1
-  !word LOAD_2
-  !word LOAD_10
-  !word LOAD_PI4
-  !word LOAD_PI2
-  !word LOAD_PI
-  !word LOAD_2PI
-  !word LOAD_PI180
-  !word LOAD_180PI
-  !word LOAD_PI200
-  !word LOAD_200PI
-  !word LOAD_SQR2
-  !word LOAD_SQR3
-  !word LOAD_e
-  !word LOAD_LOG2
-  !word LOAD_LOG10
+  !word LOAD_0.25 , DESC_0.25
+  !word LOAD_0.5  , DESC_0.5
+  !word LOAD_1    , DESC_0.25
+  !word LOAD_2    , DESC_0.25
+  !word LOAD_10   , DESC_0.25
+  !word LOAD_PI4  , DESC_0.25
+  !word LOAD_PI2  , DESC_0.25
+  !word LOAD_PI   , DESC_0.25
+  !word LOAD_2PI  , DESC_0.25
+  !word LOAD_PI180, DESC_0.25
+  !word LOAD_180PI, DESC_0.25
+  !word LOAD_PI200, DESC_0.25
+  !word LOAD_200PI, DESC_0.25
+  !word LOAD_SQR2 , DESC_0.25
+  !word LOAD_SQR3 , DESC_0.25
+  !word LOAD_e    , DESC_0.25
+  !word LOAD_LOG2 , DESC_0.25
+  !word LOAD_LOG10, DESC_0.25
 END_TEST_JUMP_TABLE:
 
 
