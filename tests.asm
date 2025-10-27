@@ -6,6 +6,11 @@ INIT_0:
   +Load_ARG_with_0
   rts
 
+INIT_TRANSFER:
+  +Load_FAC_with_e
+  +Load_ARG_with_PI
+  rts
+
 LOAD_0.25:
   +Load_FAC_with_0.25
   nop
@@ -225,3 +230,24 @@ LOAD_LOG10:
 
 DESC_LOG10:
   !text "LOAD WITH CONSTANT LOG(10)",0
+
+COPY_FAC_ARG:
+  +Transfer_FAC_to_ARG
+  rts
+
+DESC_FAC_ARG:
+  !text "COPY FAC TO ARG",0
+
+COPY_ARG_FAC:
+  +Transfer_ARG_to_FAC
+  rts
+
+DESC_ARG_FAC:
+  !text "COPY ARG TO FAC",0
+
+SWAP_FAC_ARG:
+  +Swap_FAC_and_ARG
+  rts
+
+DESC_SWAP:
+  !text "SWAP FAC AND ARG",0

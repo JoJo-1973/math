@@ -31,7 +31,7 @@ INIT:
   sta EXTCOL
   sta BGCOL0
 
-  lda #0                        ; Init counter
+  lda #00                       ; Init counter
   sta _TEST_NUM
 
   lda #VIC_ORANGE
@@ -56,11 +56,12 @@ MAIN:
 
   +PrintAt 23,9,MSG_NAVBAR
 
-  lda _TEST_NUM
+  lda _TEST_NUM                 ; Multiply by 6
   asl a
   clc
   adc _TEST_NUM
   asl a
+
   pha
   tay
 
@@ -79,6 +80,7 @@ MAIN:
   pla
   pha
   tay
+
   lda TEST_JUMP_TABLE+4,y         ; Set jump vector address for init routine.
   sta _JUMP_VECTOR
   lda TEST_JUMP_TABLE+5,y
@@ -101,6 +103,7 @@ MAIN:
 
   pla
   tay
+
   lda TEST_JUMP_TABLE,y         ; Set jump vector address for test routine.
   sta _JUMP_VECTOR
   lda TEST_JUMP_TABLE+1,y
@@ -138,6 +141,7 @@ MAIN:
   jmp (_JUMP_VECTOR)
 
 ; UI messages
+!align 255,0,0
 MSG_TEST:
   !text 147,"TEST #",0
 MSG_BEFORE:
@@ -154,6 +158,7 @@ MSG_DONE:
   !text 147,18,"TEST COMPLETED!",146,13,0
 
 ; Place all tests here
+!align 255,0,0
 TEST_JUMP_TABLE:
   !word LOAD_0.25,    DESC_0.25,    INIT_0
   !word LOAD_0.5,     DESC_0.5,     INIT_0
@@ -175,7 +180,9 @@ TEST_JUMP_TABLE:
   !word LOAD_e,       DESC_e,       INIT_0
   !word LOAD_LOG2,    DESC_LOG2,    INIT_0
   !word LOAD_LOG10,   DESC_LOG10,   INIT_0
+  !word COPY_FAC_ARG, DESC_FAC_ARG, INIT_TRANSFER
+  !word COPY_ARG_FAC, DESC_ARG_FAC, INIT_TRANSFER
+  !word SWAP_FAC_ARG, DESC_SWAP,    INIT_TRANSFER
 END_TEST_JUMP_TABLE:
-
 
 !source "tests.asm"

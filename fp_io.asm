@@ -81,16 +81,41 @@
 
 ; Macro +Print_FAC: Print FAC to screen. The operation destroys FAC and ARG, unless label __PRESERVE is defined.
 !macro Print_FAC {
-  +FAC_to_String
+  !ifdef __PRESERVE {
+    +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
+    +Store_ARG_in_Scratch
+  }
+
+  jsr FOUT                      ; FOUT places converted FAC in $0100 destroying FAC and ARG in the process.
   lda #<STACK                   ; String is stored at bottom of stack.
   ldy #>STACK
   jsr STROUT
+
+  !ifdef __PRESERVE {
+    +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
+    +Load_ARG_from_Scratch
+  }
+
+  +Adjust_Signs
 }
 
 ; Macro +Print_ARG: Print ARG to screen. The operation destroys FAC and ARG, unless label __PRESERVE is defined.
 !macro Print_ARG {
-  +ARG_to_String
+  !ifdef __PRESERVE {
+    +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
+    +Store_ARG_in_Scratch
+  }
+
+  +Transfer_ARG_to_FAC          ; Copy ARG in FAC.
+  jsr FOUT                      ; FOUT places converted FAC in $0100 destroying FAC and ARG in the process.
   lda #<STACK                   ; String is stored at bottom of stack.
   ldy #>STACK
   jsr STROUT
+
+  !ifdef __PRESERVE {
+    +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
+    +Load_ARG_from_Scratch
+  }
+
+  +Adjust_Signs
 }
