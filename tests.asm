@@ -1,6 +1,10 @@
 ; ----------------------------
 ; Floating Point library tests
 ; ----------------------------
+INIT_0:
+  +Load_FAC_with_0
+  +Load_ARG_with_0
+  rts
 
 LOAD_0.25:
   +Load_FAC_with_0.25

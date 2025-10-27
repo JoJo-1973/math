@@ -22,7 +22,7 @@
 __PRESERVE        = 1
 
 _TEST_NUM         = TEMP_1
-_TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 4
+_TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 6
 _TEST_DESC_PTR    = ZP_1
 _JUMP_VECTOR      = FREMEM
 
@@ -57,16 +57,14 @@ MAIN:
   +PrintAt 23,9,MSG_NAVBAR
 
   lda _TEST_NUM
-  asl
-  asl
+  asl a
+  clc
+  adc _TEST_NUM
+  asl a
+  pha
   tay
 
-  lda TEST_JUMP_TABLE,y         ; Set jump vector address
-  sta _JUMP_VECTOR
-  lda TEST_JUMP_TABLE+1,y
-  sta _JUMP_VECTOR+1
-
-  lda TEST_JUMP_TABLE+2,y       ; Print description message
+  lda TEST_JUMP_TABLE+2,y       ; Print description message.
   sta ZP_1
   lda TEST_JUMP_TABLE+3,y
   sta ZP_1+1
@@ -78,20 +76,35 @@ MAIN:
   ldy _TEST_DESC_PTR+1
   jsr STROUT
 
-  +Load_FAC_with_0              ; Print FAC "before".
+  pla
+  pha
+  tay
+  lda TEST_JUMP_TABLE+4,y         ; Set jump vector address for init routine.
+  sta _JUMP_VECTOR
+  lda TEST_JUMP_TABLE+5,y
+  sta _JUMP_VECTOR+1
+  jsr .Run_Test                 ; Init FAC and ARG.
+
+;  +Load_FAC_with_0              ; Print FAC "before".
   clc
   ldx #4
   ldy #6
   jsr PLOT
   +Print_FAC
 
-  +Load_ARG_with_0              ; Print ARG "before".
+;  +Load_ARG_with_0              ; Print ARG "before".
   clc
   ldx #5
   ldy #6
   jsr PLOT
   +Print_ARG
 
+  pla
+  tay
+  lda TEST_JUMP_TABLE,y         ; Set jump vector address for test routine.
+  sta _JUMP_VECTOR
+  lda TEST_JUMP_TABLE+1,y
+  sta _JUMP_VECTOR+1
   jsr .Run_Test                 ; Run the test.
 
   clc                           ; Print FAC "after".
@@ -142,26 +155,26 @@ MSG_DONE:
 
 ; Place all tests here
 TEST_JUMP_TABLE:
-  !word LOAD_0.25       , DESC_0.25
-  !word LOAD_0.5        , DESC_0.5
-  !word LOAD_1          , DESC_1
-  !word LOAD_MINUS_1    , DESC_MINUS_1
-  !word LOAD_2          , DESC_2
-  !word LOAD_10         , DESC_10
-  !word LOAD_0.1        , DESC_0.1
-  !word LOAD_PI4        , DESC_PI4
-  !word LOAD_PI2        , DESC_PI2
-  !word LOAD_PI         , DESC_PI
-  !word LOAD_2PI        , DESC_2PI
-  !word LOAD_PI180      , DESC_PI180
-  !word LOAD_180PI      , DESC_180PI
-  !word LOAD_PI200      , DESC_PI200
-  !word LOAD_200PI      , DESC_200PI
-  !word LOAD_SQR2       , DESC_SQR2
-  !word LOAD_SQR3       , DESC_SQR3
-  !word LOAD_e          , DESC_e
-  !word LOAD_LOG2       , DESC_LOG2
-  !word LOAD_LOG10      , DESC_LOG10
+  !word LOAD_0.25,    DESC_0.25,    INIT_0
+  !word LOAD_0.5,     DESC_0.5,     INIT_0
+  !word LOAD_1,       DESC_1,       INIT_0
+  !word LOAD_MINUS_1, DESC_MINUS_1, INIT_0
+  !word LOAD_2,       DESC_2,       INIT_0
+  !word LOAD_10,      DESC_10,      INIT_0
+  !word LOAD_0.1,     DESC_0.1,     INIT_0
+  !word LOAD_PI4,     DESC_PI4,     INIT_0
+  !word LOAD_PI2,     DESC_PI2,     INIT_0
+  !word LOAD_PI,      DESC_PI,      INIT_0
+  !word LOAD_2PI,     DESC_2PI,     INIT_0
+  !word LOAD_PI180,   DESC_PI180,   INIT_0
+  !word LOAD_180PI,   DESC_180PI,   INIT_0
+  !word LOAD_PI200,   DESC_PI200,   INIT_0
+  !word LOAD_200PI,   DESC_200PI,   INIT_0
+  !word LOAD_SQR2,    DESC_SQR2,    INIT_0
+  !word LOAD_SQR3,    DESC_SQR3,    INIT_0
+  !word LOAD_e,       DESC_e,       INIT_0
+  !word LOAD_LOG2,    DESC_LOG2,    INIT_0
+  !word LOAD_LOG10,   DESC_LOG10,   INIT_0
 END_TEST_JUMP_TABLE:
 
 
