@@ -54,7 +54,7 @@ MAIN:
   +PrintAt 12,0,MSG_FAC
   +PrintAt 13,0,MSG_ARG
 
-  +PrintAt 23,9,MSG_ANYKEY
+  +PrintAt 23,9,MSG_NAVBAR
 
   lda _TEST_NUM
   asl
@@ -74,8 +74,8 @@ MAIN:
   ldx #0
   ldy #10
   jsr PLOT
-  lda ZP_1
-  ldy ZP_1+1
+  lda _TEST_DESC_PTR
+  ldy _TEST_DESC_PTR+1
   jsr STROUT
 
   +Load_FAC_with_0              ; Print FAC "before".
@@ -135,31 +135,33 @@ MSG_FAC:
   !text 18," FAC: ",146,0
 MSG_ARG:
   !text 18," ARG: ",146,0
-MSG_ANYKEY:
-  !text 18,"   PRESS ANY KEY TO CONTINUE   ",146,0
+MSG_NAVBAR:
+  !text 18," CRSR <> NAVIGATE    R/S ABORT ",146,0
 MSG_DONE:
   !text 147,18,"TEST COMPLETED!",146,13,0
 
 ; Place all tests here
 TEST_JUMP_TABLE:
-  !word LOAD_0.25 , DESC_0.25
-  !word LOAD_0.5  , DESC_0.5
-  !word LOAD_1    , DESC_1
-  !word LOAD_2    , DESC_2
-  !word LOAD_10   , DESC_10
-  !word LOAD_PI4  , DESC_PI4
-  !word LOAD_PI2  , DESC_PI2
-  !word LOAD_PI   , DESC_PI
-  !word LOAD_2PI  , DESC_2PI
-  !word LOAD_PI180, DESC_PI180
-  !word LOAD_180PI, DESC_180PI
-  !word LOAD_PI200, DESC_PI200
-  !word LOAD_200PI, DESC_200PI
-  !word LOAD_SQR2 , DESC_SQR2
-  !word LOAD_SQR3 , DESC_SQR3
-  !word LOAD_e    , DESC_e
-  !word LOAD_LOG2 , DESC_LOG2
-  !word LOAD_LOG10, DESC_LOG10
+  !word LOAD_0.25       , DESC_0.25
+  !word LOAD_0.5        , DESC_0.5
+  !word LOAD_1          , DESC_1
+  !word LOAD_MINUS_1    , DESC_MINUS_1
+  !word LOAD_2          , DESC_2
+  !word LOAD_10         , DESC_10
+  !word LOAD_0.1        , DESC_0.1
+  !word LOAD_PI4        , DESC_PI4
+  !word LOAD_PI2        , DESC_PI2
+  !word LOAD_PI         , DESC_PI
+  !word LOAD_2PI        , DESC_2PI
+  !word LOAD_PI180      , DESC_PI180
+  !word LOAD_180PI      , DESC_180PI
+  !word LOAD_PI200      , DESC_PI200
+  !word LOAD_200PI      , DESC_200PI
+  !word LOAD_SQR2       , DESC_SQR2
+  !word LOAD_SQR3       , DESC_SQR3
+  !word LOAD_e          , DESC_e
+  !word LOAD_LOG2       , DESC_LOG2
+  !word LOAD_LOG10      , DESC_LOG10
 END_TEST_JUMP_TABLE:
 
 

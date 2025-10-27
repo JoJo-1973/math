@@ -117,6 +117,14 @@
   +Load_ARG FONE
 }
 
+!macro Load_FAC_with_MINUS_1 {
+  +Load_FAC_with $81, $80, $00, $00, $00
+}
+
+!macro Load_ARG_with_MINUS_1 {
+  +Load_ARG_with $81, $80, $00, $00, $00
+}
+
 !macro Load_FAC_with_2 {
   +Load_FAC_with_1
   inc FACEXP
@@ -133,6 +141,14 @@
 
 !macro Load_ARG_with_10 {
   +Load_ARG TENC
+}
+
+!macro Load_FAC_with_0.1 {
+  +Load_FAC_with $7D, $4C, $CC, $CC, $CD
+}
+
+!macro Load_ARG_with_0.1 {
+  +Load_ARG_with $7D, $4C, $CC, $CC, $CD
 }
 
 !macro Load_FAC_with_PI4 {

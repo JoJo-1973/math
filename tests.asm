@@ -35,6 +35,17 @@ LOAD_1:
 DESC_1:
   !text "LOAD WITH CONSTANT 1",0
 
+LOAD_MINUS_1:
+  +Load_FAC_with_MINUS_1
+  nop
+  nop
+  nop
+  +Load_ARG_with_MINUS_1
+  rts
+
+DESC_MINUS_1:
+  !text "LOAD WITH CONSTANT -1",0
+
 LOAD_2:
   +Load_FAC_with_2
   nop
@@ -56,6 +67,17 @@ LOAD_10:
 
 DESC_10:
   !text "LOAD WITH CONSTANT 10",0
+
+LOAD_0.1:
+  +Load_FAC_with_0.1
+  nop
+  nop
+  nop
+  +Load_ARG_with_0.1
+  rts
+
+DESC_0.1:
+  !text "LOAD WITH CONSTANT 1/10",0
 
 LOAD_PI4:
   +Load_FAC_with_PI4
