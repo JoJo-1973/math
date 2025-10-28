@@ -186,6 +186,8 @@ TEST_JUMP_TABLE:
   !word ABS,          DESC_ABS,     INIT_UNARY
   !word SIGNUM,       DESC_SIGNUM,  INIT_SIGNUM
   !word INTG,         DESC_INTG,    INIT_UNARY
+  !word MUL2,         DESC_MUL2,    INIT_UNARY
+  !word DIV2,         DESC_DIV2,    INIT_UNARY
 END_TEST_JUMP_TABLE:
 
 !source "tests.asm"

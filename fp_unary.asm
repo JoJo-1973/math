@@ -64,3 +64,21 @@
   jsr INT
   +Swap_FAC_and_ARG
 }
+
+; Macro Multiply_[FAC/ARG]_by_2: Double FAC/ARG by exponent manipulation.
+!macro Multiply_FAC_by_2 {
+  inc FACEXP
+}
+
+!macro Multiply_ARG_by_2 {
+  inc ARGEXP
+}
+
+; Macro Divide_[FAC/ARG]_by_2: Halve FAC/ARG by exponent manipulation.
+!macro Divide_FAC_by_2 {
+  dec FACEXP
+}
+
+!macro Divide_ARG_by_2 {
+  dec ARGEXP
+}

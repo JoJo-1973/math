@@ -416,3 +416,29 @@ INTG:
 
 DESC_INTG:
   !text "INTEGER VALUE",0
+
+; ------------------------------
+
+MUL2:
+  +Multiply_FAC_by_2
+  nop
+  nop
+  nop
+  +Multiply_ARG_by_2
+  rts
+
+DESC_MUL2:
+  !text "MULTIPLY BY 2",0
+
+; ------------------------------
+
+DIV2:
+  +Divide_FAC_by_2
+  nop
+  nop
+  nop
+  +Divide_ARG_by_2
+  rts
+
+DESC_DIV2:
+  !text "DIVIDE BY 2",0

@@ -1,20 +1,6 @@
-; Multiply FAC by 2
-!macro MultiplyFACby2 v1 {
-  !if (v1 - 2) {
-    inc FAC1_EXP                ; No need to adjust signs
-  } else {
-    inc FAC2_EXP                ; No need to adjust signs
-  }
-}
-
-; Divide FAC by 2
-!macro DivideFACby2 v1 {
-  !if (v1 - 2) {
-    dec FAC1_EXP                ; No need to adjust signs
-  } else {
-    dec FAC2_EXP                ; No need to adjust signs
-  }
-}
+; ----------------
+; Basic arithmetic
+; ----------------
 
 
 ; ----------------
