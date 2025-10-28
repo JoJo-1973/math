@@ -2,11 +2,6 @@
 ; Basic arithmetic
 ; ----------------
 
-
-; ----------------
-; Basic arithmetic
-; ----------------
-
 ; Addition: FAC1 = FAC2 + FAC1
 !macro AddFAC2toFAC1 {
   lda FAC1_EXP                  ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:

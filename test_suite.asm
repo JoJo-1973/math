@@ -20,7 +20,7 @@
 ; Global variables
 
 _TEST_NUM         = TEMP_1
-_TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 6
+_TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _JUMP_VECTOR      = FREMEM
 
@@ -54,18 +54,15 @@ MAIN:
 
   +PrintAt 23,9,MSG_NAVBAR
 
-  lda _TEST_NUM                 ; Multiply by 6
-  asl a
-  clc
-  adc _TEST_NUM
+  lda _TEST_NUM
   asl a
 
   pha
   tay
 
-  lda TEST_JUMP_TABLE+2,y       ; Print description message.
+  lda DESC_JUMP_TABLE,y         ; Print description message.
   sta ZP_1
-  lda TEST_JUMP_TABLE+3,y
+  lda DESC_JUMP_TABLE+1,y
   sta ZP_1+1
   clc
   ldx #0
@@ -79,21 +76,19 @@ MAIN:
   pha
   tay
 
-  lda TEST_JUMP_TABLE+4,y         ; Set jump vector address for init routine.
+  lda INIT_JUMP_TABLE,y         ; Set jump vector address for init routine.
   sta _JUMP_VECTOR
-  lda TEST_JUMP_TABLE+5,y
+  lda INIT_JUMP_TABLE+1,y
   sta _JUMP_VECTOR+1
   jsr .Run_Test                 ; Init FAC and ARG.
 
-;  +Load_FAC_with_0              ; Print FAC "before".
-  clc
+  clc                           ; Print "before" FAC.
   ldx #4
   ldy #6
   jsr PLOT
   +Print_FAC 1
 
-;  +Load_ARG_with_0              ; Print ARG "before".
-  clc
+  clc                           ; Print "before" ARG.
   ldx #5
   ldy #6
   jsr PLOT
@@ -158,36 +153,104 @@ MSG_DONE:
 ; Place all tests here
 !align 255,0,0
 TEST_JUMP_TABLE:
-  !word LOAD_0.25,    DESC_0.25,    INIT_0
-  !word LOAD_0.5,     DESC_0.5,     INIT_0
-  !word LOAD_1,       DESC_1,       INIT_0
-  !word LOAD_MINUS_1, DESC_MINUS_1, INIT_0
-  !word LOAD_2,       DESC_2,       INIT_0
-  !word LOAD_10,      DESC_10,      INIT_0
-  !word LOAD_0.1,     DESC_0.1,     INIT_0
-  !word LOAD_PI4,     DESC_PI4,     INIT_0
-  !word LOAD_PI2,     DESC_PI2,     INIT_0
-  !word LOAD_PI,      DESC_PI,      INIT_0
-  !word LOAD_2PI,     DESC_2PI,     INIT_0
-  !word LOAD_PI180,   DESC_PI180,   INIT_0
-  !word LOAD_180PI,   DESC_180PI,   INIT_0
-  !word LOAD_PI200,   DESC_PI200,   INIT_0
-  !word LOAD_200PI,   DESC_200PI,   INIT_0
-  !word LOAD_SQR2,    DESC_SQR2,    INIT_0
-  !word LOAD_SQR3,    DESC_SQR3,    INIT_0
-  !word LOAD_e,       DESC_e,       INIT_0
-  !word LOAD_LOG2,    DESC_LOG2,    INIT_0
-  !word LOAD_LOG10,   DESC_LOG10,   INIT_0
-  !word LOAD_MAXR,    DESC_MAXR,    INIT_MAXR
-  !word COPY_FAC_ARG, DESC_FAC_ARG, INIT_TRANSFER
-  !word COPY_ARG_FAC, DESC_ARG_FAC, INIT_TRANSFER
-  !word SWAP_FAC_ARG, DESC_SWAP,    INIT_TRANSFER
-  !word NEGATE,       DESC_NEGATE,  INIT_UNARY
-  !word ABS,          DESC_ABS,     INIT_UNARY
-  !word SIGNUM,       DESC_SIGNUM,  INIT_SIGNUM
-  !word INTG,         DESC_INTG,    INIT_UNARY
-  !word MUL2,         DESC_MUL2,    INIT_UNARY
-  !word DIV2,         DESC_DIV2,    INIT_UNARY
+  !word LOAD_0.25
+  !word LOAD_0.5
+  !word LOAD_1
+  !word LOAD_MINUS_1
+  !word LOAD_2
+  !word LOAD_10
+  !word LOAD_0.1
+  !word LOAD_PI4
+  !word LOAD_PI2
+  !word LOAD_PI
+  !word LOAD_2PI
+  !word LOAD_PI180
+  !word LOAD_180PI
+  !word LOAD_PI200
+  !word LOAD_200PI
+  !word LOAD_SQR2
+  !word LOAD_SQR3
+  !word LOAD_e
+  !word LOAD_LOG2
+  !word LOAD_LOG10
+  !word LOAD_MAXR
+  !word COPY_FAC_ARG
+  !word COPY_ARG_FAC
+  !word SWAP_FAC_ARG
+  !word NEGATE
+  !word ABS
+  !word SIGNUM
+  !word INTG
+  !word MUL2
+  !word DIV2
 END_TEST_JUMP_TABLE:
+
+!align 255,0,0
+DESC_JUMP_TABLE:
+  !word DESC_0.25
+  !word DESC_0.5
+  !word DESC_1
+  !word DESC_MINUS_1
+  !word DESC_2
+  !word DESC_10
+  !word DESC_0.1
+  !word DESC_PI4
+  !word DESC_PI2
+  !word DESC_PI
+  !word DESC_2PI
+  !word DESC_PI180
+  !word DESC_180PI
+  !word DESC_PI200
+  !word DESC_200PI
+  !word DESC_SQR2
+  !word DESC_SQR3
+  !word DESC_e
+  !word DESC_LOG2
+  !word DESC_LOG10
+  !word DESC_MAXR
+  !word DESC_FAC_ARG
+  !word DESC_ARG_FAC
+  !word DESC_SWAP
+  !word DESC_NEGATE
+  !word DESC_ABS
+  !word DESC_SIGNUM
+  !word DESC_INTG
+  !word DESC_MUL2
+  !word DESC_DIV2
+END_DESC_JUMP_TABLE:
+
+!align 255,0,0
+INIT_JUMP_TABLE:
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_0
+  !word INIT_MAXR
+  !word INIT_TRANSFER
+  !word INIT_TRANSFER
+  !word INIT_TRANSFER
+  !word INIT_UNARY
+  !word INIT_UNARY
+  !word INIT_SIGNUM
+  !word INIT_UNARY
+  !word INIT_UNARY
+  !word INIT_UNARY
+END_INIT_JUMP_TABLE:
 
 !source "tests.asm"
