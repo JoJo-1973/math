@@ -20,7 +20,7 @@ INIT_SIGNUM:
   +PrintAt 12,20,.MSG_SIGNUM
   +PrintAt 13,20,.MSG_SIGNUM
 
-  +Load_FAC_with_PI
+  +Load_FAC_with_0
   +Load_ARG_with $81, $C6, $66, $66, $66
   rts
 
@@ -375,10 +375,13 @@ SIGNUM:
   jsr PLOT
 
   pla
+  beq ++
   bpl +
   lda #"-"
   +Skip2
 + lda #"+"
+  +Skip2
+++ lda #"0"
   jsr CHROUT
 
   nop
@@ -394,10 +397,13 @@ SIGNUM:
   jsr PLOT
 
   pla
+  beq ++
   bpl +
   lda #"-"
   +Skip2
 + lda #"+"
+  +Skip2
+++ lda #"0"
   jsr CHROUT
 
   rts
