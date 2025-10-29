@@ -86,6 +86,9 @@
 ; The kernal routine that does the conversion destroys both FAC and ARG:
 ; The 'preserve_' parameter avoids this but bloats the resulting code
 ; therefore it can be disabled if you know what you are doing.
+;
+; __PRINT must point to an actual printing routine. It's strongly discouraged to use STROUT
+; since it trashes FAC and ARG.
 !macro Print_FAC preserve_ {
   !if (preserve_) {
     +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
@@ -115,7 +118,7 @@
   jsr FOUT                      ; FOUT places converted FAC in $0100 destroying FAC and ARG in the process.
   lda #<STACK                   ; String is stored at bottom of stack.
   ldy #>STACK
-  jsr STROUT
+  jsr __PRINT
 
   !if (preserve_) {
     +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
