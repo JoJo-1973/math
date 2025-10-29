@@ -2,12 +2,21 @@
 ; Basic arithmetic
 ; ----------------
 
-; Addition: FAC1 = FAC2 + FAC1
-!macro AddFAC2toFAC1 {
-  lda FAC1_EXP                  ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:
-                                ; addition routine needs to be notified of the condition to treat properly the case
+; Macro Add_ARG_to_FAC: FAC1 = FAC2 + FAC1
+; >ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro Add_ARG_to_FAC preserve_ {
+  !if (preserve_) {
+    +Store_ARG_in_Scratch
+  }
+
+  lda FACEXP                    ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:
+                                ; addition routine needs to be notified of the condition to treat properly the case.
   jsr FADDT
-  +AdjustSigns
+
+  !if (preserve_) {
+    +Load_ARG_from_Scratch
+  }
+  +Adjust_Signs
 }
 
 ; Addition: FAC1 = Memory + FAC1

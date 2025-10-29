@@ -12,7 +12,7 @@
 
   lda #<string_                 ; then print string.
   ldy #>string_
-  jsr STROUT
+  jsr SAFE_PRINT
 }
 
 +BASIC_Preamble 10,INIT,"FLOATING POINT MACRO LIBRARY TEST SUITE"
@@ -23,6 +23,8 @@ _TEST_NUM         = TEMP_1
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _JUMP_VECTOR      = FREMEM
+
+__PRINT           = SAFE_PRINT
 
 INIT:
   lda #VIC_BLACK                ; Black screen, orange chars.
@@ -183,6 +185,7 @@ TEST_JUMP_TABLE:
   !word INTG
   !word MUL2
   !word DIV2
+  !word ADD
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -217,6 +220,7 @@ DESC_JUMP_TABLE:
   !word DESC_INTG
   !word DESC_MUL2
   !word DESC_DIV2
+  !word DESC_ADD
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -251,6 +255,22 @@ INIT_JUMP_TABLE:
   !word INIT_UNARY
   !word INIT_UNARY
   !word INIT_UNARY
+  !word INIT_ARITH
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"
+
+SAFE_PRINT:
+  sta ZP_2
+  sty ZP_2+1
+  ldy #0
+
+.Loop_Print:
+  lda (ZP_2),y
+  beq .Exit_SAFE_PRINT
+  jsr CHROUT
+  iny
+  bne .Loop_Print
+
+.Exit_SAFE_PRINT:
+  rts

@@ -32,6 +32,11 @@ INIT_MAXR:
   +Load_ARG_with_eps
   rts
 
+INIT_ARITH:
+  +Load_FAC_with_MINUS_1
+  +Load_ARG_with_0.1
+  rts
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -363,8 +368,6 @@ DESC_ABS:
 SIGNUM:
   +Sign_FAC
   pha
-  +Store_FAC_in_Scratch
-  +Store_ARG_in_Scratch
 
   clc
   ldx #12
@@ -372,11 +375,11 @@ SIGNUM:
   jsr PLOT
 
   pla
-  tax
-  lda #0
-  jsr LINPRT
-  +Load_FAC_from_Scratch
-  +Load_ARG_from_Scratch
+  bpl +
+  lda #"-"
+  +Skip2
++ lda #"+"
+  jsr CHROUT
 
   nop
   nop
@@ -384,8 +387,6 @@ SIGNUM:
 
   +Sign_ARG
   pha
-  +Store_FAC_in_Scratch
-  +Store_ARG_in_Scratch
 
   clc
   ldx #13
@@ -393,11 +394,11 @@ SIGNUM:
   jsr PLOT
 
   pla
-  tax
-  lda #0
-  jsr LINPRT
-  +Load_FAC_from_Scratch
-  +Load_ARG_from_Scratch
+  bpl +
+  lda #"-"
+  +Skip2
++ lda #"+"
+  jsr CHROUT
 
   rts
 
@@ -442,3 +443,12 @@ DIV2:
 
 DESC_DIV2:
   !text "DIVIDE BY 2",0
+
+; ------------------------------
+
+ADD:
+  +Add_ARG_to_FAC 1
+  rts
+
+DESC_ADD:
+  !text "FAC = ARG + FAC",0
