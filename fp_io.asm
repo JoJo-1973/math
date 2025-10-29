@@ -87,8 +87,8 @@
 ; The 'preserve_' parameter avoids this but bloats the resulting code
 ; therefore it can be disabled if you know what you are doing.
 ;
-; __PRINT must point to an actual printing routine. It's strongly discouraged to use STROUT
-; since it trashes FAC and ARG.
+; __PRINT must point to an actual printing routine. It's strongly
+; discouraged to use STROUT since it trashes FAC and ARG.
 !macro Print_FAC preserve_ {
   !if (preserve_) {
     +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
