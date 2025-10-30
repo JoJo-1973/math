@@ -2,8 +2,8 @@
 ; Basic arithmetic
 ; ----------------
 
-; Macro Add_ARG_to_FAC: FAC1 = FAC2 + FAC1
-; >ARG is destroyed in the process unless 'preserve_' is <> 0.
+; Macro Add_ARG_to_FAC: FAC = ARG + FAC
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
 !macro Add_ARG_to_FAC preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
@@ -19,34 +19,87 @@
   +Adjust_Signs
 }
 
-; Addition: FAC1 = Memory + FAC1
-!macro AddMEMtoFAC1 v1 {
-  +LoadMEMinFAC 2,v1
-  +AddFAC2toFAC1
+; Macro Add_MEM_to_FAC: FAC = Memory + FAC
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro Add_MEM_to_FAC addr_, preserve_ {
+  !if (preserve_) {
+    +Store_ARG_in_Scratch
+  }
+
+  +Load_ARG addr_
+
+  +Add_ARG_to_FAC 0
+
+  !if (preserve_) {
+    +Load_ARG_from_Scratch
+  }
+  +Adjust_Signs
 }
 
-; Addition: FAC1 = (Memory) + FAC1
-!macro AddMEMtoFAC1_Ind v1 {
-  +LoadMEMinFAC_Ind 2,v1
-  +AddFAC2toFAC1
+; Macro Add_PTR_to_FAC: FAC = (Ptr) + FAC
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro Add_PTR_to_FAC ptr_, preserve_ {
+  !if (preserve_) {
+    +Store_ARG_in_Scratch
+  }
+
+  +Load_ARG_Ptr ptr_
+
+  +Add_ARG_to_FAC 0
+
+  !if (preserve_) {
+    +Load_ARG_from_Scratch
+  }
+  +Adjust_Signs
 }
 
-; Subtraction: FAC1 = FAC2 - FAC1
-!macro SubtractFAC1fromFAC2 {
+; Macro Subtract_ARG_from_FAC: FAC = ARG - FAC
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro Subtract_ARG_from_FAC preserve_ {
+  !if (preserve_) {
+    +Store_ARG_in_Scratch
+  }
+
   jsr FSUBT                     ; No need to prepare Zero flag: the routine is already self-contained
-  +AdjustSigns
+
+  !if (preserve_) {
+    +Load_ARG_from_Scratch
+  }
+  +Adjust_Signs
 }
 
-; Subtraction: FAC1 = Memory - FAC1
-!macro SubtractFAC1fromMEM v1 {
-  +LoadMEMinFAC 2,v1
-  +SubtractFAC1fromFAC2
+; Macro Subtract_MEM_from_FAC: FAC = Memory - FAC
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro Subtract_MEM_from_FAC addr_, preserve_ {
+  !if (preserve_) {
+    +Store_ARG_in_Scratch
+  }
+
+  +Load_ARG addr_
+
+  +Subtract_ARG_from_FAC 0
+
+  !if (preserve_) {
+    +Load_ARG_from_Scratch
+  }
+  +Adjust_Signs
 }
 
-; Subtraction: FAC1 = (Memory) - FAC1
-!macro SubtractFAC1fromMEM_Ind v1 {
-  +LoadMEMinFAC_Ind 2,v1
-  +SubtractFAC1fromFAC2
+; Macro Subtract_PTR_from_FAC: FAC = (Ptr) - FAC
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro Subtract_PTR_from_FAC ptr_, preserve_ {
+  !if (preserve_) {
+    +Store_ARG_in_Scratch
+  }
+
+  +Load_ARG_Ptr ptr_
+
+  +Subtract_ARG_from_FAC 0
+
+  !if (preserve_) {
+    +Load_ARG_from_Scratch
+  }
+  +Adjust_Signs
 }
 
 ; Multiplication: FAC1 = FAC2 * FAC1

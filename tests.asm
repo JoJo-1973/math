@@ -20,7 +20,7 @@ INIT_SIGNUM:
   +PrintAt 12,20,.MSG_SIGNUM
   +PrintAt 13,20,.MSG_SIGNUM
 
-  +Load_FAC_with_0
+  +Load_FAC_with_PI
   +Load_ARG_with $81, $C6, $66, $66, $66
   rts
 
@@ -36,6 +36,31 @@ INIT_ARITH:
   +Load_FAC_with_MINUS_1
   +Load_ARG_with_0.1
   rts
+
+INIT_ARITH_MEM:
+  +Load_FAC_with_MINUS_1
+  +Load_ARG_with_0
+
+  +PrintAt 8,10,.MSG_MEM
+  rts
+
+.MSG_MEM
+  !text "MEM = -32768",0
+
+INIT_ARITH_PTR:
+  lda #<N32768
+  sta ZP_3
+  lda #>N32768
+  sta ZP_3+1
+
+  +Load_FAC_with_MINUS_1
+  +Load_ARG_with_0
+
+  +PrintAt 8,10,.MSG_PTR
+  rts
+
+.MSG_PTR
+  !text "(PTR) = -32768",0
 
 ; ------------------------------
 
@@ -458,3 +483,48 @@ ADD:
 
 DESC_ADD:
   !text "FAC = ARG + FAC",0
+
+; ------------------------------
+
+ADD_MEM:
+  +Add_MEM_to_FAC N32768,1
+  rts
+
+DESC_ADD_MEM:
+  !text "FAC = MEMORY + FAC",0
+
+; ------------------------------
+
+ADD_PTR:
+  +Add_PTR_to_FAC ZP_3,1
+  rts
+
+DESC_ADD_PTR:
+  !text "FAC = (PTR) + FAC",0
+
+; ------------------------------
+
+SUB:
+  +Subtract_ARG_from_FAC 1
+  rts
+
+DESC_SUB:
+  !text "FAC = ARG - FAC",0
+
+; ------------------------------
+
+SUB_MEM:
+  +Subtract_MEM_from_FAC N32768,1
+  rts
+
+DESC_SUB_MEM:
+  !text "FAC = MEMORY - FAC",0
+
+; ------------------------------
+
+SUB_PTR:
+  +Subtract_PTR_from_FAC ZP_3,1
+  rts
+
+DESC_SUB_PTR:
+  !text "FAC = (PTR) - FAC",0

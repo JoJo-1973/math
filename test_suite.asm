@@ -18,13 +18,14 @@
 +BASIC_Preamble 10,INIT,"FLOATING POINT MACRO LIBRARY TEST SUITE"
 
 ; Global variables
-
 _TEST_NUM         = TEMP_1
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _JUMP_VECTOR      = FREMEM
 
+; Global constants
 __PRINT           = SAFE_PRINT
+N32768            = $B1A5
 
 INIT:
   lda #VIC_BLACK                ; Black screen, orange chars.
@@ -186,6 +187,11 @@ TEST_JUMP_TABLE:
   !word MUL2
   !word DIV2
   !word ADD
+  !word ADD_MEM
+  !word ADD_PTR
+  !word SUB
+  !word SUB_MEM
+  !word SUB_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -221,6 +227,11 @@ DESC_JUMP_TABLE:
   !word DESC_MUL2
   !word DESC_DIV2
   !word DESC_ADD
+  !word DESC_ADD_MEM
+  !word DESC_ADD_PTR
+  !word DESC_SUB
+  !word DESC_SUB_MEM
+  !word DESC_SUB_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -256,6 +267,11 @@ INIT_JUMP_TABLE:
   !word INIT_UNARY
   !word INIT_UNARY
   !word INIT_ARITH
+  !word INIT_ARITH_MEM
+  !word INIT_ARITH_PTR
+  !word INIT_ARITH
+  !word INIT_ARITH_MEM
+  !word INIT_ARITH_PTR
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"
