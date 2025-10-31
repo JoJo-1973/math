@@ -1,6 +1,6 @@
-; --------------------------
-; Loading constants into FAC
-; --------------------------
+; --------------------------------
+; Loading Constants into FAC / ARG
+; --------------------------------
 
 ; Macro +Load_[FAC/ARG]_with: Load [FAC/ARG] with a 5-bytes floating point value.
 !macro Load_FAC_with exp_, ho_, moh_, mo_, lo_ {

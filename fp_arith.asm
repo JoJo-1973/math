@@ -1,5 +1,5 @@
 ; ----------------
-; Basic arithmetic
+; Basic Arithmetic
 ; ----------------
 
 ; Macro Add_ARG_to_FAC: FAC = ARG + FAC

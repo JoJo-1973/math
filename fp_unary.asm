@@ -1,5 +1,5 @@
 ; ---------------
-; Unary functions
+; Unary Functions
 ; ---------------
 
 ; Macro Negate_[FAC/ARG]: Change the sign of FAC/ARG.

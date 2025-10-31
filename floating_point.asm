@@ -3,11 +3,19 @@
 
 !source <c64_symbols.asm>
 
-!source "fp_memory.asm"
-!source "fp_constants.asm"
-!source "fp_unary.asm"
-!source "fp_arith.asm"
-!source "fp_io.asm"
+!source "fp_memory.asm"         ; Memory Manipulation
+!source "fp_constants.asm"      ; Loading Constants into FAC / ARG
+!source "fp_integers.asm"       ; Loading Integers into FAC / ARG
+!source "fp_unary.asm"          ; Unary Functions
+!source "fp_arith.asm"          ; Basic Arithmetic
+!source "fp_compare.asm"        ; Comparisons
+!source "fp_power.asm"          ; Exponentiation and Root
+!source "fp_trig.asm"           ; Trigonometric Functions
+!source "fp_trascend.asm"       ; Trascendental Functions
+!source "fp_poly.asm"           ; Polynomials
+!source "fp_boolean.asm"        ; Boolean Operators
+!source "fp_random.asm"         ; Random Numbers Generator
+!source "fp_io.asm"             ; Input / Output
 
 ; Local variables
 _SCRATCH_1        = $4E         ; These two areas are used only by BASIC and are safe to use as scratchpad area

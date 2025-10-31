@@ -1,6 +1,6 @@
-; ----------
-; I/O macros
-; ----------
+; --------------
+; Input / Output
+; --------------
 
 ; Macro +[FAC/ARG]_to_String: Convert FAC to a string.
 ; The kernal routine that does the conversion destroys both FAC and ARG:

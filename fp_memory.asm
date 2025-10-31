@@ -1,6 +1,6 @@
-; --------------------------
-; Memory manipulation macros
-; --------------------------
+; -------------------
+; Memory Manipulation
+; -------------------
 
 ; Macro +Load_[FAC/ARG]: Load FAC or ARG with a 5-bytes floating point value stored at a memory address.
 !macro Load_FAC addr_ {
