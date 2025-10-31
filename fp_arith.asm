@@ -203,24 +203,3 @@
   }
   +Adjust_Signs
 }
-
-
-; Division: FAC1 = FAC2 / FAC1
-!macro DivideFAC2byFAC1 {
-  lda FAC1_EXP                  ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:
-                                ; addition routine needs to be notified of the condition to treat properly the case
-  jsr FDIVT
-  +AdjustSigns
-}
-
-; Division: FAC1 = Memory / FAC1
-!macro DivideMEMbyFAC1 v1 {
-  +LoadMEMinFAC 2,v1
-  +DivideFAC2byFAC1
-}
-
-; Division: FAC1 = (Memory) / FAC1
-!macro DivideMEMbyFAC1_Ind v1 {
-  +LoadMEMinFAC_Ind 2,v1
-  +DivideFAC2byFAC1
-}
