@@ -192,6 +192,9 @@ TEST_JUMP_TABLE:
   !word SUB
   !word SUB_MEM
   !word SUB_PTR
+  !word MULT
+  !word MULT_MEM
+  !word MULT_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -232,6 +235,9 @@ DESC_JUMP_TABLE:
   !word DESC_SUB
   !word DESC_SUB_MEM
   !word DESC_SUB_PTR
+  !word DESC_MULT
+  !word DESC_MULT_MEM
+  !word DESC_MULT_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -266,6 +272,9 @@ INIT_JUMP_TABLE:
   !word INIT_UNARY
   !word INIT_UNARY
   !word INIT_UNARY
+  !word INIT_ARITH
+  !word INIT_ARITH_MEM
+  !word INIT_ARITH_PTR
   !word INIT_ARITH
   !word INIT_ARITH_MEM
   !word INIT_ARITH_PTR

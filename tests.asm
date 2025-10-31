@@ -528,3 +528,30 @@ SUB_PTR:
 
 DESC_SUB_PTR:
   !text "FAC = (PTR) - FAC",0
+
+; ------------------------------
+
+MULT:
+  +Multiply_ARG_by_FAC 1
+  rts
+
+DESC_MULT:
+  !text "FAC = ARG * FAC",0
+
+; ------------------------------
+
+MULT_MEM:
+  +Multiply_MEM_by_FAC N32768,1
+  rts
+
+DESC_MULT_MEM:
+  !text "FAC = MEMORY * FAC",0
+
+; ------------------------------
+
+MULT_PTR:
+  +Multiply_PTR_by_FAC ZP_3,1
+  rts
+
+DESC_MULT_PTR:
+  !text "FAC = (PTR) * FAC",0
