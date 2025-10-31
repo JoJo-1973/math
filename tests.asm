@@ -555,3 +555,30 @@ MULT_PTR:
 
 DESC_MULT_PTR:
   !text "FAC = (PTR) * FAC",0
+
+; ------------------------------
+
+DIV:
+  +Divide_ARG_by_FAC 1
+  rts
+
+DESC_DIV:
+  !text "FAC = ARG / FAC",0
+
+; ------------------------------
+
+DIV_MEM:
+  +Divide_MEM_by_FAC N32768,1
+  rts
+
+DESC_DIV_MEM:
+  !text "FAC = MEMORY / FAC",0
+
+; ------------------------------
+
+DIV_PTR:
+  +Divide_PTR_by_FAC ZP_3,1
+  rts
+
+DESC_DIV_PTR:
+  !text "FAC = (PTR) / FAC",0
