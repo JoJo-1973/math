@@ -73,7 +73,6 @@
 
   lda ARGEXP                    ; Store exponent byte.
   sta (INDEX),y
-  rts
 }
 
 ; Macro +Store_[FAC/ARG]_Ptr: Store FAC or ARG to a memory address in a pointer in 5-bytes format.
