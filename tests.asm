@@ -62,6 +62,37 @@ INIT_ARITH_PTR:
 .MSG_PTR
   !text "(PTR) = -32768",0
 
+INIT_COMP:
+  +Load_FAC_with_1
+  +Load_ARG_with_0
+
+  +PrintAt 13,20,.MSG_COMP
+  rts
+
+.MSG_COMP:
+  !text "CMP:",0
+
+INIT_COMP_MEM:
+  +Load_FAC_with_1
+  +Load_ARG_with_0
+
+  +PrintAt 8,10,.MSG_MEM
+  +PrintAt 13,20,.MSG_COMP
+  rts
+
+INIT_COMP_PTR:
+  lda #<N32768
+  sta ZP_3
+  lda #>N32768
+  sta ZP_3+1
+
+  +Load_FAC_with_1
+  +Load_ARG_with_0
+
+  +PrintAt 8,10,.MSG_PTR
+  +PrintAt 13,20,.MSG_COMP
+  rts
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -500,7 +531,7 @@ ADD_PTR:
   rts
 
 DESC_ADD_PTR:
-  !text "FAC = (PTR) + FAC",0
+  !text "FAC = (POINTER) + FAC",0
 
 ; ------------------------------
 
@@ -527,7 +558,7 @@ SUB_PTR:
   rts
 
 DESC_SUB_PTR:
-  !text "FAC = (PTR) - FAC",0
+  !text "FAC = (POINTER) - FAC",0
 
 ; ------------------------------
 
@@ -554,7 +585,7 @@ MULT_PTR:
   rts
 
 DESC_MULT_PTR:
-  !text "FAC = (PTR) * FAC",0
+  !text "FAC = (POINTER) * FAC",0
 
 ; ------------------------------
 
@@ -581,4 +612,79 @@ DIV_PTR:
   rts
 
 DESC_DIV_PTR:
-  !text "FAC = (PTR) / FAC",0
+  !text "FAC = (POINTER) / FAC",0
+
+; ------------------------------
+
+COMP:
+  +Compare_FAC_to_ARG
+  pha
+
+  clc
+  ldx #13
+  ldy #25
+  jsr PLOT
+
+  pla
+  beq ++
+  bpl +
+  lda #"<"
+  +Skip2
++ lda #">"
+  +Skip2
+++  lda #"="
+  jsr CHROUT
+  rts
+
+DESC_COMP:
+  !text "COMPARE FAC TO ARG",0
+
+; ------------------------------
+
+COMP_MEM:
+  +Compare_FAC_to_MEM N32768
+  pha
+
+  clc
+  ldx #13
+  ldy #25
+  jsr PLOT
+
+  pla
+  beq ++
+  bpl +
+  lda #"<"
+  +Skip2
++ lda #">"
+  +Skip2
+++  lda #"="
+  jsr CHROUT
+  rts
+
+DESC_COMP_MEM:
+  !text "COMPARE FAC TO MEMORY",0
+
+; ------------------------------
+
+COMP_PTR:
+  +Compare_FAC_to_PTR ZP_3
+  pha
+
+  clc
+  ldx #13
+  ldy #25
+  jsr PLOT
+
+  pla
+  beq ++
+  bpl +
+  lda #"<"
+  +Skip2
++ lda #">"
+  +Skip2
+++  lda #"="
+  jsr CHROUT
+  rts
+
+DESC_COMP_PTR:
+  !text "COMPARE FAC TO (POINTER)",0

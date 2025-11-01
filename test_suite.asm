@@ -19,6 +19,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
+_TEST_START       = 43
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _JUMP_VECTOR      = FREMEM
@@ -32,7 +33,7 @@ INIT:
   sta EXTCOL
   sta BGCOL0
 
-  lda #00                       ; Init counter
+  lda #_TEST_START-1            ; Init counter
   sta _TEST_NUM
 
   lda #VIC_ORANGE
@@ -198,6 +199,9 @@ TEST_JUMP_TABLE:
   !word DIV
   !word DIV_MEM
   !word DIV_PTR
+  !word COMP
+  !word COMP_MEM
+  !word COMP_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -244,6 +248,9 @@ DESC_JUMP_TABLE:
   !word DESC_DIV
   !word DESC_DIV_MEM
   !word DESC_DIV_PTR
+  !word DESC_COMP
+  !word DESC_COMP_MEM
+  !word DESC_COMP_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -290,6 +297,9 @@ INIT_JUMP_TABLE:
   !word INIT_ARITH
   !word INIT_ARITH_MEM
   !word INIT_ARITH_PTR
+  !word INIT_COMP
+  !word INIT_COMP_MEM
+  !word INIT_COMP_PTR
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"
