@@ -2,15 +2,6 @@
 ; Comparisons
 ; -----------
 
-; Macro Compare [FAC/ARG]_to_0: Fast comparison of FAC / Arg with 0.
-!macro Compare_FAC_to_0 {
-  lda FACEXP                    ; Any fp value with null exponent is considered 0: set .Z flag accordingly.
-}
-
-!macro Compare_ARG_to_0 {
-  lda ARGEXP                    ; Any fp value with null exponent is considered 0: set .Z flag accordingly.
-}
-
 ; Macro Compare FAC to ARG: comparison of FAC to ARG.
 ; .A = $00 if FAC = ARG; .A = $01 if FAC > ARG; .A = $FF if FAC < ARG.
 !macro Compare_FAC_to_ARG {
