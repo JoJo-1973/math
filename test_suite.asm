@@ -19,7 +19,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 43
+_TEST_START       = 46
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _JUMP_VECTOR      = FREMEM
@@ -202,6 +202,9 @@ TEST_JUMP_TABLE:
   !word COMP
   !word COMP_MEM
   !word COMP_PTR
+  !word PWR
+  !word PWR_MEM
+  !word PWR_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -251,6 +254,9 @@ DESC_JUMP_TABLE:
   !word DESC_COMP
   !word DESC_COMP_MEM
   !word DESC_COMP_PTR
+  !word DESC_PWR
+  !word DESC_PWR_MEM
+  !word DESC_PWR_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -300,6 +306,9 @@ INIT_JUMP_TABLE:
   !word INIT_COMP
   !word INIT_COMP_MEM
   !word INIT_COMP_PTR
+  !word INIT_PWR
+  !word INIT_PWR_MEM
+  !word INIT_PWR_PTR
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"

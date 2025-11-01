@@ -93,6 +93,37 @@ INIT_COMP_PTR:
   +PrintAt 13,20,.MSG_COMP
   rts
 
+INIT_PWR:
+  +Load_FAC_with $82, $40, $00, $00, $00
+  +Load_ARG_with_2
+  +Negate_ARG
+  rts
+
+INIT_PWR_MEM:
+  +Load_FAC_with $82, $40, $00, $00, $00
+  +Load_ARG_with_0
+
+  +PrintAt 8,10,.MSG_PWR_MEM
+  rts
+
+.MSG_PWR_MEM
+  !text "MEM = 10",0
+
+INIT_PWR_PTR:
+  lda #<N32768
+  sta ZP_3
+  lda #>N32768
+  sta ZP_3+1
+
+  +Load_FAC_with_2
+  +Load_ARG_with_0
+
+  +PrintAt 8,10,.MSG_PWR_PTR
+  rts
+
+.MSG_PWR_PTR
+  !text "(PTR) = -32768",0
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -688,3 +719,30 @@ COMP_PTR:
 
 DESC_COMP_PTR:
   !text "COMPARE FAC TO (POINTER)",0
+
+; ------------------------------
+
+PWR:
+  +Power_ARG_to_FAC 1
+  rts
+
+DESC_PWR:
+  !text "FAC = ARG ^ FAC",0
+
+; ------------------------------
+
+PWR_MEM:
+  +Power_MEM_to_FAC TENC,1
+  rts
+
+DESC_PWR_MEM:
+  !text "FAC = MEMORY ^ FAC",0
+
+; ------------------------------
+
+PWR_PTR:
+  +Power_PTR_to_FAC ZP_3,1
+  rts
+
+DESC_PWR_PTR:
+  !text "FAC = (POINTER) ^ FAC",0
