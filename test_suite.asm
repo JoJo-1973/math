@@ -19,9 +19,10 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 46
+_TEST_START       = 49
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
+_TEST_PRESERVE    = 1
 _JUMP_VECTOR      = FREMEM
 
 ; Global constants
@@ -98,6 +99,17 @@ MAIN:
   jsr PLOT
   +Print_ARG 1
 
+  lda #_TEST_PRESERVE
+  beq .Do_Test
+
+  clc
+  ldx #0
+  ldy #39
+  jsr PLOT
+  lda #"*"
+  JSR CHROUT
+
+.Do_Test:
   pla
   tay
 
@@ -205,6 +217,7 @@ TEST_JUMP_TABLE:
   !word PWR
   !word PWR_MEM
   !word PWR_PTR
+  !word SQRT
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -257,6 +270,7 @@ DESC_JUMP_TABLE:
   !word DESC_PWR
   !word DESC_PWR_MEM
   !word DESC_PWR_PTR
+  !word DESC_SQRT
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -309,6 +323,7 @@ INIT_JUMP_TABLE:
   !word INIT_PWR
   !word INIT_PWR_MEM
   !word INIT_PWR_PTR
+  !word INIT_SQRT
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"

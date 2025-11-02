@@ -124,6 +124,11 @@ INIT_PWR_PTR:
 .MSG_PWR_PTR
   !text "(PTR) = -32768",0
 
+INIT_SQRT:
+  +Load_FAC_with_2
+  +Load_ARG_with_2PI
+  rts
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -540,7 +545,7 @@ DESC_DIV2:
 ; ------------------------------
 
 ADD:
-  +Add_ARG_to_FAC 1
+  +Add_ARG_to_FAC _TEST_PRESERVE
   rts
 
 DESC_ADD:
@@ -549,7 +554,7 @@ DESC_ADD:
 ; ------------------------------
 
 ADD_MEM:
-  +Add_MEM_to_FAC N32768,1
+  +Add_MEM_to_FAC N32768, _TEST_PRESERVE
   rts
 
 DESC_ADD_MEM:
@@ -558,7 +563,7 @@ DESC_ADD_MEM:
 ; ------------------------------
 
 ADD_PTR:
-  +Add_PTR_to_FAC ZP_3,1
+  +Add_PTR_to_FAC ZP_3, _TEST_PRESERVE
   rts
 
 DESC_ADD_PTR:
@@ -567,7 +572,7 @@ DESC_ADD_PTR:
 ; ------------------------------
 
 SUB:
-  +Subtract_ARG_from_FAC 1
+  +Subtract_ARG_from_FAC _TEST_PRESERVE
   rts
 
 DESC_SUB:
@@ -576,7 +581,7 @@ DESC_SUB:
 ; ------------------------------
 
 SUB_MEM:
-  +Subtract_MEM_from_FAC N32768,1
+  +Subtract_MEM_from_FAC N32768, _TEST_PRESERVE
   rts
 
 DESC_SUB_MEM:
@@ -585,7 +590,7 @@ DESC_SUB_MEM:
 ; ------------------------------
 
 SUB_PTR:
-  +Subtract_PTR_from_FAC ZP_3,1
+  +Subtract_PTR_from_FAC ZP_3, _TEST_PRESERVE
   rts
 
 DESC_SUB_PTR:
@@ -594,7 +599,7 @@ DESC_SUB_PTR:
 ; ------------------------------
 
 MULT:
-  +Multiply_ARG_by_FAC 1
+  +Multiply_ARG_by_FAC _TEST_PRESERVE
   rts
 
 DESC_MULT:
@@ -603,7 +608,7 @@ DESC_MULT:
 ; ------------------------------
 
 MULT_MEM:
-  +Multiply_MEM_by_FAC N32768,1
+  +Multiply_MEM_by_FAC N32768, _TEST_PRESERVE
   rts
 
 DESC_MULT_MEM:
@@ -612,7 +617,7 @@ DESC_MULT_MEM:
 ; ------------------------------
 
 MULT_PTR:
-  +Multiply_PTR_by_FAC ZP_3,1
+  +Multiply_PTR_by_FAC ZP_3, _TEST_PRESERVE
   rts
 
 DESC_MULT_PTR:
@@ -621,7 +626,7 @@ DESC_MULT_PTR:
 ; ------------------------------
 
 DIV:
-  +Divide_ARG_by_FAC 1
+  +Divide_ARG_by_FAC _TEST_PRESERVE
   rts
 
 DESC_DIV:
@@ -630,7 +635,7 @@ DESC_DIV:
 ; ------------------------------
 
 DIV_MEM:
-  +Divide_MEM_by_FAC N32768,1
+  +Divide_MEM_by_FAC N32768, _TEST_PRESERVE
   rts
 
 DESC_DIV_MEM:
@@ -639,7 +644,7 @@ DESC_DIV_MEM:
 ; ------------------------------
 
 DIV_PTR:
-  +Divide_PTR_by_FAC ZP_3,1
+  +Divide_PTR_by_FAC ZP_3, _TEST_PRESERVE
   rts
 
 DESC_DIV_PTR:
@@ -723,7 +728,7 @@ DESC_COMP_PTR:
 ; ------------------------------
 
 PWR:
-  +Power_ARG_to_FAC 1
+  +Power_ARG_to_FAC _TEST_PRESERVE
   rts
 
 DESC_PWR:
@@ -732,7 +737,7 @@ DESC_PWR:
 ; ------------------------------
 
 PWR_MEM:
-  +Power_MEM_to_FAC TENC,1
+  +Power_MEM_to_FAC TENC, _TEST_PRESERVE
   rts
 
 DESC_PWR_MEM:
@@ -741,8 +746,17 @@ DESC_PWR_MEM:
 ; ------------------------------
 
 PWR_PTR:
-  +Power_PTR_to_FAC ZP_3,1
+  +Power_PTR_to_FAC ZP_3, _TEST_PRESERVE
   rts
 
 DESC_PWR_PTR:
   !text "FAC = (POINTER) ^ FAC",0
+
+; ------------------------------
+
+SQRT:
+  +SQR_FAC _TEST_PRESERVE
+  rts
+
+DESC_SQRT:
+  !text "FAC = SQR(FAC)",0
