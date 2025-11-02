@@ -4,8 +4,6 @@
 !source <vic.asm>
 !source "floating_point.asm"
 
-!sl "labels.txt"
-
 !macro PrintAt row_, col_, string_ {
   clc                           ; Locate cursor
   ldx #row_
