@@ -181,6 +181,42 @@ INIT_SQRT_PTR:
 .MSG_SQRT_PTR:
   !text "(PTR) = 1024",0
 
+; ----------------------------
+
+INIT_SIN_COS:
+  +Load_FAC_with_PI4
+  +Load_ARG_with_2PI
+  rts
+
+INIT_SIN_COS_MEM:
+  +Load_FAC_with $80, $06, $0A, $91, $C1
+  +Store_FAC $C000
+  +Load_FAC_with_0
+  +Load_ARG_with_2PI
+
+  +PrintAt 8,10,.MSG_SIN_COS_MEM
+  rts
+
+INIT_SIN_COS_PTR:
+  +Load_FAC_with_PI2
+  +Store_FAC $C000
+  +Load_FAC_with_0
+  +Load_ARG_with_2PI
+
+  lda #$00
+  sta ZP_3
+  lda #$C0
+  sta ZP_3+1
+
+  +PrintAt 8,10,.MSG_SIN_COS_PTR
+  rts
+
+.MSG_SIN_COS_MEM:
+  !text "MEM = ",126,"/6",0
+
+.MSG_SIN_COS_PTR:
+  !text "(PTR) = ",126,"/2",0
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -802,3 +838,49 @@ DESC_SQRT_MEM:
 
 DESC_SQRT_PTR:
   !text "FAC = SQR((POINTER))",0
+
+; ------------------------------
+
+SINE:
+  +SIN_FAC _TEST_PRESERVE
+  rts
+
+SINE_MEM:
+  +SIN_MEM $C000, _TEST_PRESERVE
+  rts
+
+SINE_PTR:
+  +SIN_PTR ZP_3, _TEST_PRESERVE
+  rts
+
+DESC_SINE:
+  !text "FAC = SIN(FAC)",0
+
+DESC_SINE_MEM:
+  !text "FAC = SIN(MEMORY)",0
+
+DESC_SINE_PTR:
+  !text "FAC = SIN((POINTER))",0
+
+; ------------------------------
+
+COSINE:
+  +COS_FAC _TEST_PRESERVE
+  rts
+
+COSINE_MEM:
+  +COS_MEM $C000, _TEST_PRESERVE
+  rts
+
+COSINE_PTR:
+  +COS_PTR ZP_3, _TEST_PRESERVE
+  rts
+
+DESC_COSINE:
+  !text "FAC = COS(FAC)",0
+
+DESC_COSINE_MEM:
+  !text "FAC = COS(MEMORY)",0
+
+DESC_COSINE_PTR:
+  !text "FAC = COS((POINTER))",0

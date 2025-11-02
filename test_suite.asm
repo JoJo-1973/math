@@ -4,6 +4,8 @@
 !source <vic.asm>
 !source "floating_point.asm"
 
+!sl "labels.txt"
+
 !macro PrintAt row_, col_, string_ {
   clc                           ; Locate cursor
   ldx #row_
@@ -19,7 +21,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 49
+_TEST_START       = 55
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _TEST_PRESERVE    = 1
@@ -135,12 +137,14 @@ MAIN:
   jsr GETIN
   beq .Loop_Any_Key
 
+  cmp #3
+  beq .Exit
+
   inc _TEST_NUM
   lda _TEST_NUM
   cmp #_TEST_COUNT
   bcs .Exit
   jmp MAIN
-
 
 .Exit:
   +PrintAt 0,0,MSG_DONE
@@ -220,6 +224,12 @@ TEST_JUMP_TABLE:
   !word SQRT
   !word SQRT_MEM
   !word SQRT_PTR
+  !word SINE
+  !word SINE_MEM
+  !word SINE_PTR
+  !word COSINE
+  !word COSINE_MEM
+  !word COSINE_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -275,6 +285,12 @@ DESC_JUMP_TABLE:
   !word DESC_SQRT
   !word DESC_SQRT_MEM
   !word DESC_SQRT_PTR
+  !word DESC_SINE
+  !word DESC_SINE_MEM
+  !word DESC_SINE_PTR
+  !word DESC_COSINE
+  !word DESC_COSINE_MEM
+  !word DESC_COSINE_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -330,6 +346,12 @@ INIT_JUMP_TABLE:
   !word INIT_SQRT
   !word INIT_SQRT_MEM
   !word INIT_SQRT_PTR
+  !word INIT_SIN_COS
+  !word INIT_SIN_COS_MEM
+  !word INIT_SIN_COS_PTR
+  !word INIT_SIN_COS
+  !word INIT_SIN_COS_MEM
+  !word INIT_SIN_COS_PTR
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"

@@ -112,7 +112,6 @@
 
   lda ARGEXP                    ; Store exponent byte.
   sta (INDEX),y
-  rts
 }
 
 ; Macro +Transfer_FAC_to_ARG: Copy a rounded value of FAC into ARG.
