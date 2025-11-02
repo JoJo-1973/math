@@ -18,7 +18,7 @@
 !source "fp_io.asm"             ; Input / Output
 
 ; Local variables
-_SCRATCH_1        = $4E         ; These two areas are used only by BASIC and are safe to use as scratchpad area
+_SCRATCH_1        = $3D         ; These two areas are used only by BASIC and are safe to use as scratchpad area
 _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. They are meant for internal use are
 
 
