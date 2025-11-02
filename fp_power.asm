@@ -73,7 +73,7 @@
     +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
-  +Load_ARG addr_
+  +Load_FAC addr_
 
   +SQR_FAC 0
 
@@ -85,12 +85,12 @@
 
 ; Macro SQR_PTR: FAC = SQR((Pointer))
 ; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro SQR_MEM ptr_, preserve_ {
+!macro SQR_PTR ptr_, preserve_ {
   !if (preserve_) {
     +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
-  +Load_ARG_Ptr ptr_
+  +Load_FAC_Ptr ptr_
 
   +SQR_FAC 0
 

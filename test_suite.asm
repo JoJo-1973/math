@@ -218,6 +218,8 @@ TEST_JUMP_TABLE:
   !word PWR_MEM
   !word PWR_PTR
   !word SQRT
+  !word SQRT_MEM
+  !word SQRT_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -271,6 +273,8 @@ DESC_JUMP_TABLE:
   !word DESC_PWR_MEM
   !word DESC_PWR_PTR
   !word DESC_SQRT
+  !word DESC_SQRT_MEM
+  !word DESC_SQRT_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -324,6 +328,8 @@ INIT_JUMP_TABLE:
   !word INIT_PWR_MEM
   !word INIT_PWR_PTR
   !word INIT_SQRT
+  !word INIT_SQRT_MEM
+  !word INIT_SQRT_PTR
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"

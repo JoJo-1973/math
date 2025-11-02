@@ -1,20 +1,29 @@
 ; ----------------------------
 ; Floating Point library tests
 ; ----------------------------
+
+; ----------------------------
+
 INIT_0:
   +Load_FAC_with_0
   +Load_ARG_with_0
   rts
+
+; ----------------------------
 
 INIT_TRANSFER:
   +Load_FAC_with_e
   +Load_ARG_with_PI
   rts
 
+; ----------------------------
+
 INIT_UNARY:
   +Load_FAC_with_PI
   +Load_ARG_with $81, $C6, $66, $66, $66
   rts
+
+; ----------------------------
 
 INIT_SIGNUM:
   +PrintAt 12,20,.MSG_SIGNUM
@@ -27,10 +36,14 @@ INIT_SIGNUM:
 .MSG_SIGNUM:
   !text "SIGN:",0
 
+; ----------------------------
+
 INIT_MAXR:
   +Load_FAC_with_eps
   +Load_ARG_with_eps
   rts
+
+; ----------------------------
 
 INIT_ARITH:
   +Load_FAC_with_MINUS_1
@@ -41,11 +54,8 @@ INIT_ARITH_MEM:
   +Load_FAC_with_MINUS_1
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_MEM
+  +PrintAt 8,10,.MSG_ARITH_MEM
   rts
-
-.MSG_MEM
-  !text "MEM = -32768",0
 
 INIT_ARITH_PTR:
   lda #<N32768
@@ -56,11 +66,16 @@ INIT_ARITH_PTR:
   +Load_FAC_with_MINUS_1
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_PTR
+  +PrintAt 8,10,.MSG_ARITH_PTR
   rts
 
-.MSG_PTR
+.MSG_ARITH_MEM:
+  !text "MEM = -32768",0
+
+.MSG_ARITH_PTR:
   !text "(PTR) = -32768",0
+
+; ----------------------------
 
 INIT_COMP:
   +Load_FAC_with_1
@@ -69,14 +84,11 @@ INIT_COMP:
   +PrintAt 13,20,.MSG_COMP
   rts
 
-.MSG_COMP:
-  !text "CMP:",0
-
 INIT_COMP_MEM:
   +Load_FAC_with_1
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_MEM
+  +PrintAt 8,10,.MSG_COMP_MEM
   +PrintAt 13,20,.MSG_COMP
   rts
 
@@ -89,9 +101,20 @@ INIT_COMP_PTR:
   +Load_FAC_with_1
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_PTR
+  +PrintAt 8,10,.MSG_COMP_PTR
   +PrintAt 13,20,.MSG_COMP
   rts
+
+.MSG_COMP:
+  !text "CMP:",0
+
+.MSG_COMP_MEM:
+  !text "MEM = -32768",0
+
+.MSG_COMP_PTR:
+  !text "(PTR) = -32768",0
+
+; ----------------------------
 
 INIT_PWR:
   +Load_FAC_with $82, $40, $00, $00, $00
@@ -106,9 +129,6 @@ INIT_PWR_MEM:
   +PrintAt 8,10,.MSG_PWR_MEM
   rts
 
-.MSG_PWR_MEM
-  !text "MEM = 10",0
-
 INIT_PWR_PTR:
   lda #<N32768
   sta ZP_3
@@ -121,13 +141,45 @@ INIT_PWR_PTR:
   +PrintAt 8,10,.MSG_PWR_PTR
   rts
 
-.MSG_PWR_PTR
+.MSG_PWR_MEM:
+  !text "MEM = 10",0
+
+.MSG_PWR_PTR:
   !text "(PTR) = -32768",0
+
+; ----------------------------
 
 INIT_SQRT:
   +Load_FAC_with_2
   +Load_ARG_with_2PI
   rts
+
+INIT_SQRT_MEM:
+  +Load_FAC_with $82, $40, $00, $00, $00
+  +Load_ARG_with_2PI
+
+  +PrintAt 8,10,.MSG_SQRT_MEM
+  rts
+
+INIT_SQRT_PTR:
+  +Load_FAC_with $8B, $00, $00, $00, $00
+  +Store_FAC $C000
+  +Load_FAC_with_0
+  +Load_ARG_with_2PI
+
+  lda #$00
+  sta ZP_3
+  lda #$C0
+  sta ZP_3+1
+
+  +PrintAt 8,10,.MSG_SQRT_PTR
+  rts
+
+.MSG_SQRT_MEM:
+  !text "MEM = 10",0
+
+.MSG_SQRT_PTR:
+  !text "(PTR) = 1024",0
 
 ; ------------------------------
 
@@ -548,23 +600,19 @@ ADD:
   +Add_ARG_to_FAC _TEST_PRESERVE
   rts
 
-DESC_ADD:
-  !text "FAC = ARG + FAC",0
-
-; ------------------------------
-
 ADD_MEM:
   +Add_MEM_to_FAC N32768, _TEST_PRESERVE
   rts
 
-DESC_ADD_MEM:
-  !text "FAC = MEMORY + FAC",0
-
-; ------------------------------
-
 ADD_PTR:
   +Add_PTR_to_FAC ZP_3, _TEST_PRESERVE
   rts
+
+DESC_ADD:
+  !text "FAC = ARG + FAC",0
+
+DESC_ADD_MEM:
+  !text "FAC = MEMORY + FAC",0
 
 DESC_ADD_PTR:
   !text "FAC = (POINTER) + FAC",0
@@ -575,23 +623,19 @@ SUB:
   +Subtract_ARG_from_FAC _TEST_PRESERVE
   rts
 
-DESC_SUB:
-  !text "FAC = ARG - FAC",0
-
-; ------------------------------
-
 SUB_MEM:
   +Subtract_MEM_from_FAC N32768, _TEST_PRESERVE
   rts
 
-DESC_SUB_MEM:
-  !text "FAC = MEMORY - FAC",0
-
-; ------------------------------
-
 SUB_PTR:
   +Subtract_PTR_from_FAC ZP_3, _TEST_PRESERVE
   rts
+
+DESC_SUB:
+  !text "FAC = ARG - FAC",0
+
+DESC_SUB_MEM:
+  !text "FAC = MEMORY - FAC",0
 
 DESC_SUB_PTR:
   !text "FAC = (POINTER) - FAC",0
@@ -602,23 +646,19 @@ MULT:
   +Multiply_ARG_by_FAC _TEST_PRESERVE
   rts
 
-DESC_MULT:
-  !text "FAC = ARG * FAC",0
-
-; ------------------------------
-
 MULT_MEM:
   +Multiply_MEM_by_FAC N32768, _TEST_PRESERVE
   rts
 
-DESC_MULT_MEM:
-  !text "FAC = MEMORY * FAC",0
-
-; ------------------------------
-
 MULT_PTR:
   +Multiply_PTR_by_FAC ZP_3, _TEST_PRESERVE
   rts
+
+DESC_MULT:
+  !text "FAC = ARG * FAC",0
+
+DESC_MULT_MEM:
+  !text "FAC = MEMORY * FAC",0
 
 DESC_MULT_PTR:
   !text "FAC = (POINTER) * FAC",0
@@ -629,23 +669,19 @@ DIV:
   +Divide_ARG_by_FAC _TEST_PRESERVE
   rts
 
-DESC_DIV:
-  !text "FAC = ARG / FAC",0
-
-; ------------------------------
-
 DIV_MEM:
   +Divide_MEM_by_FAC N32768, _TEST_PRESERVE
   rts
 
-DESC_DIV_MEM:
-  !text "FAC = MEMORY / FAC",0
-
-; ------------------------------
-
 DIV_PTR:
   +Divide_PTR_by_FAC ZP_3, _TEST_PRESERVE
   rts
+
+DESC_DIV:
+  !text "FAC = ARG / FAC",0
+
+DESC_DIV_MEM:
+  !text "FAC = MEMORY / FAC",0
 
 DESC_DIV_PTR:
   !text "FAC = (POINTER) / FAC",0
@@ -672,11 +708,6 @@ COMP:
   jsr CHROUT
   rts
 
-DESC_COMP:
-  !text "COMPARE FAC TO ARG",0
-
-; ------------------------------
-
 COMP_MEM:
   +Compare_FAC_to_MEM N32768
   pha
@@ -696,11 +727,6 @@ COMP_MEM:
 ++  lda #"="
   jsr CHROUT
   rts
-
-DESC_COMP_MEM:
-  !text "COMPARE FAC TO MEMORY",0
-
-; ------------------------------
 
 COMP_PTR:
   +Compare_FAC_to_PTR ZP_3
@@ -722,6 +748,12 @@ COMP_PTR:
   jsr CHROUT
   rts
 
+DESC_COMP:
+  !text "COMPARE FAC TO ARG",0
+
+DESC_COMP_MEM:
+  !text "COMPARE FAC TO MEMORY",0
+
 DESC_COMP_PTR:
   !text "COMPARE FAC TO (POINTER)",0
 
@@ -731,23 +763,19 @@ PWR:
   +Power_ARG_to_FAC _TEST_PRESERVE
   rts
 
-DESC_PWR:
-  !text "FAC = ARG ^ FAC",0
-
-; ------------------------------
-
 PWR_MEM:
   +Power_MEM_to_FAC TENC, _TEST_PRESERVE
   rts
 
-DESC_PWR_MEM:
-  !text "FAC = MEMORY ^ FAC",0
-
-; ------------------------------
-
 PWR_PTR:
   +Power_PTR_to_FAC ZP_3, _TEST_PRESERVE
   rts
+
+DESC_PWR:
+  !text "FAC = ARG ^ FAC",0
+
+DESC_PWR_MEM:
+  !text "FAC = MEMORY ^ FAC",0
 
 DESC_PWR_PTR:
   !text "FAC = (POINTER) ^ FAC",0
@@ -758,5 +786,19 @@ SQRT:
   +SQR_FAC _TEST_PRESERVE
   rts
 
+SQRT_MEM:
+  +SQR_MEM TENC, _TEST_PRESERVE
+  rts
+
+SQRT_PTR:
+  +SQR_PTR ZP_3, _TEST_PRESERVE
+  rts
+
 DESC_SQRT:
   !text "FAC = SQR(FAC)",0
+
+DESC_SQRT_MEM:
+  !text "FAC = SQR(MEMORY)",0
+
+DESC_SQRT_PTR:
+  !text "FAC = SQR((POINTER))",0
