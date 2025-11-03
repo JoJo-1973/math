@@ -1,6 +1,7 @@
 ; -----------------------
 ; Trigonometric Functions
 ; -----------------------
+
 ; Macro SIN_FAC: FAC = SIN(FAC)
 ; ARG is destroyed in the process unless 'preserve_' is <> 0.
 !macro SIN_FAC preserve_ {
