@@ -19,7 +19,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 55
+_TEST_START       = 61
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _TEST_PRESERVE    = 1
@@ -27,7 +27,6 @@ _JUMP_VECTOR      = FREMEM
 
 ; Global constants
 __PRINT           = SAFE_PRINT
-N32768            = $B1A5
 
 INIT:
   lda #VIC_BLACK                ; Black screen, orange chars.
@@ -228,6 +227,12 @@ TEST_JUMP_TABLE:
   !word COSINE
   !word COSINE_MEM
   !word COSINE_PTR
+  !word TANG
+  !word TANG_MEM
+  !word TANG_PTR
+  !word ARCTAN
+  !word ARCTAN_MEM
+  !word ARCTAN_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -289,6 +294,12 @@ DESC_JUMP_TABLE:
   !word DESC_COSINE
   !word DESC_COSINE_MEM
   !word DESC_COSINE_PTR
+  !word DESC_TANG
+  !word DESC_TANG_MEM
+  !word DESC_TANG_PTR
+  !word DESC_ARCTAN
+  !word DESC_ARCTAN_MEM
+  !word DESC_ARCTAN_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -350,6 +361,12 @@ INIT_JUMP_TABLE:
   !word INIT_SIN_COS
   !word INIT_SIN_COS_MEM
   !word INIT_SIN_COS_PTR
+  !word INIT_TANG
+  !word INIT_TANG_MEM
+  !word INIT_TANG_PTR
+  !word INIT_ARCTAN
+  !word INIT_ARCTAN_MEM
+  !word INIT_ARCTAN_PTR
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"

@@ -217,6 +217,80 @@ INIT_SIN_COS_PTR:
 .MSG_SIN_COS_PTR:
   !text "(PTR) = ",126,"/2",0
 
+; ----------------------------
+
+INIT_TANG:
+  +Load_FAC_with_PI4
+  +Load_ARG_with_2PI
+  rts
+
+INIT_TANG_MEM:
+  +Load_FAC_with $80, $06, $0A, $91, $C1
+  +Store_FAC $C000
+  +Load_FAC_with_0
+  +Load_ARG_with_2PI
+
+  +PrintAt 8,10,.MSG_TAN_MEM
+  rts
+
+INIT_TANG_PTR:
+  +Load_FAC_with $81, $06, $0A, $91, $C1
+  +Store_FAC $C000
+  +Load_FAC_with_0
+  +Load_ARG_with_2PI
+
+  lda #$00
+  sta ZP_3
+  lda #$C0
+  sta ZP_3+1
+
+  +PrintAt 8,10,.MSG_TAN_PTR
+  rts
+
+.MSG_TAN_MEM:
+  !text "MEM = ",126,"/6",0
+
+.MSG_TAN_PTR:
+  !text "(PTR) = ",126,"/3",0
+
+; ----------------------------
+
+INIT_ARCTAN:
+  +Load_FAC_with_1
+  +Load_ARG_with_1
+  rts
+
+INIT_ARCTAN_MEM:
+  +Load_FAC_with_SQR3
+  +Store_FAC $C000
+  +Load_FAC_with_0
+  +Load_ARG_with_1
+
+  +PrintAt 8,10,.MSG_ARCTAN_MEM
+  rts
+
+INIT_ARCTAN_PTR:
+  +Load_FAC_with_SQR3
+  +Load_ARG_with_2
+  +Add_ARG_to_FAC 0
+  +Store_FAC $C000
+  +Load_FAC_with_0
+  +Load_ARG_with_1
+
+  lda #$00
+  sta ZP_3
+  lda #$C0
+  sta ZP_3+1
+
+  +PrintAt 8,10,.MSG_ARCTAN_PTR
+  rts
+
+.MSG_ARCTAN_MEM:
+  !text "MEM = SQR(3)",0
+
+.MSG_ARCTAN_PTR:
+  !text "(PTR) = 2+SQR(3)",0
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -884,3 +958,49 @@ DESC_COSINE_MEM:
 
 DESC_COSINE_PTR:
   !text "FAC = COS((POINTER))",0
+
+; ------------------------------
+
+TANG:
+  +TAN_FAC _TEST_PRESERVE
+  rts
+
+TANG_MEM:
+  +TAN_MEM $C000, _TEST_PRESERVE
+  rts
+
+TANG_PTR:
+  +TAN_PTR ZP_3, _TEST_PRESERVE
+  rts
+
+DESC_TANG:
+  !text "FAC = TAN(FAC)",0
+
+DESC_TANG_MEM:
+  !text "FAC = TAN(MEMORY)",0
+
+DESC_TANG_PTR:
+  !text "FAC = TAN((POINTER))",0
+
+; ------------------------------
+
+ARCTAN:
+  +ATN_FAC _TEST_PRESERVE
+  rts
+
+ARCTAN_MEM:
+  +ATN_MEM $C000, _TEST_PRESERVE
+  rts
+
+ARCTAN_PTR:
+  +ATN_PTR ZP_3, _TEST_PRESERVE
+  rts
+
+DESC_ARCTAN:
+  !text "FAC = ATN(FAC)",0
+
+DESC_ARCTAN_MEM:
+  !text "FAC = ATN(MEMORY)",0
+
+DESC_ARCTAN_PTR:
+  !text "FAC = ATN((POINTER))",0

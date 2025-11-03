@@ -98,3 +98,101 @@
   }
   +Adjust_Signs
 }
+
+; Macro TAN_FAC: FAC = TAN(FAC)
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro TAN_FAC preserve_ {
+  !if (preserve_) {
+    +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+  }
+
+  jsr TAN
+
+  !if (preserve_) {
+    +Load_ARG STACK
+  }
+  +Adjust_Signs
+}
+
+; Macro TAN_MEM: FAC = TAN(Memory)
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro TAN_MEM addr_, preserve_ {
+  !if (preserve_) {
+    +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+  }
+
+  +Load_FAC addr_
+
+  +TAN_FAC 0
+
+  !if (preserve_) {
+    +Load_ARG STACK
+  }
+  +Adjust_Signs
+}
+
+; Macro TAN_PTR: FAC = TAN((Pointer))
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro TAN_PTR ptr_, preserve_ {
+  !if (preserve_) {
+    +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+  }
+
+  +Load_FAC_Ptr ptr_
+
+  +TAN_FAC 0
+
+  !if (preserve_) {
+    +Load_ARG STACK
+  }
+  +Adjust_Signs
+}
+
+; Macro ATN_FAC: FAC = ATN(FAC)
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro ATN_FAC preserve_ {
+  !if (preserve_) {
+    +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+  }
+
+  jsr ATN
+
+  !if (preserve_) {
+    +Load_ARG STACK
+  }
+  +Adjust_Signs
+}
+
+; Macro ATN_MEM: FAC = ATN(Memory)
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro ATN_MEM addr_, preserve_ {
+  !if (preserve_) {
+    +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+  }
+
+  +Load_FAC addr_
+
+  +ATN_FAC 0
+
+  !if (preserve_) {
+    +Load_ARG STACK
+  }
+  +Adjust_Signs
+}
+
+; Macro ATN_PTR: FAC = ATN((Pointer))
+; ARG is destroyed in the process unless 'preserve_' is <> 0.
+!macro ATN_PTR ptr_, preserve_ {
+  !if (preserve_) {
+    +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+  }
+
+  +Load_FAC_Ptr ptr_
+
+  +ATN_FAC 0
+
+  !if (preserve_) {
+    +Load_ARG STACK
+  }
+  +Adjust_Signs
+}
