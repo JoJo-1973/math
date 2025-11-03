@@ -11,7 +11,7 @@
 !source "fp_compare.asm"        ; Comparisons
 !source "fp_power.asm"          ; Exponentiation and Root
 !source "fp_trig.asm"           ; Trigonometric Functions
-!source "fp_trascend.asm"       ; Trascendental Functions
+!source "fp_transcend.asm"      ; Transcendental Functions
 !source "fp_poly.asm"           ; Polynomials
 !source "fp_boolean.asm"        ; Boolean Operators
 !source "fp_random.asm"         ; Random Numbers Generator
