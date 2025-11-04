@@ -291,6 +291,80 @@ INIT_ARCTAN_PTR:
 .MSG_ARCTAN_PTR:
   !text "(PTR) = 2+SQR(3)",0
 
+; ----------------------------
+
+INIT_LN:
+  +Load_FAC_with_1
+  +Load_ARG_with_2PI
+  rts
+
+INIT_LN_MEM:
+  +Load_FAC_with_e
+  +Store_FAC $C000
+  +Load_ARG_with_2PI
+
+  +PrintAt 8,10,.MSG_LN_MEM
+  rts
+
+INIT_LN_PTR:
+  +Load_ARG_with_e
+  +Load_FAC_with_2
+  +Multiply_FAC_by_2
+  +Power_ARG_to_FAC 0
+  +Store_FAC $C000
+  +Load_FAC_with_1
+  +Load_ARG_with_2PI
+
+  lda #$00
+  sta ZP_3
+  lda #$C0
+  sta ZP_3+1
+
+  +PrintAt 8,10,.MSG_LN_PTR
+  rts
+
+.MSG_LN_MEM:
+  !text "MEM = EXP(1)",0
+
+.MSG_LN_PTR:
+  !text "(PTR) = EXP(4)",0
+
+; ----------------------------
+
+INIT_EXPN:
+  +Load_FAC_with_1
+  +Load_ARG_with_2PI
+  rts
+
+INIT_EXPN_MEM:
+  +Load_FAC_with_2
+  +Store_FAC $C000
+  +Load_ARG_with_2PI
+
+  +PrintAt 8,10,.MSG_EXPN_MEM
+  rts
+
+INIT_EXPN_PTR:
+  +Load_FAC_with_2
+  +Multiply_FAC_by_2
+  +Store_FAC $C000
+  +Load_FAC_with_1
+  +Load_ARG_with_2PI
+
+  lda #$00
+  sta ZP_3
+  lda #$C0
+  sta ZP_3+1
+
+  +PrintAt 8,10,.MSG_EXPN_PTR
+  rts
+
+.MSG_EXPN_MEM:
+  !text "MEM = 2",0
+
+.MSG_EXPN_PTR:
+  !text "(PTR) = 4",0
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -1004,3 +1078,49 @@ DESC_ARCTAN_MEM:
 
 DESC_ARCTAN_PTR:
   !text "FAC = ATN((POINTER))",0
+
+; ------------------------------
+
+LN:
+  +LOG_FAC _TEST_PRESERVE
+  rts
+
+LN_MEM:
+  +LOG_MEM $C000, _TEST_PRESERVE
+  rts
+
+LN_PTR:
+  +LOG_PTR ZP_3, _TEST_PRESERVE
+  rts
+
+DESC_LN:
+  !text "FAC = LOG(FAC)",0
+
+DESC_LN_MEM:
+  !text "FAC = LOG(MEMORY)",0
+
+DESC_LN_PTR:
+  !text "FAC = LOG((POINTER))",0
+
+; ------------------------------
+
+EXPN:
+  +EXP_FAC _TEST_PRESERVE
+  rts
+
+EXPN_MEM:
+  +EXP_MEM $C000, _TEST_PRESERVE
+  rts
+
+EXPN_PTR:
+  +EXP_PTR ZP_3, _TEST_PRESERVE
+  rts
+
+DESC_EXPN:
+  !text "FAC = EXP(FAC)",0
+
+DESC_EXPN_MEM:
+  !text "FAC = EXP(MEMORY)",0
+
+DESC_EXPN_PTR:
+  !text "FAC = EXP((POINTER))",0

@@ -19,7 +19,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 61
+_TEST_START       = 64
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _TEST_PRESERVE    = 1
@@ -233,6 +233,12 @@ TEST_JUMP_TABLE:
   !word ARCTAN
   !word ARCTAN_MEM
   !word ARCTAN_PTR
+  !word LN
+  !word LN_MEM
+  !word LN_PTR
+  !word EXPN
+  !word EXPN_MEM
+  !word EXPN_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -300,6 +306,12 @@ DESC_JUMP_TABLE:
   !word DESC_ARCTAN
   !word DESC_ARCTAN_MEM
   !word DESC_ARCTAN_PTR
+  !word DESC_LN
+  !word DESC_LN_MEM
+  !word DESC_LN_PTR
+  !word DESC_EXPN
+  !word DESC_EXPN_MEM
+  !word DESC_EXPN_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -367,6 +379,12 @@ INIT_JUMP_TABLE:
   !word INIT_ARCTAN
   !word INIT_ARCTAN_MEM
   !word INIT_ARCTAN_PTR
+  !word INIT_LN
+  !word INIT_LN_MEM
+  !word INIT_LN_PTR
+  !word INIT_EXPN
+  !word INIT_EXPN_MEM
+  !word INIT_EXPN_PTR
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"
