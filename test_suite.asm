@@ -19,7 +19,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 64
+_TEST_START       = 70
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_1
 _TEST_PRESERVE    = 1
@@ -239,6 +239,8 @@ TEST_JUMP_TABLE:
   !word EXPN
   !word EXPN_MEM
   !word EXPN_PTR
+  !word POLY
+  !word POLY_ODD
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -312,6 +314,8 @@ DESC_JUMP_TABLE:
   !word DESC_EXPN
   !word DESC_EXPN_MEM
   !word DESC_EXPN_PTR
+  !word DESC_POLY
+  !word DESC_POLY_ODD
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -385,6 +389,8 @@ INIT_JUMP_TABLE:
   !word INIT_EXPN
   !word INIT_EXPN_MEM
   !word INIT_EXPN_PTR
+  !word INIT_POLY
+  !word INIT_POLY_ODD
 END_INIT_JUMP_TABLE:
 
 !source "tests.asm"

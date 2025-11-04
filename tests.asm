@@ -365,6 +365,41 @@ INIT_EXPN_PTR:
 .MSG_EXPN_PTR:
   !text "(PTR) = 4",0
 
+; ----------------------------
+
+INIT_POLY:
+  +Load_FAC_with_0.1
+  +Load_ARG_with_2PI
+  rts
+
+.Coeff_GAMMA:                   ; This 8-th degree polynomial approximates with
+                                ; excellent precision the gamma function between
+                                ; 0 and 1.
+  !byte 8
+  !byte $7C, $12, $EA, $AF, $02 ; a_8 =  .035868343
+  !byte $7E, $C6, $2C, $28, $05 ; a_7 = -.193527818
+  !byte $7F, $76, $E2, $D6, $CA ; a_6 =  .482199394
+  !byte $80, $C1, $B7, $5B, $C5 ; a_5 = -.756704078
+  !byte $80, $6B, $0F, $9A, $C5 ; a_4 =  .918206857
+  !byte $80, $E5, $A5, $85, $FD ; a_3 = -.897056937
+  !byte $80, $7C, $FB, $20, $78 ; a_2 =  .988206891
+  !byte $80, $93, $C2, $D5, $04 ; a_1 = -.577191652
+  !byte $81, $00, $00, $00, $00 ; a_0 = 1
+
+INIT_POLY_ODD:
+  +Load_FAC_with_2
+  +Load_ARG_with_2PI
+  rts
+
+.Coeff_Test:                    ; A sample polynomial of degree 7:
+                                ; -.11*x^7 + .5*x^3 + 6
+
+  !byte 3                       ; (7 - 1) / 2 = 3
+  !byte $7D, $E1, $47, $AE, $15 ; a_7 = -.11
+  !byte $00, $00, $00, $00, $00 ; a_5 = 0.
+  !byte $80, $00, $00, $00, $00 ; a_3 =  .5
+  !byte $83, $40, $00, $00, $00 ; a_1 = 6.
+
 ; ------------------------------
 
 LOAD_0.25:
@@ -1124,3 +1159,19 @@ DESC_EXPN_MEM:
 
 DESC_EXPN_PTR:
   !text "FAC = EXP((POINTER))",0
+
+; ------------------------------
+
+POLY:
+  +Polynomial_in_FAC .Coeff_GAMMA, _TEST_PRESERVE
+  rts
+
+DESC_POLY:
+  !text "FAC = GAMMA(X), 0 < X < 1",0
+
+POLY_ODD:
+  +Odd_Polynomial_in_FAC .Coeff_Test, _TEST_PRESERVE
+  rts
+
+DESC_POLY_ODD:
+  !text "FAC = -0.11*X^7+0.5*X^3+6*X",0
