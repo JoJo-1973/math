@@ -391,7 +391,7 @@ INIT_POLY_ODD:
   +Load_ARG_with_2PI
   rts
 
-.Coeff_Test:                    ; A sample polynomial of degree 7:
+.Coeff_Test:                    ; A sample odd polynomial of degree 7:
                                 ; -.11*x^7 + .5*x^3 + 6
 
   !byte 3                       ; (7 - 1) / 2 = 3
