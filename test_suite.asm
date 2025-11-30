@@ -129,13 +129,12 @@ TEST_SUITE:
   !text 0,0,147,18,"TEST SUITE COMPLETED!",146,13,0
 
 .To_BASIC:
-  ldx #$80
-  jmp (IERROR)
+  +Exit_to_BASIC
 
 .Run_Test:
   jmp (_JUMP_VECTOR)
 
-;Installation of "print.asm" macros
+; Installation of "print.asm" macros
 !align 255,0,0
 +Print_Msg
 +Print_Imm
