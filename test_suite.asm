@@ -5,6 +5,8 @@
 !source <system/print.asm>
 !source "floating_point.asm"
 
+!to "fp test suite",cbm
+
 +BASIC_Preamble 10,INIT,"FLOATING POINT MACRO LIBRARY TEST SUITE"
 
 ; Global variables
@@ -59,10 +61,8 @@ TEST_SUITE:
   sta _TEST_DESC_PTR
   lda DESC_JUMP_TABLE+1,y
   sta _TEST_DESC_PTR+1
-  clc
-  ldx #0
-  ldy #10
-  jsr PLOT
+
+  +At 0,10
   lda _TEST_DESC_PTR
   ldy _TEST_DESC_PTR+1
   jsr PRINT_RAW
@@ -77,27 +77,18 @@ TEST_SUITE:
   sta _JUMP_VECTOR+1
   jsr .Run_Test                 ; Init FAC and ARG.
 
-  clc                           ; Print "before" FAC.
-  ldx #4
-  ldy #6
-  jsr PLOT
+  +At 4,6                       ; Print "before" FAC.
   +Print_FAC 1
 
-  clc                           ; Print "before" ARG.
-  ldx #5
-  ldy #6
-  jsr PLOT
+  +At 5,6                       ; Print "before" ARG.
   +Print_ARG 1
 
   lda #_TEST_PRESERVE
   beq .Do_Test
 
-  clc
-  ldx #0
-  ldy #39
-  jsr PLOT
+  +At 0,39                      ; If _TEST_PRESERVE is on, print an asterisk.
   lda #"*"
-  JSR __PUTCHAR
+  jsr __PUTCHAR
 
 .Do_Test:
   pla
@@ -109,16 +100,10 @@ TEST_SUITE:
   sta _JUMP_VECTOR+1
   jsr .Run_Test                 ; Run the test.
 
-  clc                           ; Print FAC "after".
-  ldx #12
-  ldy #6
-  jsr PLOT
+  +At 12,6                      ; Print FAC "after".
   +Print_FAC 1
 
-  clc                           ; Print ARG "after".
-  ldx #13
-  ldy #6
-  jsr PLOT
+  +At 13,6                      ; Print ARG "after".
   +Print_ARG 1
 
 .Loop_Any_Key:
