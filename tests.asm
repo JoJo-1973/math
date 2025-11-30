@@ -26,15 +26,14 @@ INIT_UNARY:
 ; ----------------------------
 
 INIT_SIGNUM:
-  +PrintAt 12,20,.MSG_SIGNUM
-  +PrintAt 13,20,.MSG_SIGNUM
+  jsr PRINT_IMM
+  !text 12,20,"SIGN:",0
+  jsr PRINT_IMM
+  !text 13,20,"SIGN:",0
 
   +Load_FAC_with_PI
   +Load_ARG_with $81, $C6, $66, $66, $66
   rts
-
-.MSG_SIGNUM:
-  !text "SIGN:",0
 
 ; ----------------------------
 
@@ -54,7 +53,8 @@ INIT_ARITH_MEM:
   +Load_FAC_with_MINUS_1
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_ARITH_MEM
+  jsr PRINT_IMM
+  !text 8,10,"MEM = -32768",0
   rts
 
 INIT_ARITH_PTR:
@@ -66,14 +66,9 @@ INIT_ARITH_PTR:
   +Load_FAC_with_MINUS_1
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_ARITH_PTR
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = -32768",0
   rts
-
-.MSG_ARITH_MEM:
-  !text "MEM = -32768",0
-
-.MSG_ARITH_PTR:
-  !text "(PTR) = -32768",0
 
 ; ----------------------------
 
@@ -81,15 +76,18 @@ INIT_COMP:
   +Load_FAC_with_1
   +Load_ARG_with_0
 
-  +PrintAt 13,20,.MSG_COMP
+  jsr PRINT_IMM
+  !text 13,20,"CMP:",0
   rts
 
 INIT_COMP_MEM:
   +Load_FAC_with_1
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_COMP_MEM
-  +PrintAt 13,20,.MSG_COMP
+  jsr PRINT_IMM
+  !text 8,10,"MEM = -32768",0
+  jsr PRINT_IMM
+  !text 13,20,"CMP:",0
   rts
 
 INIT_COMP_PTR:
@@ -101,18 +99,11 @@ INIT_COMP_PTR:
   +Load_FAC_with_1
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_COMP_PTR
-  +PrintAt 13,20,.MSG_COMP
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = -32768",0
+  jsr PRINT_IMM
+  !text 13,20,"CMP:",0
   rts
-
-.MSG_COMP:
-  !text "CMP:",0
-
-.MSG_COMP_MEM:
-  !text "MEM = -32768",0
-
-.MSG_COMP_PTR:
-  !text "(PTR) = -32768",0
 
 ; ----------------------------
 
@@ -126,7 +117,8 @@ INIT_PWR_MEM:
   +Load_FAC_with $82, $40, $00, $00, $00
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_PWR_MEM
+  jsr PRINT_IMM
+  !text 8,10,"MEM = 10",0
   rts
 
 INIT_PWR_PTR:
@@ -138,14 +130,9 @@ INIT_PWR_PTR:
   +Load_FAC_with_2
   +Load_ARG_with_0
 
-  +PrintAt 8,10,.MSG_PWR_PTR
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = -32768",0
   rts
-
-.MSG_PWR_MEM:
-  !text "MEM = 10",0
-
-.MSG_PWR_PTR:
-  !text "(PTR) = -32768",0
 
 ; ----------------------------
 
@@ -158,7 +145,8 @@ INIT_SQRT_MEM:
   +Load_FAC_with $82, $40, $00, $00, $00
   +Load_ARG_with_2PI
 
-  +PrintAt 8,10,.MSG_SQRT_MEM
+  jsr PRINT_IMM
+  !text 8,10,"MEM = 10",0
   rts
 
 INIT_SQRT_PTR:
@@ -172,14 +160,9 @@ INIT_SQRT_PTR:
   lda #$C0
   sta ZP_3+1
 
-  +PrintAt 8,10,.MSG_SQRT_PTR
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = 1024",0
   rts
-
-.MSG_SQRT_MEM:
-  !text "MEM = 10",0
-
-.MSG_SQRT_PTR:
-  !text "(PTR) = 1024",0
 
 ; ----------------------------
 
@@ -194,7 +177,8 @@ INIT_SIN_COS_MEM:
   +Load_FAC_with_0
   +Load_ARG_with_2PI
 
-  +PrintAt 8,10,.MSG_SIN_COS_MEM
+  jsr PRINT_IMM
+  !text 8,10,"MEM = ",126,"/6",0
   rts
 
 INIT_SIN_COS_PTR:
@@ -208,14 +192,9 @@ INIT_SIN_COS_PTR:
   lda #$C0
   sta ZP_3+1
 
-  +PrintAt 8,10,.MSG_SIN_COS_PTR
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = ",126,"/2",0
   rts
-
-.MSG_SIN_COS_MEM:
-  !text "MEM = ",126,"/6",0
-
-.MSG_SIN_COS_PTR:
-  !text "(PTR) = ",126,"/2",0
 
 ; ----------------------------
 
@@ -230,7 +209,8 @@ INIT_TANG_MEM:
   +Load_FAC_with_0
   +Load_ARG_with_2PI
 
-  +PrintAt 8,10,.MSG_TAN_MEM
+  jsr PRINT_IMM
+  !text 8,10,"MEM = ",126,"/6",0
   rts
 
 INIT_TANG_PTR:
@@ -244,14 +224,9 @@ INIT_TANG_PTR:
   lda #$C0
   sta ZP_3+1
 
-  +PrintAt 8,10,.MSG_TAN_PTR
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = ",126,"/3",0
   rts
-
-.MSG_TAN_MEM:
-  !text "MEM = ",126,"/6",0
-
-.MSG_TAN_PTR:
-  !text "(PTR) = ",126,"/3",0
 
 ; ----------------------------
 
@@ -266,7 +241,8 @@ INIT_ARCTAN_MEM:
   +Load_FAC_with_0
   +Load_ARG_with_1
 
-  +PrintAt 8,10,.MSG_ARCTAN_MEM
+  jsr PRINT_IMM
+  !text 8,10,"MEM = SQR(3)",0
   rts
 
 INIT_ARCTAN_PTR:
@@ -282,14 +258,9 @@ INIT_ARCTAN_PTR:
   lda #$C0
   sta ZP_3+1
 
-  +PrintAt 8,10,.MSG_ARCTAN_PTR
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = 2+SQR(3)",0
   rts
-
-.MSG_ARCTAN_MEM:
-  !text "MEM = SQR(3)",0
-
-.MSG_ARCTAN_PTR:
-  !text "(PTR) = 2+SQR(3)",0
 
 ; ----------------------------
 
@@ -303,7 +274,8 @@ INIT_LN_MEM:
   +Store_FAC $C000
   +Load_ARG_with_2PI
 
-  +PrintAt 8,10,.MSG_LN_MEM
+  jsr PRINT_IMM
+  !text 8,10,"MEM = EXP(1)",0
   rts
 
 INIT_LN_PTR:
@@ -320,14 +292,9 @@ INIT_LN_PTR:
   lda #$C0
   sta ZP_3+1
 
-  +PrintAt 8,10,.MSG_LN_PTR
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = EXP(4)",0
   rts
-
-.MSG_LN_MEM:
-  !text "MEM = EXP(1)",0
-
-.MSG_LN_PTR:
-  !text "(PTR) = EXP(4)",0
 
 ; ----------------------------
 
@@ -341,7 +308,8 @@ INIT_EXPN_MEM:
   +Store_FAC $C000
   +Load_ARG_with_2PI
 
-  +PrintAt 8,10,.MSG_EXPN_MEM
+  jsr PRINT_IMM
+  !text 8,10,"MEM = 2",0
   rts
 
 INIT_EXPN_PTR:
@@ -356,14 +324,9 @@ INIT_EXPN_PTR:
   lda #$C0
   sta ZP_3+1
 
-  +PrintAt 8,10,.MSG_EXPN_PTR
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = 4",0
   rts
-
-.MSG_EXPN_MEM:
-  !text "MEM = 2",0
-
-.MSG_EXPN_PTR:
-  !text "(PTR) = 4",0
 
 ; ----------------------------
 
@@ -541,7 +504,7 @@ LOAD_2PI:
   rts
 
 DESC_2PI:
-  !text "LOAD WITH CONSTANT 2",126,",0
+  !text "LOAD WITH CONSTANT 2",126,0
 
 ; ------------------------------
 

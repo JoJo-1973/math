@@ -1,7 +1,7 @@
 ; Commodore BASIC Floating Point macros
 ; (c) 2024 Stefano Priore
 
-!source <c64_symbols.asm>
+!source <c64/symbols.asm>
 
 !source "fp_memory.asm"         ; Memory Manipulation
 !source "fp_constants.asm"      ; Loading Constants into FAC / ARG

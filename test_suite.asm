@@ -1,62 +1,53 @@
-!source <standard.asm>
-!source <c64_symbols.asm>
-!source <kernal.asm>
-!source <vic.asm>
+!source <system/standard.asm>
+!source <c64/symbols.asm>
+!source <c64/kernal.asm>
+!source <chip/vic_ii.asm>
+!source <system/print.asm>
 !source "floating_point.asm"
-
-!macro PrintAt row_, col_, string_ {
-  clc                           ; Locate cursor
-  ldx #row_
-  ldy #col_
-  jsr PLOT
-
-  lda #<string_                 ; then print string.
-  ldy #>string_
-  jsr SAFE_PRINT
-}
 
 +BASIC_Preamble 10,INIT,"FLOATING POINT MACRO LIBRARY TEST SUITE"
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 70
+_TEST_START       = 1
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
-_TEST_DESC_PTR    = ZP_1
+_TEST_DESC_PTR    = ZP_3
 _TEST_PRESERVE    = 1
 _JUMP_VECTOR      = FREMEM
 
 ; Global constants
-__PRINT           = SAFE_PRINT
+__PRINT           = PRINT_RAW
 
 INIT:
   lda #VIC_BLACK                ; Black screen, orange chars.
   sta EXTCOL
   sta BGCOL0
 
-  lda #_TEST_START-1            ; Init counter
-  sta _TEST_NUM
-
   lda #VIC_ORANGE
   sta COLOR
 
-MAIN:
-  +PrintAt 0,0,MSG_TEST         ; STROUT messes with FAC, so let's print as much as possible before tests.
-  lda #0                        ; Print the test number
+  lda #_TEST_START-1            ; Init counter
+  sta _TEST_NUM
+
+TEST_SUITE:
+  lda #<MSG_TABLE
+  sta ZP_2
+  lda #>MSG_TABLE
+  sta ZP_2+1
+
+  lda #ZP_2                     ; Print the first text message followed by the test number.
+  jsr PRINT_MSG
+  lda #0
   ldx _TEST_NUM
   inx
   jsr LINPRT
   lda #":"
-  jsr CHROUT
+  jsr __PUTCHAR
 
-  +PrintAt 2,0,MSG_BEFORE
-  +PrintAt 4,0,MSG_FAC
-  +PrintAt 5,0,MSG_ARG
-
-  +PrintAt 10,0,MSG_AFTER
-  +PrintAt 12,0,MSG_FAC
-  +PrintAt 13,0,MSG_ARG
-
-  +PrintAt 23,9,MSG_NAVBAR
+.Loop_Msg:
+  lda #ZP_2
+  jsr PRINT_MSG
+  bcc .Loop_Msg
 
   lda _TEST_NUM
   asl a
@@ -65,16 +56,16 @@ MAIN:
   tay
 
   lda DESC_JUMP_TABLE,y         ; Print description message.
-  sta ZP_1
+  sta _TEST_DESC_PTR
   lda DESC_JUMP_TABLE+1,y
-  sta ZP_1+1
+  sta _TEST_DESC_PTR+1
   clc
   ldx #0
   ldy #10
   jsr PLOT
   lda _TEST_DESC_PTR
   ldy _TEST_DESC_PTR+1
-  jsr STROUT
+  jsr PRINT_RAW
 
   pla
   pha
@@ -106,7 +97,7 @@ MAIN:
   ldy #39
   jsr PLOT
   lda #"*"
-  JSR CHROUT
+  JSR __PUTCHAR
 
 .Do_Test:
   pla
@@ -135,37 +126,49 @@ MAIN:
   beq .Loop_Any_Key
 
   cmp #3
-  beq .Exit
+  beq .Exit_TEST_SUITE_Abort
 
   inc _TEST_NUM
   lda _TEST_NUM
   cmp #_TEST_COUNT
-  bcs .Exit
-  jmp MAIN
+  bcs .Exit_TEST_SUITE
+  jmp TEST_SUITE
 
-.Exit:
-  +PrintAt 0,0,MSG_DONE
-  rts
+.Exit_TEST_SUITE_Abort:
+  jsr PRINT_IMM
+  !text 0,0,147,18,"TEST SUITE ABORTED!",146,13,0
+  +Bra .To_BASIC
+
+.Exit_TEST_SUITE:
+  jsr PRINT_IMM
+  !text 0,0,147,18,"TEST SUITE COMPLETED!",146,13,0
+
+.To_BASIC:
+  ldx #$80
+  jmp (IERROR)
 
 .Run_Test:
   jmp (_JUMP_VECTOR)
 
+;Installation of "print.asm" macros
+!align 255,0,0
++Print_Msg
++Print_Imm
++Print_Raw
+
+
 ; UI messages
 !align 255,0,0
-MSG_TEST:
-  !text 147,"TEST #",0
-MSG_BEFORE:
-  !text "BEFORE:",0
-MSG_AFTER:
-  !text "AFTER:",0
-MSG_FAC:
-  !text 18," FAC: ",146,0
-MSG_ARG:
-  !text 18," ARG: ",146,0
-MSG_NAVBAR:
-  !text 18," CRSR <> NAVIGATE    R/S ABORT ",146,0
-MSG_DONE:
-  !text 147,18,"TEST COMPLETED!",146,13,0
+MSG_TABLE:
+  !text 0,0,147,"TEST #",0
+  !text 2,0,"BEFORE:",0
+  !text 4,0,18," FAC: ",146,0
+  !text 5,0,18," ARG: ",146,0
+  !text 10,0,"AFTER:",0
+  !text 12,0,18," FAC: ",146,0
+  !text 13,0,18," ARG: ",146,0
+  !text 23,9,18," CRSR <> NAVIGATE    R/S ABORT ",146,0
+  !text $FF,$FF
 
 ; Place all tests here
 !align 255,0,0
@@ -393,19 +396,5 @@ INIT_JUMP_TABLE:
   !word INIT_POLY_ODD
 END_INIT_JUMP_TABLE:
 
+!align 255,0,0
 !source "tests.asm"
-
-SAFE_PRINT:
-  sta ZP_2
-  sty ZP_2+1
-  ldy #0
-
-.Loop_Print:
-  lda (ZP_2),y
-  beq .Exit_SAFE_PRINT
-  jsr CHROUT
-  iny
-  bne .Loop_Print
-
-.Exit_SAFE_PRINT:
-  rts
