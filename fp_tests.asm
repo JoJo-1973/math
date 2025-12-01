@@ -1,5 +1,5 @@
 ; ----------------------------
-; Floating Point library tests
+; Floating point library tests
 ; ----------------------------
 
 ; ----------------------------

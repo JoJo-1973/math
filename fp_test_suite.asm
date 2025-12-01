@@ -381,4 +381,4 @@ INIT_JUMP_TABLE:
 END_INIT_JUMP_TABLE:
 
 !align 255,0,0
-!source "tests.asm"
+!source "fp_tests.asm"
