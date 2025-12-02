@@ -90,6 +90,9 @@
 ; __PRINT must point to an actual printing routine. It's strongly
 ; discouraged to use STROUT since it trashes FAC and ARG.
 !macro Print_FAC preserve_ {
+  !ifndef __PRINT {
+    __PRINT = STROUT
+  }
   !if (preserve_) {
     +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
     +Store_ARG_in_Scratch
@@ -98,7 +101,7 @@
   jsr FOUT                      ; FOUT places converted FAC in $0100 destroying FAC and ARG in the process.
   lda #<STACK                   ; String is stored at bottom of stack.
   ldy #>STACK
-  jsr STROUT
+  jsr __PRINT
 
   !if (preserve_) {
     +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
@@ -109,6 +112,9 @@
 }
 
 !macro Print_ARG preserve_ {
+  !ifndef __PRINT {
+    __PRINT = STROUT
+  }
   !if (preserve_) {
     +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
     +Store_ARG_in_Scratch
