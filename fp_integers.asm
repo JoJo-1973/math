@@ -17,8 +17,8 @@
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
 ; External dependencies:  symbols.asm, standard.asm, kernal.asm, vic_ii.asm
-!macro Load_FAC_with_UNIT8 value_ {
-  lda #(value & $FF)            ; Prepare mantissa.
+!macro Load_FAC_with_UINT8 value_ {
+  lda #(value_ & $FF)            ; Prepare mantissa.
   sta FACHO
   lda #0
   sta FACMOH
@@ -32,7 +32,7 @@
   jsr $BC4F
 }
 
-!macro Load_FAC_with_UNIT8_Mem addr_ {
+!macro Load_FAC_with_UINT8_Mem addr_ {
   lda addr_                     ; Prepare mantissa.
   sta FACHO
   lda #0
@@ -47,7 +47,7 @@
   jsr $BC4F
 }
 
-!macro Load_FAC_with_UNIT8_Ptr ptr_ {
+!macro Load_FAC_with_UINT8_Ptr ptr_ {
   ldy #0                        ; Prepare mantissa.
   lda (ptr_),y
   sta FACHO
