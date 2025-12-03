@@ -199,7 +199,7 @@
 
   lda #(value_ & $FF00) >> 8    ; Prepare mantissa.
   sta FACHO
-  lda #(value_ & $00FF) >> 8
+  lda #(value_ & $00FF)
   sta FACMOH
 
   lda #0
@@ -291,7 +291,7 @@
   eor #$FF                      ; C = 1, force conversion to unsigned integer.
   rol a                         ; C = 0, force conversion to signed integer.
 
-  lda #(value_ & $00FF) >> 8
+  lda #(value_ & $00FF)
   sta FACMOH
 
   lda #0
