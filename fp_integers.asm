@@ -19,7 +19,7 @@
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
-; External dependencies:  symbols.asm, standard.asm, kernal.asm, vic_ii.asm
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Load_FAC_with_UINT8 value_ {
   sec                           ; C = 1, force conversion to unsigned integer.
                                 ; C = 0, force conversion to signed integer.
@@ -32,7 +32,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$88                      ; Prepare exponent = $80 + number of bits
+  ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -49,7 +49,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$88                      ; Prepare exponent = $80 + number of bits
+  ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -67,7 +67,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$88                      ; Prepare exponent = $80 + number of bits
+  ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -107,7 +107,7 @@
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
-; External dependencies:  symbols.asm, standard.asm, kernal.asm, vic_ii.asm
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Load_FAC_with_INT8 value_ {
   lda #(value_ & $FF)            ; Prepare mantissa.
   sta FACHO
@@ -119,7 +119,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$88                      ; Prepare exponent = $80 + number of bits
+  ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -135,7 +135,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$88                      ; Prepare exponent = $80 + number of bits
+  ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -152,7 +152,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$88                      ; Prepare exponent = $80 + number of bits
+  ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -192,7 +192,7 @@
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
-; External dependencies:  symbols.asm, standard.asm, kernal.asm, vic_ii.asm
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Load_FAC_with_UINT16 value_ {
   sec                           ; C = 1, force conversion to unsigned integer.
                                 ; C = 0, force conversion to signed integer.
@@ -206,7 +206,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$90                      ; Prepare exponent = $80 + number of bits
+  ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -224,7 +224,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$90                      ; Prepare exponent = $80 + number of bits
+  ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -233,10 +233,10 @@
   sec                           ; C = 1, force conversion to unsigned integer.
                                 ; C = 0, force conversion to signed integer.
 
-  ldy #0                        ; Prepare mantissa.
+  ldy #1                        ; Prepare mantissa.
   lda (ptr_),y
   sta FACHO
-  iny
+  dey
   lda (ptr_),y
   sta FACMOH
 
@@ -244,7 +244,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$90                      ; Prepare exponent = $80 + number of bits
+  ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -284,7 +284,7 @@
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
-; External dependencies:  symbols.asm, standard.asm, kernal.asm, vic_ii.asm
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Load_FAC_with_INT16 value_ {
   lda #(value_ & $FF00) >> 8    ; Prepare mantissa.
   sta FACHO
@@ -298,7 +298,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$90                      ; Prepare exponent = $80 + number of bits
+  ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
@@ -316,19 +316,19 @@
   sta FACMO
   sta FACLO
 
-  ldx #$90                      ; Prepare exponent = $80 + number of bits
+  ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
 
 !macro Load_FAC_with_INT16_Ptr ptr_ {
-  ldy #0                        ; Prepare mantissa.
+  ldy #1                        ; Prepare mantissa.
   lda (ptr_),y
   sta FACHO
   eor #$FF                      ; C = 1, force conversion to unsigned integer.
   rol a                         ; C = 0, force conversion to signed integer.
 
-  iny
+  dey
   lda (ptr_),y
   sta FACMOH
 
@@ -336,7 +336,7 @@
   sta FACMO
   sta FACLO
 
-  ldx #$90                      ; Prepare exponent = $80 + number of bits
+  ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
   jsr $BC4F
 }
