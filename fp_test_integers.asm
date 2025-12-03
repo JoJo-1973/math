@@ -101,6 +101,106 @@ INT8_ARG:
   bcc .Loop_Test_INT8_ARG
   jsr WAIT_KEY
 
+UINT16_FAC:
+  jsr PRINT_IMM
+  !text 0,20,18,"UINT16",146,0
+
+  jsr PRINT_FAC_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_UINT16_FAC
+  lda CNT
+  asl a
+  tay
+
+  lda INT16_TABLE,y
+  sta ADDR
+  lda INT16_TABLE+1,y
+  sta ADDR+1
+  jsr TEST_UINT16_FAC
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT16_TABLE - INT16_TABLE) / 2)
+  bcc .Loop_Test_UINT16_FAC
+  jsr WAIT_KEY
+
+UINT16_ARG:
+  jsr PRINT_IMM
+  !text 0,20,18,"UINT16",146,0
+
+  jsr PRINT_ARG_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_UINT16_ARG
+  lda CNT
+  asl a
+  tay
+
+  lda INT16_TABLE,y
+  sta ADDR
+  lda INT16_TABLE+1,y
+  sta ADDR+1
+  jsr TEST_UINT16_ARG
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT16_TABLE - INT16_TABLE) / 2)
+  bcc .Loop_Test_UINT16_ARG
+  jsr WAIT_KEY
+
+INT16_FAC:
+  jsr PRINT_IMM
+  !text 0,20,18,"INT16",146,0
+
+  jsr PRINT_FAC_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_INT16_FAC
+  lda CNT
+  asl a
+  tay
+
+  lda INT16_TABLE,y
+  sta ADDR
+  lda INT16_TABLE+1,y
+  sta ADDR+1
+  jsr TEST_INT16_FAC
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT16_TABLE - INT16_TABLE) / 2)
+  bcc .Loop_Test_INT16_FAC
+  jsr WAIT_KEY
+
+INT16_ARG:
+  jsr PRINT_IMM
+  !text 0,20,18,"INT16",146,0
+
+  jsr PRINT_ARG_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_INT16_ARG
+  lda CNT
+  asl a
+  tay
+
+  lda INT16_TABLE,y
+  sta ADDR
+  lda INT16_TABLE+1,y
+  sta ADDR+1
+  jsr TEST_INT16_ARG
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT16_TABLE - INT16_TABLE) / 2)
+  bcc .Loop_Test_INT16_ARG
+  jsr WAIT_KEY
+
 .Exit_TEST_INTEGERS:
   rts
 
@@ -171,6 +271,8 @@ PRINT_FAC_ARG:
 
   lda FACLO,x
   jsr PRINT_BYTE
+  lda #146
+  jsr __PUTCHAR
   lda #" "
   jsr __PUTCHAR
 
