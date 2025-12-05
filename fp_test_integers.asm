@@ -201,8 +201,244 @@ INT16_ARG:
   bcc .Loop_Test_INT16_ARG
   jsr WAIT_KEY
 
+UINT24_FAC:
+  jsr PRINT_IMM
+  !text 0,20,18,"UINT24",146,0
+
+  jsr PRINT_FAC_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_UINT24_FAC
+  lda CNT
+  asl a
+  clc
+  adc CNT
+  tay
+
+  lda INT24_TABLE,y
+  sta ADDR
+  lda INT24_TABLE+1,y
+  sta ADDR+1
+  lda INT24_TABLE+2,y
+  sta ADDR+2
+  jsr TEST_UINT24_FAC
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT24_TABLE - INT24_TABLE) / 3)
+  bcc .Loop_Test_UINT24_FAC
+  jsr WAIT_KEY
+
+UINT24_ARG:
+  jsr PRINT_IMM
+  !text 0,20,18,"UINT24",146,0
+
+  jsr PRINT_ARG_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_UINT24_ARG
+  lda CNT
+  asl a
+  clc
+  adc CNT
+  tay
+
+  lda INT24_TABLE,y
+  sta ADDR
+  lda INT24_TABLE+1,y
+  sta ADDR+1
+  lda INT24_TABLE+2,y
+  sta ADDR+2
+  jsr TEST_UINT24_ARG
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT24_TABLE - INT24_TABLE) / 3)
+  bcc .Loop_Test_UINT24_ARG
+  jsr WAIT_KEY
+
+INT24_FAC:
+  jsr PRINT_IMM
+  !text 0,20,18,"INT24",146,0
+
+  jsr PRINT_FAC_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_INT24_FAC
+  lda CNT
+  asl a
+  clc
+  adc CNT
+  tay
+
+  lda INT24_TABLE,y
+  sta ADDR
+  lda INT24_TABLE+1,y
+  sta ADDR+1
+  lda INT24_TABLE+2,y
+  sta ADDR+2
+  jsr TEST_INT24_FAC
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT24_TABLE - INT24_TABLE) / 3)
+  bcc .Loop_Test_INT24_FAC
+  jsr WAIT_KEY
+
+INT24_ARG:
+  jsr PRINT_IMM
+  !text 0,20,18,"INT24",146,0
+
+  jsr PRINT_ARG_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_INT24_ARG
+  lda CNT
+  asl a
+  clc
+  adc CNT
+  tay
+
+  lda INT24_TABLE,y
+  sta ADDR
+  lda INT24_TABLE+1,y
+  sta ADDR+1
+  lda INT24_TABLE+2,y
+  sta ADDR+2
+  jsr TEST_INT24_ARG
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT24_TABLE - INT24_TABLE) / 3)
+  bcc .Loop_Test_INT24_ARG
+  jsr WAIT_KEY
+
+UINT32_FAC:
+  jsr PRINT_IMM
+  !text 0,20,18,"UINT32",146,0
+
+  jsr PRINT_FAC_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_UINT32_FAC
+  lda CNT
+  asl a
+  asl a
+  tay
+
+  lda INT32_TABLE,y
+  sta ADDR
+  lda INT32_TABLE+1,y
+  sta ADDR+1
+  lda INT32_TABLE+2,y
+  sta ADDR+2
+  lda INT32_TABLE+3,y
+  sta ADDR+3
+  jsr TEST_UINT32_FAC
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT32_TABLE - INT32_TABLE) / 4)
+  bcc .Loop_Test_UINT32_FAC
+  jsr WAIT_KEY
+
+UINT32_ARG:
+  jsr PRINT_IMM
+  !text 0,20,18,"UINT32",146,0
+
+  jsr PRINT_ARG_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_UINT32_ARG
+  lda CNT
+  asl a
+  asl a
+  tay
+
+  lda INT32_TABLE,y
+  sta ADDR
+  lda INT32_TABLE+1,y
+  sta ADDR+1
+  lda INT32_TABLE+2,y
+  sta ADDR+2
+  lda INT32_TABLE+3,y
+  sta ADDR+3
+  jsr TEST_UINT32_ARG
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT32_TABLE - INT32_TABLE) / 4)
+  bcc .Loop_Test_UINT32_ARG
+  jsr WAIT_KEY
+
+INT32_FAC:
+  jsr PRINT_IMM
+  !text 0,20,18,"INT32",146,0
+
+  jsr PRINT_FAC_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_INT32_FAC
+  lda CNT
+  asl a
+  asl a
+  tay
+
+  lda INT32_TABLE,y
+  sta ADDR
+  lda INT32_TABLE+1,y
+  sta ADDR+1
+  lda INT32_TABLE+2,y
+  sta ADDR+2
+  lda INT32_TABLE+3,y
+  sta ADDR+3
+  jsr TEST_INT32_FAC
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT32_TABLE - INT32_TABLE) / 4)
+  bcc .Loop_Test_INT32_FAC
+  jsr WAIT_KEY
+
+INT32_ARG:
+  jsr PRINT_IMM
+  !text 0,20,18,"INT32",146,0
+
+  jsr PRINT_ARG_HEADER
+  lda #0
+  sta CNT
+
+.Loop_Test_INT32_ARG
+  lda CNT
+  asl a
+  asl a
+  tay
+
+  lda INT32_TABLE,y
+  sta ADDR
+  lda INT32_TABLE+1,y
+  sta ADDR+1
+  lda INT32_TABLE+2,y
+  sta ADDR+2
+  lda INT32_TABLE+3,y
+  sta ADDR+3
+  jsr TEST_INT32_ARG
+
+  inc CNT
+  lda CNT
+  cmp #((END_INT32_TABLE - INT32_TABLE) / 4)
+  bcc .Loop_Test_INT32_ARG
+  jsr WAIT_KEY
+
 .Exit_TEST_INTEGERS:
-  rts
+  +Exit_to_BASIC
 
 WAIT_KEY:
   jsr GETIN
@@ -324,10 +560,10 @@ INT24_TABLE:
   !byte $FF, $FF, $7F
   !byte $00, $00, $80
   !byte $FF, $FF, $FF
-END_INT_24_TABLE:
+END_INT24_TABLE:
 
 INT32_TABLE:
-  !dword $00, $FF, $FFFF, $FFFFFF, $7FFFFFFF, $80FFFFFF, $FFFFFFFF
+  !dword $00, $FF, $FFFF, $FFFFFF, $7FFFFFFF, $80000000, $FFFFFFFF
 END_INT32_TABLE:
 
 

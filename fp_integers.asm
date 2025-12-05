@@ -27,7 +27,9 @@
   lda #(value_ & $FF)           ; Prepare mantissa.
   sta FACHO
 
-  lda #0
+  !if (value_ & $FF) {
+    lda #0
+  }
   sta FACMOH
   sta FACMO
   sta FACLO
@@ -199,10 +201,15 @@
 
   lda #(value_ & $FF00) >> 8    ; Prepare mantissa.
   sta FACHO
-  lda #(value_ & $00FF)
+
+  !if ((value_ & $FF00) >> 8) - (value_ & $00FF) {
+    lda #(value_ & $00FF)
+  }
   sta FACMOH
 
-  lda #0
+  !if (value_ & $00FF) {
+    lda #0
+  }
   sta FACMO
   sta FACLO
 
@@ -294,7 +301,9 @@
   lda #(value_ & $00FF)
   sta FACMOH
 
-  lda #0
+  !if (value_ & $00FF) {
+    lda #0
+  }
   sta FACMO
   sta FACLO
 
@@ -356,5 +365,423 @@
 !macro Load_ARG_with_INT16_Ptr ptr_ {
   +Swap_FAC_and_ARG
   +Load_FAC_with_INT16_Ptr ptr_
+  +Swap_FAC_and_ARG
+}
+
+; Title:                  MACRO: Load unsigned 24-bit integer into FAC or ARG
+; Name:                   Load_FAC_with_UINT24
+;                         Load_FAC_with_UINT24_Mem
+;                         Load_FAC_with_UINT24_Ptr
+;                         Load_ARG_with_UINT24
+;                         Load_ARG_with_UINT24_Mem
+;                         Load_ARG_with_UINT24_Ptr
+; Description:            Load floating point accumulator with an unsigned 24-bit integer.
+;                         The value can be expressed directly as argument of the macro,
+;                         can be stored at a memory address or can be pointed at
+;                         by a zero-page pointer.
+; Input parameters:       value_: a 24-bit constant
+;                         addr_:  a 16-bit memory address
+;                         ptr_:   a zero-page pointer
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro Load_FAC_with_UINT24 value_ {
+  sec                           ; C = 1, force conversion to unsigned integer.
+                                ; C = 0, force conversion to signed integer.
+
+  lda #(value_ & $FF0000) >> 16 ; Prepare mantissa.
+  sta FACHO
+
+  !if ((value_ & $FF0000) >> 16) - ((value_ & $00FF00) >> 8) {
+    lda #(value_ & $00FF00) >> 8
+  }
+  sta FACMOH
+
+  !if ((value_ & $00FF00) >> 8) - (value_ &0000FF) {
+    lda #(value_ &0000FF)
+  }
+  sta FACMO
+
+  !if (value_ &0000FF) {
+    lda #0
+  }
+  sta FACLO
+
+  ldx #$98                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_FAC_with_UINT24_Mem addr_ {
+  sec                           ; C = 1, force conversion to unsigned integer.
+                                ; C = 0, force conversion to signed integer.
+
+  lda addr_+2                   ; Prepare mantissa.
+  sta FACHO
+  lda addr_+1
+  sta FACMOH
+  lda addr_
+  sta FACMO
+
+  lda #0
+  sta FACLO
+
+  ldx #$98                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_FAC_with_UINT24_Ptr ptr_ {
+  sec                           ; C = 1, force conversion to unsigned integer.
+                                ; C = 0, force conversion to signed integer.
+
+  ldy #2                        ; Prepare mantissa.
+  lda (ptr_),y
+  sta FACHO
+  dey
+  lda (ptr_),y
+  sta FACMOH
+  dey
+  lda (ptr_),y
+  sta FACMO
+
+  lda #0
+  sta FACLO
+
+  ldx #$98                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_ARG_with_UINT24 value_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_UINT24 value_
+  +Swap_FAC_and_ARG
+}
+
+!macro Load_ARG_with_UINT24_Mem addr_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_UINT24_Mem addr_
+  +Swap_FAC_and_ARG
+}
+
+!macro Load_ARG_with_UINT24_Ptr ptr_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_UINT24_Ptr ptr_
+  +Swap_FAC_and_ARG
+}
+
+; Title:                  MACRO: Load signed 24-bit integer into FAC or ARG
+; Name:                   Load_FAC_with_INT24
+;                         Load_FAC_with_INT24_Mem
+;                         Load_FAC_with_INT24_Ptr
+;                         Load_ARG_with_INT24
+;                         Load_ARG_with_INT24_Mem
+;                         Load_ARG_with_INT24_Ptr
+; Description:            Load floating point accumulator with a signed 24-bit integer.
+;                         The value can be expressed directly as argument of the macro,
+;                         can be stored at a memory address or can be pointed at
+;                         by a zero-page pointer.
+; Input parameters:       value_: a 24-bit constant
+;                         addr_:  a 16-bit memory address
+;                         ptr_:   a zero-page pointer
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro Load_FAC_with_INT24 value_ {
+  lda #(value_ & $FF0000) >> 16 ; Prepare mantissa.
+  sta FACHO
+  eor #$FF                      ; C = 1, force conversion to unsigned integer.
+  rol a                         ; C = 0, force conversion to signed integer.
+
+  lda #(value_ & $00FF00) >> 8
+  sta FACMOH
+
+  !if ((value_ & $00FF00) >> 8) - (value_ & $0000FF) {
+    lda #(value_ & $0000FF)
+  }
+  sta FACMO
+
+  !if (value_ & $0000FF) {
+    lda #0
+  }
+  sta FACLO
+
+  ldx #$98                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_FAC_with_INT24_Mem addr_ {
+  lda addr_+2                   ; Prepare mantissa.
+  sta FACHO
+  eor #$FF                      ; C = 1, force conversion to unsigned integer.
+  rol a                         ; C = 0, force conversion to signed integer.
+
+  lda addr_+1
+  sta FACMOH
+  lda addr_
+  sta FACMO
+
+  lda #0
+  sta FACLO
+
+  ldx #$98                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_FAC_with_INT24_Ptr ptr_ {
+  ldy #2                        ; Prepare mantissa.
+  lda (ptr_),y
+  sta FACHO
+  eor #$FF                      ; C = 1, force conversion to unsigned integer.
+  rol a                         ; C = 0, force conversion to signed integer.
+
+  dey
+  lda (ptr_),y
+  sta FACMOH
+  dey
+  lda (ptr_),y
+  sta FACMO
+
+  lda #0
+  sta FACLO
+
+  ldx #$98                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_ARG_with_INT24 value_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_INT24 value_
+  +Swap_FAC_and_ARG
+}
+
+!macro Load_ARG_with_INT24_Mem addr_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_INT24_Mem addr_
+  +Swap_FAC_and_ARG
+}
+
+!macro Load_ARG_with_INT24_Ptr ptr_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_INT24_Ptr ptr_
+  +Swap_FAC_and_ARG
+}
+
+; Title:                  MACRO: Load unsigned 32-bit integer into FAC or ARG
+; Name:                   Load_FAC_with_UINT32
+;                         Load_FAC_with_UINT32_Mem
+;                         Load_FAC_with_UINT32_Ptr
+;                         Load_ARG_with_UINT32
+;                         Load_ARG_with_UINT32_Mem
+;                         Load_ARG_with_UINT32_Ptr
+; Description:            Load floating point accumulator with an unsigned 32-bit integer.
+;                         The value can be expressed directly as argument of the macro,
+;                         can be stored at a memory address or can be pointed at
+;                         by a zero-page pointer.
+; Input parameters:       value_: a 32-bit constant
+;                         addr_:  a 16-bit memory address
+;                         ptr_:   a zero-page pointer
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro Load_FAC_with_UINT32 value_ {
+  sec                           ; C = 1, force conversion to unsigned integer.
+                                ; C = 0, force conversion to signed integer.
+
+  lda #(value_ & $FF000000) >> 24 ; Prepare mantissa.
+  sta FACHO
+
+  !if ((value_ & $FF000000) >> 24) - ((value_ & $00FF0000) >> 16) {
+    lda #(value_ & $00FF0000) >> 16
+  }
+  sta FACMOH
+
+  !if ((value_ & $00FF0000) >> 16) - ((value_ & $0000FF00) >> 8) {
+    lda #(value_ & $0000FF00) >> 8
+  }
+  sta FACMO
+
+  !if ((value_ &0000FF00) >> 8) - (value_ & $000000FF) {
+    lda #(value_ & $000000FF)
+  }
+  sta FACLO
+
+  !if (value_ & $000000FF) {
+    lda #0
+  }
+  ldx #$A0                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_FAC_with_UINT32_Mem addr_ {
+  sec                           ; C = 1, force conversion to unsigned integer.
+                                ; C = 0, force conversion to signed integer.
+
+  lda addr_+3                   ; Prepare mantissa.
+  sta FACHO
+  lda addr_+2
+  sta FACMOH
+  lda addr_+1
+  sta FACMO
+  lda addr_
+  sta FACLO
+
+  lda #0
+  ldx #$A0                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_FAC_with_UINT32_Ptr ptr_ {
+  sec                           ; C = 1, force conversion to unsigned integer.
+                                ; C = 0, force conversion to signed integer.
+
+  ldy #3                        ; Prepare mantissa.
+  lda (ptr_),y
+  sta FACHO
+  dey
+  lda (ptr_),y
+  sta FACMOH
+  dey
+  lda (ptr_),y
+  sta FACMO
+  dey
+  lda (ptr_),y
+  sta FACLO
+
+  lda #0
+  ldx #$A0                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_ARG_with_UINT32 value_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_UINT32 value_
+  +Swap_FAC_and_ARG
+}
+
+!macro Load_ARG_with_UINT32_Mem addr_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_UINT32_Mem addr_
+  +Swap_FAC_and_ARG
+}
+
+!macro Load_ARG_with_UINT32_Ptr ptr_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_UINT32_Ptr ptr_
+  +Swap_FAC_and_ARG
+}
+
+; Title:                  MACRO: Load signed 32-bit integer into FAC or ARG
+; Name:                   Load_FAC_with_INT32
+;                         Load_FAC_with_INT32_Mem
+;                         Load_FAC_with_INT32_Ptr
+;                         Load_ARG_with_INT32
+;                         Load_ARG_with_INT32_Mem
+;                         Load_ARG_with_INT32_Ptr
+; Description:            Load floating point accumulator with a signed 32-bit integer.
+;                         The value can be expressed directly as argument of the macro,
+;                         can be stored at a memory address or can be pointed at
+;                         by a zero-page pointer.
+; Input parameters:       value_: a 32-bit constant
+;                         addr_:  a 16-bit memory address
+;                         ptr_:   a zero-page pointer
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro Load_FAC_with_INT32 value_ {
+  lda #(value_ & $FF000000) >> 24 ; Prepare mantissa.
+  sta FACHO
+  eor #$FF                      ; C = 1, force conversion to unsigned integer.
+  rol a                         ; C = 0, force conversion to signed integer.
+
+  lda #(value_ & $00FF0000) >> 16
+  sta FACMOH
+
+  !if ((value_ & $00FF0000) >> 16) - ((value_ & $0000FF00) >> 8) {
+    lda #(value_ & $0000FF00) >> 8
+  }
+  sta FACMO
+
+  !if ((value_ & $0000FF00) >> 8) - (value_ & $000000FF) {
+    lda #(value_ & $000000FF)
+  }
+  sta FACLO
+
+  !if (value_ & $000000FF) {
+    lda #0
+  }
+  ldx #$A0                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_FAC_with_INT32_Mem addr_ {
+  lda addr_+3                   ; Prepare mantissa.
+  sta FACHO
+  eor #$FF                      ; C = 1, force conversion to unsigned integer.
+  rol a                         ; C = 0, force conversion to signed integer.
+
+  lda addr_+2
+  sta FACMOH
+  lda addr_+1
+  sta FACMO
+  lda addr_
+  sta FACLO
+
+  lda #0
+  ldx #$A0                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_FAC_with_INT32_Ptr ptr_ {
+  ldy #3                        ; Prepare mantissa.
+  lda (ptr_),y
+  sta FACHO
+  eor #$FF                      ; C = 1, force conversion to unsigned integer.
+  rol a                         ; C = 0, force conversion to signed integer.
+
+  dey
+  lda (ptr_),y
+  sta FACMOH
+  dey
+  lda (ptr_),y
+  sta FACMO
+  dey
+  lda (ptr_),y
+  sta FACLO
+
+  lda #0
+  ldx #$A0                      ; Prepare exponent = $80 + number of bits.
+
+  jsr $BC4F
+}
+
+!macro Load_ARG_with_INT32 value_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_INT32 value_
+  +Swap_FAC_and_ARG
+}
+
+!macro Load_ARG_with_INT32_Mem addr_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_INT32_Mem addr_
+  +Swap_FAC_and_ARG
+}
+
+!macro Load_ARG_with_INT32_Ptr ptr_ {
+  +Swap_FAC_and_ARG
+  +Load_FAC_with_INT32_Ptr ptr_
   +Swap_FAC_and_ARG
 }

@@ -28,6 +28,35 @@
   sta FACLO,x
 }
 
+!macro Prepare_FAC_24 {
+  lda #$98
+  sta FACEXP,x
+
+  lda ADDR+2
+  sta FACHO,x
+  lda ADDR+1
+  sta FACMOH,x
+  lda ADDR
+  sta FACMO,x
+
+  lda #0
+  sta FACLO,x
+}
+
+!macro Prepare_FAC_32 {
+  lda #$A0
+  sta FACEXP,x
+
+  lda ADDR+3
+  sta FACHO,x
+  lda ADDR+2
+  sta FACMOH,x
+  lda ADDR+1
+  sta FACMO,x
+  lda ADDR
+  sta FACLO,x
+}
+
 TEST_UINT8_FAC:
   ldx #0                        ; Load integer into FAC.
   +Prepare_FAC_8
@@ -186,6 +215,174 @@ TEST_INT16_ARG:
   jsr __PUTCHAR
 
   +Load_ARG_with_INT16_Mem ADDR ; Do the conversion.
+  ldx #8
+  jsr PRINT_FAC_ARG
+
+  +Print_ARG 1                  ; Print the result too.
+  lda #13
+  jsr __PUTCHAR
+  jsr __PUTCHAR
+
+  rts
+
+TEST_UINT24_FAC:
+  ldx #0                        ; Load integer into FAC.
+  +Prepare_FAC_24
+
+  inc RVS                       ; Print loaded FAC.
+  ldx #0
+  jsr PRINT_FAC_ARG
+  lda #13
+  jsr __PUTCHAR
+
+  +Load_FAC_with_UINT24_Mem ADDR; Do the conversion.
+  ldx #0
+  jsr PRINT_FAC_ARG
+
+  +Print_FAC 1                  ; Print the result too.
+  lda #13
+  jsr __PUTCHAR
+  jsr __PUTCHAR
+
+  rts
+
+TEST_UINT24_ARG:
+  ldx #8                        ; Load integer into ARG.
+  +Prepare_FAC_24
+
+  inc RVS                       ; Print loaded ARG.
+  ldx #8
+  jsr PRINT_FAC_ARG
+  lda #13
+  jsr __PUTCHAR
+
+  +Load_ARG_with_UINT24_Mem ADDR; Do the conversion.
+  ldx #8
+  jsr PRINT_FAC_ARG
+
+  +Print_ARG 1                  ; Print the result too.
+  lda #13
+  jsr __PUTCHAR
+  jsr __PUTCHAR
+
+  rts
+
+TEST_INT24_FAC:
+  ldx #0                        ; Load integer into FAC.
+  +Prepare_FAC_24
+
+  inc RVS                       ; Print loaded FAC.
+  ldx #0
+  jsr PRINT_FAC_ARG
+  lda #13
+  jsr __PUTCHAR
+
+  +Load_FAC_with_INT24_Mem ADDR ; Do the conversion.
+  ldx #0
+  jsr PRINT_FAC_ARG
+
+  +Print_FAC 1                  ; Print the result too.
+  lda #13
+  jsr __PUTCHAR
+  jsr __PUTCHAR
+
+  rts
+
+TEST_INT24_ARG:
+  ldx #8                        ; Load integer into ARG.
+  +Prepare_FAC_24
+
+  inc RVS                       ; Print loaded ARG.
+  ldx #8
+  jsr PRINT_FAC_ARG
+  lda #13
+  jsr __PUTCHAR
+
+  +Load_ARG_with_INT24_Mem ADDR ; Do the conversion.
+  ldx #8
+  jsr PRINT_FAC_ARG
+
+  +Print_ARG 1                  ; Print the result too.
+  lda #13
+  jsr __PUTCHAR
+  jsr __PUTCHAR
+
+  rts
+
+TEST_UINT32_FAC:
+  ldx #0                        ; Load integer into FAC.
+  +Prepare_FAC_32
+
+  inc RVS                       ; Print loaded FAC.
+  ldx #0
+  jsr PRINT_FAC_ARG
+  lda #13
+  jsr __PUTCHAR
+
+  +Load_FAC_with_UINT32_Mem ADDR; Do the conversion.
+  ldx #0
+  jsr PRINT_FAC_ARG
+
+  +Print_FAC 1                  ; Print the result too.
+  lda #13
+  jsr __PUTCHAR
+  jsr __PUTCHAR
+
+  rts
+
+TEST_UINT32_ARG:
+  ldx #8                        ; Load integer into ARG.
+  +Prepare_FAC_32
+
+  inc RVS                       ; Print loaded ARG.
+  ldx #8
+  jsr PRINT_FAC_ARG
+  lda #13
+  jsr __PUTCHAR
+
+  +Load_ARG_with_UINT32_Mem ADDR; Do the conversion.
+  ldx #8
+  jsr PRINT_FAC_ARG
+
+  +Print_ARG 1                  ; Print the result too.
+  lda #13
+  jsr __PUTCHAR
+  jsr __PUTCHAR
+
+  rts
+
+TEST_INT32_FAC:
+  ldx #0                        ; Load integer into FAC.
+  +Prepare_FAC_32
+
+  inc RVS                       ; Print loaded FAC.
+  ldx #0
+  jsr PRINT_FAC_ARG
+  lda #13
+  jsr __PUTCHAR
+
+  +Load_FAC_with_INT32_Mem ADDR ; Do the conversion.
+  ldx #0
+  jsr PRINT_FAC_ARG
+
+  +Print_FAC 1                  ; Print the result too.
+  lda #13
+  jsr __PUTCHAR
+  jsr __PUTCHAR
+
+  rts
+
+TEST_INT32_ARG:
+  ldx #8                        ; Load integer into ARG.
+  +Prepare_FAC_32
+
+  inc RVS                       ; Print loaded ARG.
+  ldx #8
+  jsr PRINT_FAC_ARG
+  lda #13
+  jsr __PUTCHAR
+
+  +Load_ARG_with_INT32_Mem ADDR ; Do the conversion.
   ldx #8
   jsr PRINT_FAC_ARG
 
