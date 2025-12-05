@@ -36,7 +36,7 @@
 
   ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_UINT8_Mem addr_ {
@@ -53,7 +53,7 @@
 
   ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_UINT8_Ptr ptr_ {
@@ -71,7 +71,7 @@
 
   ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_ARG_with_UINT8 value_ {
@@ -123,7 +123,7 @@
 
   ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_INT8_Mem addr_ {
@@ -139,7 +139,7 @@
 
   ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_INT8_Ptr ptr_ {
@@ -156,7 +156,7 @@
 
   ldx #$88                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_ARG_with_INT8 value_ {
@@ -215,7 +215,7 @@
 
   ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_UINT16_Mem addr_ {
@@ -233,7 +233,7 @@
 
   ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_UINT16_Ptr ptr_ {
@@ -253,7 +253,7 @@
 
   ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_ARG_with_UINT16 value_ {
@@ -309,7 +309,7 @@
 
   ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_INT16_Mem addr_ {
@@ -327,7 +327,7 @@
 
   ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_INT16_Ptr ptr_ {
@@ -347,7 +347,7 @@
 
   ldx #$90                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_ARG_with_INT16 value_ {
@@ -410,7 +410,7 @@
 
   ldx #$98                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_UINT24_Mem addr_ {
@@ -429,7 +429,7 @@
 
   ldx #$98                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_UINT24_Ptr ptr_ {
@@ -451,7 +451,7 @@
 
   ldx #$98                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_ARG_with_UINT24 value_ {
@@ -511,7 +511,7 @@
 
   ldx #$98                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_INT24_Mem addr_ {
@@ -530,7 +530,7 @@
 
   ldx #$98                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_INT24_Ptr ptr_ {
@@ -552,7 +552,7 @@
 
   ldx #$98                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_ARG_with_INT24 value_ {
@@ -618,7 +618,7 @@
   }
   ldx #$A0                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_UINT32_Mem addr_ {
@@ -637,7 +637,7 @@
   lda #0
   ldx #$A0                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_UINT32_Ptr ptr_ {
@@ -660,7 +660,7 @@
   lda #0
   ldx #$A0                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_ARG_with_UINT32 value_ {
@@ -723,7 +723,7 @@
   }
   ldx #$A0                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_INT32_Mem addr_ {
@@ -742,7 +742,7 @@
   lda #0
   ldx #$A0                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_FAC_with_INT32_Ptr ptr_ {
@@ -765,7 +765,7 @@
   lda #0
   ldx #$A0                      ; Prepare exponent = $80 + number of bits.
 
-  jsr $BC4F
+  jsr FLOATB
 }
 
 !macro Load_ARG_with_INT32 value_ {
