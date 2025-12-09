@@ -785,3 +785,25 @@
   +Load_FAC_with_INT32_Ptr ptr_
   +Swap_FAC_and_ARG
 }
+
+; Title:                  MACRO: Convert FAC or ARG into 32-bit signed integer
+; Name:                   Convert_FAC_into_INT32
+;                         Convert_ARG_into_INT32
+; Description:            Convert a floating point number stored into FAC or ARG into a signed 32-bit integer.
+;                         The value is stored in big-endian format, in the mantissa field, therefore a 24-, 16- or
+;                         8-bit conversion can be obtained just retrieving the bytes at the proper offset from the
+;                         first byte of the FAC / ARG.
+; Input parameters:       ---
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro Convert_FAC_into_INT32 {
+  jsr QINT
+}
+
+!macro Convert_ARG_into_INT32 {
+  +Swap_FAC_and_ARG
+  jsr QINT
+  +Swap_FAC_and_ARG
+}
