@@ -18,7 +18,6 @@ _TEST_PRESERVE    = 1
 _JUMP_VECTOR      = FREMEM
 
 ; Global constants
-__PRINT           = PRINT_RAW
 
 INIT:
   lda #VIC_BLACK                ; Black screen, orange chars.
@@ -139,6 +138,7 @@ TEST_SUITE:
 +Print_Msg
 +Print_Imm
 +Print_Raw
+__PRINT           = PRINT_RAW
 
 
 ; UI messages
