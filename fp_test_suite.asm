@@ -11,7 +11,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 1
+_TEST_START       = 72
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_3
 _TEST_PRESERVE    = 1
@@ -228,6 +228,16 @@ TEST_JUMP_TABLE:
   !word EXPN_PTR
   !word POLY
   !word POLY_ODD
+  !word BAND
+  !word BAND_MEM
+  !word BAND_PTR
+  !word BOR
+  !word BOR_MEM
+  !word BOR_PTR
+  !word BNOT_FAC
+  !word BNOT_ARG
+  !word BNOT_MEM
+  !word BNOT_PTR
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -303,6 +313,16 @@ DESC_JUMP_TABLE:
   !word DESC_EXPN_PTR
   !word DESC_POLY
   !word DESC_POLY_ODD
+  !word DESC_BAND
+  !word DESC_BAND_MEM
+  !word DESC_BAND_PTR
+  !word DESC_BOR
+  !word DESC_BOR_MEM
+  !word DESC_BOR_PTR
+  !word DESC_BNOT_FAC
+  !word DESC_BNOT_ARG
+  !word DESC_BNOT_MEM
+  !word DESC_BNOT_PTR
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -378,6 +398,16 @@ INIT_JUMP_TABLE:
   !word INIT_EXPN_PTR
   !word INIT_POLY
   !word INIT_POLY_ODD
+  !word INIT_BOOL
+  !word INIT_BOOL_MEM
+  !word INIT_BOOL_PTR
+  !word INIT_BOOL
+  !word INIT_BOOL_MEM
+  !word INIT_BOOL_PTR
+  !word INIT_BOOL
+  !word INIT_BOOL
+  !word INIT_BOOL_MEM
+  !word INIT_BOOL_PTR
 END_INIT_JUMP_TABLE:
 
 !align 255,0,0

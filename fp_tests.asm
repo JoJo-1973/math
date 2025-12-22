@@ -365,6 +365,40 @@ INIT_POLY_ODD:
 
 ; ------------------------------
 
+INIT_BOOL:
+  +Load_FAC_with_INT16 $AAAA
+  +Load_ARG_with_UINT16 $FF
+  rts
+
+INIT_BOOL_MEM:
+  +Load_FAC_with_UINT16 $FF
+  +Store_FAC $C000
+  +Load_FAC_with_INT16 $AAAA
+  +Load_ARG_with_UINT16 $FF
+
+  jsr PRINT_IMM
+  !text 8,10,"MEM = 255",0
+
+  rts
+
+INIT_BOOL_PTR:
+  +Load_FAC_with_UINT16 $FF
+  +Store_FAC $C000
+  +Load_FAC_with_INT16 $AAAA
+  +Load_ARG_with_UINT16 $FF
+
+  lda #$00
+  sta ZP_3
+  lda #$C0
+  sta ZP_3+1
+
+  jsr PRINT_IMM
+  !text 8,10,"(PTR) = 255",0
+
+  rts
+
+; ------------------------------
+
 LOAD_0.25:
   +Load_FAC_with_0.25
   nop
@@ -1138,3 +1172,79 @@ POLY_ODD:
 
 DESC_POLY_ODD:
   !text "FAC = -0.11*X^7+0.5*X^3+6*X",0
+
+; ------------------------------
+
+BAND:
+  +AND_FAC_with_ARG _TEST_PRESERVE
+  rts
+
+BAND_MEM:
+  +AND_FAC_with_MEM $C000, _TEST_PRESERVE
+  rts
+
+BAND_PTR:
+  +AND_FAC_with_PTR ZP_3, _TEST_PRESERVE
+  rts
+
+DESC_BAND:
+  !text "FAC = FAC AND ARG",0
+
+DESC_BAND_MEM:
+  !text "FAC = FAC AND MEM",0
+
+DESC_BAND_PTR:
+  !text "FAC = FAC AND (PTR)",0
+
+; ------------------------------
+
+BOR:
+  +OR_FAC_with_ARG _TEST_PRESERVE
+  rts
+
+BOR_MEM:
+  +OR_FAC_with_MEM $C000, _TEST_PRESERVE
+  rts
+
+BOR_PTR:
+  +OR_FAC_with_PTR ZP_3, _TEST_PRESERVE
+  rts
+
+DESC_BOR:
+  !text "FAC = FAC OR ARG",0
+
+DESC_BOR_MEM:
+  !text "FAC = FAC OR MEM",0
+
+DESC_BOR_PTR:
+  !text "FAC = FAC OR (PTR)",0
+
+; ------------------------------
+
+BNOT_FAC:
+  +NOT_FAC
+  rts
+
+BNOT_ARG:
+  +NOT_ARG
+  rts
+
+BNOT_MEM:
+  +NOT_MEM $C000
+  rts
+
+BNOT_PTR:
+  +NOT_PTR ZP_3
+  rts
+
+DESC_BNOT_FAC:
+  !text "FAC = NOT FAC",0
+
+DESC_BNOT_ARG:
+  !text "ARG = NOT ARG",0
+
+DESC_BNOT_MEM:
+  !text "FAC = NOT MEM",0
+
+DESC_BNOT_PTR:
+  !text "FAC = NOT (PTR)",0
