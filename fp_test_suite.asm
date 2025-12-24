@@ -11,7 +11,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 72
+_TEST_START       = 82
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_3
 _TEST_PRESERVE    = 1
@@ -238,6 +238,7 @@ TEST_JUMP_TABLE:
   !word BNOT_ARG
   !word BNOT_MEM
   !word BNOT_PTR
+  !word RND_FAC
 END_TEST_JUMP_TABLE:
 
 !align 255,0,0
@@ -323,6 +324,7 @@ DESC_JUMP_TABLE:
   !word DESC_BNOT_ARG
   !word DESC_BNOT_MEM
   !word DESC_BNOT_PTR
+  !word DESC_RND_FAC
 END_DESC_JUMP_TABLE:
 
 !align 255,0,0
@@ -408,6 +410,7 @@ INIT_JUMP_TABLE:
   !word INIT_BOOL
   !word INIT_BOOL_MEM
   !word INIT_BOOL_PTR
+  !word INIT_RND
 END_INIT_JUMP_TABLE:
 
 !align 255,0,0

@@ -399,6 +399,15 @@ INIT_BOOL_PTR:
 
 ; ------------------------------
 
+INIT_RND:
+  +Randomize
+  +Load_FAC_with_1
+  +Load_ARG_with_2PI
+
+  rts
+
+; ------------------------------
+
 LOAD_0.25:
   +Load_FAC_with_0.25
   nop
@@ -1248,3 +1257,12 @@ DESC_BNOT_MEM:
 
 DESC_BNOT_PTR:
   !text "FAC = NOT (PTR)",0
+
+; ------------------------------
+
+RND_FAC:
+  +Load_FAC_with_RND _TEST_PRESERVE
+  rts
+
+DESC_RND_FAC:
+  !text "FAC = RND(1)",0
