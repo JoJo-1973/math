@@ -151,7 +151,7 @@ _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. T
   lda _SCRATCH_1+6              ; Restore rounding byte.
   sta FACOV
 
-  +Adjust_Signs
+;  +Adjust_Signs
 }
 
 !macro Load_ARG_from_Scratch {
@@ -173,7 +173,7 @@ _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. T
   lda _SCRATCH_2+5              ; Restore sign byte.
   sta ARGSGN
 
-  +Adjust_Signs
+;  +Adjust_Signs
 }
 
 

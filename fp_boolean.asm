@@ -33,7 +33,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG addr_
+  +Load_ARG_with_Mem addr_
   +AND_FAC_with_ARG 0
 
   !if (preserve_) {
@@ -46,7 +46,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_Ptr ptr_
+  +Load_ARG_with_Ptr ptr_
   +AND_FAC_with_ARG 0
 
   !if (preserve_) {
@@ -85,7 +85,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG addr_
+  +Load_ARG_with_Mem addr_
   +OR_FAC_with_ARG 0
 
   !if (preserve_) {
@@ -98,7 +98,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_Ptr ptr_
+  +Load_ARG_with_Ptr ptr_
   +OR_FAC_with_ARG 0
 
   !if (preserve_) {
@@ -134,11 +134,11 @@
 }
 
 !macro NOT_MEM addr_ {
-  +Load_FAC addr_
+  +Load_FAC_with_Mem addr_
   +NOT_FAC
 }
 
 !macro NOT_PTR ptr_ {
-  +Load_FAC_Ptr ptr_
+  +Load_FAC_with_Ptr ptr_
   +NOT_FAC
 }

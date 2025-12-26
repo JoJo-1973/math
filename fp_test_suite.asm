@@ -11,7 +11,7 @@
 
 ; Global variables
 _TEST_NUM         = TEMP_1
-_TEST_START       = 82
+_TEST_START       = 1
 _TEST_COUNT       = (END_TEST_JUMP_TABLE - TEST_JUMP_TABLE) / 2
 _TEST_DESC_PTR    = ZP_3
 _TEST_PRESERVE    = 1

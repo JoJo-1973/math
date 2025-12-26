@@ -5,7 +5,7 @@
 ; Macro Compare FAC to ARG: comparison of FAC to ARG.
 ; .A = $00 if FAC = ARG; .A = $01 if FAC > ARG; .A = $FF if FAC < ARG.
 !macro Compare_FAC_to_ARG {
-  +Store_ARG STACK              ; The BASIC routine FCOMP can't work directly with ARG because
+  +Store_ARG_to_Mem STACK              ; The BASIC routine FCOMP can't work directly with ARG because
                                 ; it expects a 5-bytes floating point, therefore ARG is stored
                                 ; in a temporary location (the bottom of stack).
   lda #<STACK

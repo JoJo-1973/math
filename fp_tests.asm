@@ -151,7 +151,7 @@ INIT_SQRT_MEM:
 
 INIT_SQRT_PTR:
   +Load_FAC_with $8B, $00, $00, $00, $00
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_0
   +Load_ARG_with_2PI
 
@@ -173,7 +173,7 @@ INIT_SIN_COS:
 
 INIT_SIN_COS_MEM:
   +Load_FAC_with $80, $06, $0A, $91, $C1
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_0
   +Load_ARG_with_2PI
 
@@ -183,7 +183,7 @@ INIT_SIN_COS_MEM:
 
 INIT_SIN_COS_PTR:
   +Load_FAC_with_PI2
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_0
   +Load_ARG_with_2PI
 
@@ -205,7 +205,7 @@ INIT_TANG:
 
 INIT_TANG_MEM:
   +Load_FAC_with $80, $06, $0A, $91, $C1
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_0
   +Load_ARG_with_2PI
 
@@ -215,7 +215,7 @@ INIT_TANG_MEM:
 
 INIT_TANG_PTR:
   +Load_FAC_with $81, $06, $0A, $91, $C1
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_0
   +Load_ARG_with_2PI
 
@@ -237,7 +237,7 @@ INIT_ARCTAN:
 
 INIT_ARCTAN_MEM:
   +Load_FAC_with_SQR3
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_0
   +Load_ARG_with_1
 
@@ -249,7 +249,7 @@ INIT_ARCTAN_PTR:
   +Load_FAC_with_SQR3
   +Load_ARG_with_2
   +Add_ARG_to_FAC 0
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_0
   +Load_ARG_with_1
 
@@ -271,7 +271,7 @@ INIT_LN:
 
 INIT_LN_MEM:
   +Load_FAC_with_e
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_ARG_with_2PI
 
   jsr PRINT_IMM
@@ -283,7 +283,7 @@ INIT_LN_PTR:
   +Load_FAC_with_2
   +Multiply_FAC_by_2
   +Power_ARG_to_FAC 0
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_1
   +Load_ARG_with_2PI
 
@@ -305,7 +305,7 @@ INIT_EXPN:
 
 INIT_EXPN_MEM:
   +Load_FAC_with_2
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_ARG_with_2PI
 
   jsr PRINT_IMM
@@ -315,7 +315,7 @@ INIT_EXPN_MEM:
 INIT_EXPN_PTR:
   +Load_FAC_with_2
   +Multiply_FAC_by_2
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_1
   +Load_ARG_with_2PI
 
@@ -372,7 +372,7 @@ INIT_BOOL:
 
 INIT_BOOL_MEM:
   +Load_FAC_with_UINT16 $FF
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_INT16 $AAAA
   +Load_ARG_with_UINT16 $FF
 
@@ -383,7 +383,7 @@ INIT_BOOL_MEM:
 
 INIT_BOOL_PTR:
   +Load_FAC_with_UINT16 $FF
-  +Store_FAC $C000
+  +Store_FAC_to_Mem $C000
   +Load_FAC_with_INT16 $AAAA
   +Load_ARG_with_UINT16 $FF
 

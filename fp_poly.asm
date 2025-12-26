@@ -12,7 +12,7 @@
 ; in 5-bytes format, from a_n to a_0.
 !macro Polynomial_in_FAC coeff_, preserve_ {
   !if (preserve_) {
-    +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+    +Store_ARG_to_Mem STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
   lda #<coeff_
@@ -21,7 +21,7 @@
   jsr POLY2
 
   !if (preserve_) {
-    +Load_ARG STACK
+    +Load_ARG_with_Mem STACK
   }
   +Adjust_Signs
 }
@@ -36,7 +36,7 @@
 ; in 5-bytes format, from a_n to a_0.
 !macro Odd_Polynomial_in_FAC coeff_, preserve_ {
   !if (preserve_) {
-    +Store_ARG STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+    +Store_ARG_to_Mem STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
   lda #<coeff_
@@ -45,7 +45,7 @@
   jsr POLY1
 
   !if (preserve_) {
-    +Load_ARG STACK
+    +Load_ARG_with_Mem STACK
   }
   +Adjust_Signs
 }

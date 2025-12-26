@@ -26,7 +26,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG addr_
+  +Load_ARG_with_Mem addr_
 
   +Add_ARG_to_FAC 0
 
@@ -43,7 +43,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_Ptr ptr_
+  +Load_ARG_with_Ptr ptr_
 
   +Add_ARG_to_FAC 0
 
@@ -75,7 +75,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG addr_
+  +Load_ARG_with_Mem addr_
 
   +Subtract_ARG_from_FAC 0
 
@@ -92,7 +92,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_Ptr ptr_
+  +Load_ARG_with_Ptr ptr_
 
   +Subtract_ARG_from_FAC 0
 
@@ -126,7 +126,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG addr_
+  +Load_ARG_with_Mem addr_
 
   +Multiply_ARG_by_FAC 0
 
@@ -143,7 +143,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_Ptr ptr_
+  +Load_ARG_with_Ptr ptr_
 
   +Multiply_ARG_by_FAC 0
 
@@ -177,7 +177,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG addr_
+  +Load_ARG_with_Mem addr_
 
   +Divide_ARG_by_FAC 0
 
@@ -194,7 +194,7 @@
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_Ptr ptr_
+  +Load_ARG_with_Ptr ptr_
 
   +Divide_ARG_by_FAC 0
 

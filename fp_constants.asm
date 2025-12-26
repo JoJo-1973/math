@@ -94,27 +94,27 @@
 }
 
 !macro Load_FAC_with_0.25 {
-  +Load_FAC FR4
+  +Load_FAC_with_Mem FR4
 }
 
 !macro Load_ARG_with_0.25 {
-  +Load_ARG FR4
+  +Load_ARG_with_Mem FR4
 }
 
 !macro Load_FAC_with_0.5 {
-  +Load_FAC FHALF
+  +Load_FAC_with_Mem FHALF
 }
 
 !macro Load_ARG_with_0.5 {
-  +Load_ARG FHALF
+  +Load_ARG_with_Mem FHALF
 }
 
 !macro Load_FAC_with_1 {
-  +Load_FAC FONE
+  +Load_FAC_with_Mem FONE
 }
 
 !macro Load_ARG_with_1 {
-  +Load_ARG FONE
+  +Load_ARG_with_Mem FONE
 }
 
 !macro Load_FAC_with_MINUS_1 {
@@ -136,11 +136,11 @@
 }
 
 !macro Load_FAC_with_10 {
-  +Load_FAC TENC
+  +Load_FAC_with_Mem TENC
 }
 
 !macro Load_ARG_with_10 {
-  +Load_ARG TENC
+  +Load_ARG_with_Mem TENC
 }
 
 !macro Load_FAC_with_0.1 {
@@ -162,27 +162,27 @@
 }
 
 !macro Load_FAC_with_PI2 {
-  +Load_FAC PI2
+  +Load_FAC_with_Mem PI2
 }
 
 !macro Load_ARG_with_PI2 {
-  +Load_ARG PI2
+  +Load_ARG_with_Mem PI2
 }
 
 !macro Load_FAC_with_PI {
-  +Load_FAC PIVAL
+  +Load_FAC_with_Mem PIVAL
 }
 
 !macro Load_ARG_with_PI {
-  +Load_ARG PIVAL
+  +Load_ARG_with_Mem PIVAL
 }
 
 !macro Load_FAC_with_2PI {
-  +Load_FAC TWOPI
+  +Load_FAC_with_Mem TWOPI
 }
 
 !macro Load_ARG_with_2PI {
-  +Load_ARG TWOPI
+  +Load_ARG_with_Mem TWOPI
 }
 
 !macro Load_FAC_with_PI180 {
@@ -218,11 +218,11 @@
 }
 
 !macro Load_FAC_with_SQR2 {
-  +Load_FAC FSQR2
+  +Load_FAC_with_Mem FSQR2
 }
 
 !macro Load_ARG_with_SQR2 {
-  +Load_ARG FSQR2
+  +Load_ARG_with_Mem FSQR2
 }
 
 !macro Load_FAC_with_SQR3 {
@@ -242,11 +242,11 @@
 }
 
 !macro Load_FAC_with_LOG2 {
-  +Load_FAC FLOG2
+  +Load_FAC_with_Mem FLOG2
 }
 
 !macro Load_ARG_with_LOG2 {
-  +Load_ARG FLOG2
+  +Load_ARG_with_Mem FLOG2
 }
 
 !macro Load_FAC_with_LOG10 {
