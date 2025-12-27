@@ -4,8 +4,8 @@
 !source <c64/symbols.asm>
 
 !source "fp_memory.asm"         ; Memory Manipulation
-!source "fp_constants.asm"      ; Loading Constants into FAC / ARG
-!source "fp_integers.asm"       ; Loading Integers into FAC / ARG
+!source "fp_constants.asm"      ; Loading Floating Point Constants into FAC / ARG
+!source "fp_integers.asm"       ; Loading Binary Integers into FAC / ARG
 !source "fp_unary.asm"          ; Unary Functions
 !source "fp_arith.asm"          ; Basic Arithmetic
 !source "fp_compare.asm"        ; Comparisons
@@ -150,8 +150,6 @@ _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. T
 
   lda _SCRATCH_1+6              ; Restore rounding byte.
   sta FACOV
-
-;  +Adjust_Signs
 }
 
 !macro Load_ARG_from_Scratch {
@@ -172,8 +170,6 @@ _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. T
 
   lda _SCRATCH_2+5              ; Restore sign byte.
   sta ARGSGN
-
-;  +Adjust_Signs
 }
 
 

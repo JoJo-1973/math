@@ -38,8 +38,8 @@ INIT_SIGNUM:
 ; ----------------------------
 
 INIT_MAXR:
-  +Load_FAC_with_eps
-  +Load_ARG_with_eps
+  +Load_FAC_with_MINR
+  +Load_ARG_with_MINR
   rts
 
 ; ----------------------------
@@ -677,7 +677,7 @@ LOAD_MAXR:
   rts
 
 DESC_MAXR:
-  !text "EPS & MAXR",0
+  !text "MINR & MAXR",0
 
 ; ------------------------------
 

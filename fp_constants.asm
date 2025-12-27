@@ -1,6 +1,6 @@
-; --------------------------------
-; Loading Constants into FAC / ARG
-; --------------------------------
+; -----------------------------------------------
+; Loading Floating Point Constants into FAC / ARG
+; -----------------------------------------------
 
 ; Macro +Load_[FAC/ARG]_with: Load [FAC/ARG] with a 5-bytes floating point value.
 !macro Load_FAC_with exp_, ho_, moh_, mo_, lo_ {
@@ -86,35 +86,35 @@
 
 ; Macro +Load_[FAC/ARG]_with_...: Load [FAC/ARG] with predefined constants.
 !macro Load_FAC_with_0 {
-  +Load_FAC_with $00,$00,$00,$00,$00
+  +Load_FAC_with $00, $00, $00, $00, $00
 }
 
 !macro Load_ARG_with_0 {
-  +Load_ARG_with $00,$00,$00,$00,$00
+  +Load_ARG_with $00, $00, $00, $00, $00
 }
 
 !macro Load_FAC_with_0.25 {
-  +Load_FAC_with_Mem FR4
+  +Load_FAC_from_Mem FR4
 }
 
 !macro Load_ARG_with_0.25 {
-  +Load_ARG_with_Mem FR4
+  +Load_ARG_from_Mem FR4
 }
 
 !macro Load_FAC_with_0.5 {
-  +Load_FAC_with_Mem FHALF
+  +Load_FAC_from_Mem FHALF
 }
 
 !macro Load_ARG_with_0.5 {
-  +Load_ARG_with_Mem FHALF
+  +Load_ARG_from_Mem FHALF
 }
 
 !macro Load_FAC_with_1 {
-  +Load_FAC_with_Mem FONE
+  +Load_FAC_from_Mem FONE
 }
 
 !macro Load_ARG_with_1 {
-  +Load_ARG_with_Mem FONE
+  +Load_ARG_from_Mem FONE
 }
 
 !macro Load_FAC_with_MINUS_1 {
@@ -136,11 +136,11 @@
 }
 
 !macro Load_FAC_with_10 {
-  +Load_FAC_with_Mem TENC
+  +Load_FAC_from_Mem TENC
 }
 
 !macro Load_ARG_with_10 {
-  +Load_ARG_with_Mem TENC
+  +Load_ARG_from_Mem TENC
 }
 
 !macro Load_FAC_with_0.1 {
@@ -162,27 +162,27 @@
 }
 
 !macro Load_FAC_with_PI2 {
-  +Load_FAC_with_Mem PI2
+  +Load_FAC_from_Mem PI2
 }
 
 !macro Load_ARG_with_PI2 {
-  +Load_ARG_with_Mem PI2
+  +Load_ARG_from_Mem PI2
 }
 
 !macro Load_FAC_with_PI {
-  +Load_FAC_with_Mem PIVAL
+  +Load_FAC_from_Mem PIVAL
 }
 
 !macro Load_ARG_with_PI {
-  +Load_ARG_with_Mem PIVAL
+  +Load_ARG_from_Mem PIVAL
 }
 
 !macro Load_FAC_with_2PI {
-  +Load_FAC_with_Mem TWOPI
+  +Load_FAC_from_Mem TWOPI
 }
 
 !macro Load_ARG_with_2PI {
-  +Load_ARG_with_Mem TWOPI
+  +Load_ARG_from_Mem TWOPI
 }
 
 !macro Load_FAC_with_PI180 {
@@ -218,11 +218,11 @@
 }
 
 !macro Load_FAC_with_SQR2 {
-  +Load_FAC_with_Mem FSQR2
+  +Load_FAC_from_Mem FSQR2
 }
 
 !macro Load_ARG_with_SQR2 {
-  +Load_ARG_with_Mem FSQR2
+  +Load_ARG_from_Mem FSQR2
 }
 
 !macro Load_FAC_with_SQR3 {
@@ -242,11 +242,11 @@
 }
 
 !macro Load_FAC_with_LOG2 {
-  +Load_FAC_with_Mem FLOG2
+  +Load_FAC_from_Mem FLOG2
 }
 
 !macro Load_ARG_with_LOG2 {
-  +Load_ARG_with_Mem FLOG2
+  +Load_ARG_from_Mem FLOG2
 }
 
 !macro Load_FAC_with_LOG10 {
@@ -265,10 +265,10 @@
   +Load_ARG_with $FF, $7F, $FF, $FF, $FF
 }
 
-!macro Load_FAC_with_eps {
+!macro Load_FAC_with_MINR {
   +Load_FAC_with $01, $00 ,$00, $00, $00
 }
 
-!macro Load_ARG_with_eps {
+!macro Load_ARG_with_MINR {
   +Load_ARG_with $01, $00 ,$00, $00, $00
 }

@@ -1,6 +1,6 @@
-; -------------------------------
-; Loading Integers into FAC / ARG
-; -------------------------------
+; --------------------------------------
+; Loading Binary Integers into FAC / ARG
+; --------------------------------------
 
 ; Title:                  MACRO: Load unsigned 8-bit integer into FAC or ARG
 ; Name:                   Load_FAC_with_UINT8

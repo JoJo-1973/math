@@ -21,7 +21,7 @@
   jsr POLY2
 
   !if (preserve_) {
-    +Load_ARG_with_Mem STACK
+    +Load_ARG_from_Mem STACK
   }
   +Adjust_Signs
 }
@@ -45,7 +45,7 @@
   jsr POLY1
 
   !if (preserve_) {
-    +Load_ARG_with_Mem STACK
+    +Load_ARG_from_Mem STACK
   }
   +Adjust_Signs
 }

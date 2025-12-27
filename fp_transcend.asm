@@ -12,7 +12,7 @@
   jsr LOG
 
   !if (preserve_) {
-    +Load_ARG_with_Mem STACK
+    +Load_ARG_from_Mem STACK
   }
   +Adjust_Signs
 }
@@ -24,12 +24,12 @@
     +Store_ARG_to_Mem STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
-  +Load_FAC_with_Mem addr_
+  +Load_FAC_from_Mem addr_
 
   +LOG_FAC 0
 
   !if (preserve_) {
-    +Load_ARG_with_Mem STACK
+    +Load_ARG_from_Mem STACK
   }
   +Adjust_Signs
 }
@@ -41,12 +41,12 @@
     +Store_ARG_to_Mem STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
-  +Load_FAC_with_Ptr ptr_
+  +Load_FAC_from_Ptr ptr_
 
   +LOG_FAC 0
 
   !if (preserve_) {
-    +Load_ARG_with_Mem STACK
+    +Load_ARG_from_Mem STACK
   }
   +Adjust_Signs
 }
@@ -61,7 +61,7 @@
   jsr EXP
 
   !if (preserve_) {
-    +Load_ARG_with_Mem STACK
+    +Load_ARG_from_Mem STACK
   }
   +Adjust_Signs
 }
@@ -73,12 +73,12 @@
     +Store_ARG_to_Mem STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
-  +Load_FAC_with_Mem addr_
+  +Load_FAC_from_Mem addr_
 
   +EXP_FAC 0
 
   !if (preserve_) {
-    +Load_ARG_with_Mem STACK
+    +Load_ARG_from_Mem STACK
   }
   +Adjust_Signs
 }
@@ -90,12 +90,12 @@
     +Store_ARG_to_Mem STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
-  +Load_FAC_with_Ptr ptr_
+  +Load_FAC_from_Ptr ptr_
 
   +EXP_FAC 0
 
   !if (preserve_) {
-    +Load_ARG_with_Mem STACK
+    +Load_ARG_from_Mem STACK
   }
   +Adjust_Signs
 }
