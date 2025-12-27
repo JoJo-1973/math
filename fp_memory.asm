@@ -131,16 +131,22 @@
   jsr MOVAF                     ; Round FAC and copy it to ARG.
 }
 
-; Macro +Transfer_ARG_to_FAC: Copy ARG into FAC.
 !macro Transfer_ARG_to_FAC {
-  jsr MOVFA                     ; Copy ARG to FAC:
+  jsr MOVFA                     ; Copy ARG to FAC.
 }
 
-; Macro +Swap_FAC_and_ARG: Swap contents of FAC and ARG.
+; Title:                  MACRO: Swap FAC and ARG
+; Name:                   Swap_FAC_and_ARG
+; Description:            Swap FAC and ARG. FAC is rounded before transfer because ARG can't handle unrounded values.
+; Input parameters:       ---
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Swap_FAC_and_ARG {
   +Store_ARG_in_Scratch         ; Save ARG in _SCRATCH_2.
 
-  jsr MOVAF                     ; Round FAC and copy it to ARG
+  jsr MOVAF                     ; Round FAC and copy it to ARG.
 
   lda _SCRATCH_2                ; Restore exponent byte of ARG into FAC.
   sta FACEXP
