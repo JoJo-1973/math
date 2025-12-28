@@ -177,6 +177,7 @@ TEST_JUMP_TABLE:
   !word LOAD_e
   !word LOAD_LOG2
   !word LOAD_LOG10
+  !word LOAD_EPS
   !word LOAD_MAXR
   !word COPY_FAC_ARG
   !word COPY_ARG_FAC
@@ -263,6 +264,7 @@ DESC_JUMP_TABLE:
   !word DESC_e
   !word DESC_LOG2
   !word DESC_LOG10
+  !word DESC_EPS
   !word DESC_MAXR
   !word DESC_FAC_ARG
   !word DESC_ARG_FAC
@@ -329,6 +331,7 @@ END_DESC_JUMP_TABLE:
 
 !align 255,0,0
 INIT_JUMP_TABLE:
+  !word INIT_0
   !word INIT_0
   !word INIT_0
   !word INIT_0

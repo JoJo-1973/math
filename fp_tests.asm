@@ -668,6 +668,19 @@ DESC_LOG10:
 
 ; ------------------------------
 
+LOAD_EPS:
+  +Load_FAC_with_eps
+  nop
+  nop
+  nop
+  +Load_ARG_with_eps
+  rts
+
+DESC_EPS:
+  !text "LOAD WITH CONSTANT EPS",0
+
+; ------------------------------
+
 LOAD_MAXR:
   +Load_FAC_with_MAXR
   nop

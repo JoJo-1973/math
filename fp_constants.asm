@@ -2,7 +2,20 @@
 ; Loading Floating Point Constants into FAC / ARG
 ; -----------------------------------------------
 
-; Macro +Load_[FAC/ARG]_with: Load [FAC/ARG] with a 5-bytes floating point value.
+; Title:                  MACRO: Load FAC or ARG with an MBF floating point number
+; Name:                   Load_FAC_with
+;                         Load_ARG_with
+; Description:            Load FAC or ARG with an extended precision (5 bytes) Microsoft Binary Format floating point number.
+;                         Values loaded in FAC are always considered rounded.
+; Input parameters:       exp_: Exponent
+;                         ho_:  MSB of the mantissa with encoded sign
+;                         moh_: Second MSB of the mantissa
+;                         mo_:  Third MSB of the mantissa
+;                         lo_:  LSB of the mantissa
+; Output parameters:      ---
+; Altered registers:      .A
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Load_FAC_with exp_, ho_, moh_, mo_, lo_ {
   lda #exp_                     ; Exponent byte.
   sta FACEXP
@@ -28,8 +41,8 @@
   sta FACLO
 
   !if (ho_ and %10000000) {     ; Check sign of 5-bytes floating point value.
-    !if ($80 - lo_) {
-      lda #$80
+    !if ($FF - lo_) {
+      lda #$FF
     }
   } else {
     !if (lo_) {
@@ -42,8 +55,6 @@
     lda #$00                    ; Rounding byte of FAC.
   }
   sta FACOV
-
-  +Adjust_Signs
 }
 
 !macro Load_ARG_with exp_, ho_, moh_, mo_, lo_ {
@@ -71,8 +82,8 @@
   sta ARGLO
 
   !if (ho_ and %10000000) {     ; Check sign of 5-bytes floating point value.
-    !if ($80 - lo_) {
-      lda #$80
+    !if ($FF - lo_) {
+      lda #$FF
     }
   } else {
     !if (lo_) {
@@ -80,11 +91,42 @@
     }
   }
   sta ARGSGN                    ; Sign byte.
-
-  +Adjust_Signs
 }
 
-; Macro +Load_[FAC/ARG]_with_...: Load [FAC/ARG] with predefined constants.
+; Title:                  MACRO: Load FAC or ARG with predefined constants
+; Name:                   Load_FAC_with_[...]
+;                         Load_ARG_with_[...]
+; Description:            Load FAC or ARG with a predefined constant.
+;                         The name of the constant is part of the macro name. Currently supported constants are:
+;                           "0"
+;                           "0.25"
+;                           "0.5"
+;                           "1"
+;                           "MINUS_1" (-1)
+;                           "2"
+;                           "10"
+;                           "0.1"
+;                           "PI4"     (π/4)
+;                           "PI2"     (π/2)
+;                           "PI"      (π)
+;                           "2PI"     (2π)
+;                           "PI180"   (π/180)
+;                           "PI200"   (π/200)
+;                           "180PI"   (180/π)
+;                           "200PI"   (200/π)
+;                           "SQR2"    (√2)
+;                           "SQR3"    (√3)
+;                           "e"
+;                           "LOG2"    (ln 2)
+;                           "LOG10"   (ln 10)
+;                           "eps"     (4.65661287*10^-10: machine epsilon, defined as the difference between 1 and the next larger floating point number)
+;                           "MINR"    (2.93873588*10^-39: smallest non-zero floating point number representable in Microsoft Binary Format)
+;                           "MAXR"    (1.70141183*10^38: largest floating point number representable in Microsoft Binary Format)
+; Input parameters:       ---
+; Output parameters:      ---
+; Altered registers:      .A
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Load_FAC_with_0 {
   +Load_FAC_with $00, $00, $00, $00, $00
 }
@@ -126,13 +168,11 @@
 }
 
 !macro Load_FAC_with_2 {
-  +Load_FAC_with_1
-  inc FACEXP
+  +Load_FAC_with $82, $00, $00, $00, $00
 }
 
 !macro Load_ARG_with_2 {
-  +Load_ARG_with_1
-  inc ARGEXP
+  +Load_ARG_with $82, $00, $00, $00, $00
 }
 
 !macro Load_FAC_with_10 {
@@ -257,12 +297,12 @@
   +Load_ARG_with $82, $13, $5D, $8D, $DE
 }
 
-!macro Load_FAC_with_MAXR {
-  +Load_FAC_with $FF, $7F, $FF, $FF, $FF
+!macro Load_FAC_with_eps {
+  +Load_FAC_with $62, $00 ,$00, $00, $00
 }
 
-!macro Load_ARG_with_MAXR {
-  +Load_ARG_with $FF, $7F, $FF, $FF, $FF
+!macro Load_ARG_with_eps {
+  +Load_ARG_with $62, $00 ,$00, $00, $00
 }
 
 !macro Load_FAC_with_MINR {
@@ -271,4 +311,12 @@
 
 !macro Load_ARG_with_MINR {
   +Load_ARG_with $01, $00 ,$00, $00, $00
+}
+
+!macro Load_FAC_with_MAXR {
+  +Load_FAC_with $FF, $7F, $FF, $FF, $FF
+}
+
+!macro Load_ARG_with_MAXR {
+  +Load_ARG_with $FF, $7F, $FF, $FF, $FF
 }
