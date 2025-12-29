@@ -109,8 +109,8 @@
 ; Title:                  MACRO: Perform bitwise NOT
 ; Name:                   NOT_FAC
 ;                         NOT_ARG
-;                         NOT_PTR
 ;                         NOT_MEM
+;                         NOT_PTR
 ; Description:            Perform a bitwise NOT of FAC / ARG / absolute address / pointed address.
 ;                         Argument must contain value that can be represented as 16-bits signed integer.
 ;                         ARG is destroyed in the process unless 'preserve_' flag is set.

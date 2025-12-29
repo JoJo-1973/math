@@ -137,7 +137,7 @@
   sta ARISGN
 
   lda FACEXP                    ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:
-                                ; multiplication routine needs to be notified of the condition to treat properly the case
+                                ; multiplication routine needs to be notified of the condition to treat properly the case.
   jsr FMULTT                    ; Perform multiplication.
 
   !if (preserve_) {
@@ -196,7 +196,7 @@
   sta ARISGN
 
   lda FACEXP                    ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:
-                                ; division routine needs to be notified of the condition to treat properly the case
+                                ; division routine needs to be notified of the condition to treat properly the case.
   jsr FDIVT                     ; Perform division.
 
   !if (preserve_) {

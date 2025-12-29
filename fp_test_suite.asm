@@ -77,10 +77,10 @@ TEST_SUITE:
   jsr .Run_Test                 ; Init FAC and ARG.
 
   +At 4,6                       ; Print "before" FAC.
-  +Print_FAC 1
+  +Print_FAC __PRESERVE_ARG
 
   +At 5,6                       ; Print "before" ARG.
-  +Print_ARG 1
+  +Print_ARG __PRESERVE_ARG
 
   lda #_TEST_PRESERVE
   beq .Do_Test
@@ -100,10 +100,10 @@ TEST_SUITE:
   jsr .Run_Test                 ; Run the test.
 
   +At 12,6                      ; Print FAC "after".
-  +Print_FAC 1
+  +Print_FAC __PRESERVE_ARG
 
   +At 13,6                      ; Print ARG "after".
-  +Print_ARG 1
+  +Print_ARG __PRESERVE_ARG
 
 .Loop_Any_Key:
   jsr GETIN
