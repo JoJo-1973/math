@@ -14,9 +14,9 @@
 ;                         The behaviour of FAC = 0 is flawed because the relevant registers are not properly initialized
 ;                         on startup and some of them work in BCD mode, meaning that they will never return all possible
 ;                         values, restricting the space of the possible seeds.
-;                         For each possible negative value of arg_ the same pseudo-random sequence will be generated:
+;                         For each possible negative value of 'arg_' the same pseudo-random sequence will be generated:
 ;                         an useful property for testing and debug.
-; Input parameters:       ---
+; Input parameters:       preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -39,7 +39,7 @@
 ;                         the remaining 8 bit will always be 0, limiting the space of possible seeds.
 ;                         To minimize the issue a new seed is immediately generated from the full 32-bits number
 ;                         now available in the FAC. In BASIC language the seed is RND(-RND(-TI)).
-; Input parameters:       ---
+; Input parameters:       preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---

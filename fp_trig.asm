@@ -8,9 +8,9 @@
 ;                         SIN_Ptr
 ; Description:            Compute the sine of a Microsoft Binary Format floating point number and store the result in FAC.
 ;                         The data can be located in FAC, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -59,9 +59,9 @@
 ;                         COS_Ptr
 ; Description:            Compute the cosine of a Microsoft Binary Format floating point number and store the result in FAC.
 ;                         The data can be located in FAC, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -110,9 +110,9 @@
 ;                         TAN_Ptr
 ; Description:            Compute the tangent of a Microsoft Binary Format floating point number and store the result in FAC.
 ;                         The data can be located in FAC, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -161,9 +161,9 @@
 ;                         ATN_Ptr
 ; Description:            Compute the arctangent of a Microsoft Binary Format floating point number and store the result in FAC.
 ;                         The data can be located in FAC, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---

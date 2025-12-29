@@ -400,7 +400,7 @@ INIT_BOOL_PTR:
 ; ------------------------------
 
 INIT_RND:
-  +Randomize
+  +Randomize _TEST_PRESERVE
   +Load_FAC_with_1
   +Load_ARG_with_2PI
 

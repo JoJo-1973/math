@@ -8,9 +8,9 @@
 ;                         Add_FAC_to_Ptr
 ; Description:            Add FAC to a Microsoft Binary Format floating point number and store the result in FAC.
 ;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -67,9 +67,9 @@
 ;                         Subtract_FAC_from_Ptr
 ; Description:            Subtract FAC from a Microsoft Binary Format floating point number and store the result in FAC.
 ;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -120,9 +120,9 @@
 ;                         Multiply_FAC_by_Ptr
 ; Description:            Multiply FAC by a Microsoft Binary Format floating point number and store the result in FAC.
 ;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -179,9 +179,9 @@
 ;                         Divide_Ptr_by_FAC
 ; Description:            Divide a Microsoft Binary Format floating point number by FAC and store the result in FAC.
 ;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---

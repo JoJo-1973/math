@@ -8,9 +8,9 @@
 ;                         Power_Ptr_to_FAC
 ; Description:            Raise a Microsoft Binary Format floating point number to the FAC power and store the result in FAC.
 ;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -61,9 +61,9 @@
 ;                         SQR_Ptr
 ; Description:            Compute the square root of a Microsoft Binary Format floating point number and store the result in FAC.
 ;                         The data can be located in FAC, at an absolute memory address or referenced to by a pointer.
-; Input parameters:       addr_:      a memory address
-;                         ptr_:       a pointer
-;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
+;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
