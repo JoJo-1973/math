@@ -8,9 +8,9 @@
 ;                         Load_ARG_from_Mem
 ;                         Load_ARG_from_Ptr
 ; Description:            Load floating point accumulator with a 5-byte floating point number from memory.
-;                         The data can be located at an absolute memory address or referenced to by a zero-page pointer.
-; Input parameters:       addr_: a 16-bit memory address
-;                         ptr_:  a zero-page pointer
+;                         The data can be located at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_: a memory address
+;                         ptr_:  a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -48,9 +48,9 @@
 ;                         Store_FAC_to_Ptr
 ;                         Store_ARG_to_Mem
 ;                         Store_ARG_to_Ptr
-; Description:            Store FAC or ARG to an absolute memory address or to a location referenced by a zero-page pointer.
-; Input parameters:       addr_: a 16-bit memory address
-;                         ptr_:  a zero-page pointer
+; Description:            Store FAC or ARG to an absolute memory address or to a location referenced by a pointer.
+; Input parameters:       addr_: a  memory address
+;                         ptr_:  a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---

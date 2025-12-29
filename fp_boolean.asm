@@ -7,10 +7,10 @@
 ;                         AND_FAC_with_MEM
 ;                         AND_FAC_with_PTR
 ; Description:            Perform a bitwise AND between FAC and ARG / absolute address / pointed address.
-;                         FAC and ARG must contain values that can be represented as 16-bit signed integers.
+;                         FAC and ARG must contain values that can be represented as 16-bits signed integers.
 ;                         ARG is destroyed in the process unless 'preserve_' flag is set.
-; Input parameters:       addr_:     a 16-bit memory address
-;                         ptr_:      a zero-page pointer
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
 ;                         preserve_: if this flag is set then the contents of ARG are undisturbed
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
@@ -59,10 +59,10 @@
 ;                         OR_FAC_with_MEM
 ;                         OR_FAC_with_PTR
 ; Description:            Perform a bitwise OR between FAC and ARG / absolute address / pointed address.
-;                         FAC and ARG must contain values that can be represented as 16-bit signed integers.
+;                         FAC and ARG must contain values that can be represented as 16-bits signed integers.
 ;                         ARG is destroyed in the process unless 'preserve_' flag is set.
-; Input parameters:       addr_:     a 16-bit memory address
-;                         ptr_:      a zero-page pointer
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
 ;                         preserve_: if this flag is set then the contents of ARG are undisturbed
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
@@ -112,12 +112,12 @@
 ;                         NOT_PTR
 ;                         NOT_MEM
 ; Description:            Perform a bitwise NOT of FAC / ARG / absolute address / pointed address.
-;                         Argument must contain value that can be represented as 16-bit signed integer.
+;                         Argument must contain value that can be represented as 16-bits signed integer.
 ;                         ARG is destroyed in the process unless 'preserve_' flag is set.
 ;                         NOT_FAC and NOT_ARG work in place, NOT_MEM and NOT_PTR actually perform
 ;                         FAC = NOT(addr_) and FAC = NOT((ptr_))
-; Input parameters:       addr_:     a 16-bit memory address
-;                         ptr_:      a zero-page pointer
+; Input parameters:       addr_:     a memory address
+;                         ptr_:      a pointer
 ;                         preserve_: if this flag is set then the contents of ARG are undisturbed
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y

@@ -248,7 +248,7 @@ INIT_ARCTAN_MEM:
 INIT_ARCTAN_PTR:
   +Load_FAC_with_SQR3
   +Load_ARG_with_2
-  +Add_ARG_to_FAC 0
+  +Add_FAC_to_ARG 0
   +Store_FAC_to_Mem $C000
   +Load_FAC_with_0
   +Load_ARG_with_1
@@ -835,38 +835,38 @@ DESC_DIV2:
 ; ------------------------------
 
 ADD:
-  +Add_ARG_to_FAC _TEST_PRESERVE
+  +Add_FAC_to_ARG _TEST_PRESERVE
   rts
 
 ADD_MEM:
-  +Add_MEM_to_FAC N32768, _TEST_PRESERVE
+  +Add_FAC_to_Mem N32768, _TEST_PRESERVE
   rts
 
 ADD_PTR:
-  +Add_PTR_to_FAC ZP_3, _TEST_PRESERVE
+  +Add_FAC_to_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_ADD:
-  !text "FAC = ARG + FAC",0
+  !text "FAC = FAC + ARG",0
 
 DESC_ADD_MEM:
-  !text "FAC = MEMORY + FAC",0
+  !text "FAC = FAC + MEMORY",0
 
 DESC_ADD_PTR:
-  !text "FAC = (POINTER) + FAC",0
+  !text "FAC = FAC + (POINTER)",0
 
 ; ------------------------------
 
 SUB:
-  +Subtract_ARG_from_FAC _TEST_PRESERVE
+  +Subtract_FAC_from_ARG _TEST_PRESERVE
   rts
 
 SUB_MEM:
-  +Subtract_MEM_from_FAC N32768, _TEST_PRESERVE
+  +Subtract_FAC_from_Mem N32768, _TEST_PRESERVE
   rts
 
 SUB_PTR:
-  +Subtract_PTR_from_FAC ZP_3, _TEST_PRESERVE
+  +Subtract_FAC_from_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_SUB:
@@ -881,25 +881,25 @@ DESC_SUB_PTR:
 ; ------------------------------
 
 MULT:
-  +Multiply_ARG_by_FAC _TEST_PRESERVE
+  +Multiply_FAC_by_ARG _TEST_PRESERVE
   rts
 
 MULT_MEM:
-  +Multiply_MEM_by_FAC N32768, _TEST_PRESERVE
+  +Multiply_FAC_by_Mem N32768, _TEST_PRESERVE
   rts
 
 MULT_PTR:
-  +Multiply_PTR_by_FAC ZP_3, _TEST_PRESERVE
+  +Multiply_FAC_by_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_MULT:
-  !text "FAC = ARG * FAC",0
+  !text "FAC = FAC * ARG",0
 
 DESC_MULT_MEM:
-  !text "FAC = MEMORY * FAC",0
+  !text "FAC = FAC * MEMORY",0
 
 DESC_MULT_PTR:
-  !text "FAC = (POINTER) * FAC",0
+  !text "FAC = FAC * (POINTER)",0
 
 ; ------------------------------
 
@@ -908,11 +908,11 @@ DIV:
   rts
 
 DIV_MEM:
-  +Divide_MEM_by_FAC N32768, _TEST_PRESERVE
+  +Divide_Mem_by_FAC N32768, _TEST_PRESERVE
   rts
 
 DIV_PTR:
-  +Divide_PTR_by_FAC ZP_3, _TEST_PRESERVE
+  +Divide_Ptr_by_FAC ZP_3, _TEST_PRESERVE
   rts
 
 DESC_DIV:

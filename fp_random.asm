@@ -35,9 +35,9 @@
 
 ; Title:                  MACRO: Initialize the pseudo-random number generator
 ; Name:                   Randomize
-; Description:            The pseudo-random number generator is seeded with -TI: since TI is a 24-bit number
+; Description:            The pseudo-random number generator is seeded with -TI: since TI is a 24-bits number
 ;                         the remaining 8 bit will always be 0, limiting the space of possible seeds.
-;                         To minimize the issue a new seed is immediately generated from the full 32-bit number
+;                         To minimize the issue a new seed is immediately generated from the full 32-bits number
 ;                         now available in the FAC. In BASIC language the seed is RND(-RND(-TI)).
 ;
 ;                         WARNING: ARG is destroyed in the process!

@@ -2,204 +2,232 @@
 ; Basic Arithmetic
 ; ----------------
 
-; Macro Add_ARG_to_FAC: FAC = ARG + FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Add_ARG_to_FAC preserve_ {
+; Title:                  MACRO: Perform floating point addition and store the result in FAC
+; Name:                   Add_FAC_to_ARG
+;                         Add_FAC_to_Mem
+;                         Add_FAC_to_Ptr
+; Description:            Add FAC to a Microsoft Binary Format floating point number and store the result in FAC.
+;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_:      a memory address
+;                         ptr_:       a pointer
+;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro Add_FAC_to_ARG preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
+
+  lda FACSGN                    ; Apply the law of signs: bit #7 of ARISGN is 0 (+) when signs are like and 1 when signs are unlike (-).
+  eor ARGSGN
+  sta ARISGN
 
   lda FACEXP                    ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:
                                 ; addition routine needs to be notified of the condition to treat properly the case.
-  jsr FADDT
+  jsr FADDT                     ; Perform addition.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Add_MEM_to_FAC: FAC = Memory + FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Add_MEM_to_FAC addr_, preserve_ {
+!macro Add_FAC_to_Mem addr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_from_Mem addr_
-
-  +Add_ARG_to_FAC 0
+  lda #<addr_                   ; Point .A/.Y to address.
+  ldy #>addr_
+  jsr FADD                      ; Perform addition: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Add_PTR_to_FAC: FAC = (Ptr) + FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Add_PTR_to_FAC ptr_, preserve_ {
+!macro Add_FAC_to_Ptr ptr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_from_Ptr ptr_
-
-  +Add_ARG_to_FAC 0
+  lda ptr_                      ; Point .A/.Y to address.
+  ldy ptr_+1
+  jsr FADD                      ; Perform addition: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Subtract_ARG_from_FAC: FAC = ARG - FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Subtract_ARG_from_FAC preserve_ {
+; Title:                  MACRO: Perform floating point subtraction and store the result in FAC
+; Name:                   Subtract_FAC_from_ARG
+;                         Subtract_FAC_from_Mem
+;                         Subtract_FAC_from_Ptr
+; Description:            Subtract FAC from a Microsoft Binary Format floating point number and store the result in FAC.
+;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_:      a memory address
+;                         ptr_:       a pointer
+;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro Subtract_FAC_from_ARG preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  jsr FSUBT                     ; No need to prepare Zero flag: the routine is already self-contained
+  jsr FSUBT                     ; Perform subtraction: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Subtract_MEM_from_FAC: FAC = Memory - FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Subtract_MEM_from_FAC addr_, preserve_ {
+!macro Subtract_FAC_from_Mem addr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_from_Mem addr_
-
-  +Subtract_ARG_from_FAC 0
+  lda #<addr_                   ; Point .A/.Y to address.
+  ldy #>addr_
+  jsr FSUB                      ; Perform subtraction: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Subtract_PTR_from_FAC: FAC = (Ptr) - FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Subtract_PTR_from_FAC ptr_, preserve_ {
+!macro Subtract_FAC_from_Ptr ptr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_from_Ptr ptr_
-
-  +Subtract_ARG_from_FAC 0
+  lda ptr_                      ; Point .A/.Y to address.
+  ldy ptr_+1
+  jsr FSUB                      ; Perform subtraction: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Multiply_ARG_by_FAC: FAC = ARG * FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Multiply_ARG_by_FAC preserve_ {
+; Title:                  MACRO: Perform floating point multiplication and store the result in FAC
+; Name:                   Multiply_FAC_by_ARG
+;                         Multiply_FAC_by_Mem
+;                         Multiply_FAC_by_Ptr
+; Description:            Multiply FAC by a Microsoft Binary Format floating point number and store the result in FAC.
+;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_:      a memory address
+;                         ptr_:       a pointer
+;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro Multiply_FAC_by_ARG preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
+
+  lda FACSGN                    ; Apply the law of signs: bit #7 of ARISGN is 0 (+) when signs are like and 1 when signs are unlike (-).
+  eor ARGSGN
+  sta ARISGN
 
   lda FACEXP                    ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:
                                 ; multiplication routine needs to be notified of the condition to treat properly the case
-  jsr FMULTT
+  jsr FMULTT                    ; Perform multiplication.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Multiply_MEM_by_FAC: FAC = Memory * FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Multiply_MEM_by_FAC addr_, preserve_ {
+!macro Multiply_FAC_by_Mem addr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_from_Mem addr_
-
-  +Multiply_ARG_by_FAC 0
+  lda #<addr_                   ; Point .A/.Y to address.
+  ldy #>addr_
+  jsr FMULT                     ; Perform multiplication: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Multiply_PTR_by_FAC: FAC = (Ptr) * FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Multiply_PTR_by_FAC ptr_, preserve_ {
+!macro Multiply_FAC_by_Ptr ptr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_from_Ptr ptr_
-
-  +Multiply_ARG_by_FAC 0
+  lda ptr_                      ; Point .A/.Y to address.
+  ldy ptr_+1
+  jsr FMULT                     ; Perform multiplication: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Divide_ARG_by_FAC: FAC = ARG / FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
+; Title:                  MACRO: Perform floating point division and store the result in FAC
+; Name:                   Divide_ARG_by_FAC
+;                         Divide_Mem_by_FAC
+;                         Divide_Ptr_by_FAC
+; Description:            Divide a Microsoft Binary Format floating point number by FAC and store the result in FAC.
+;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_:      a memory address
+;                         ptr_:       a pointer
+;                         preserve_ : ARG is destroyed by the operation unless this parameter is <> 0
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Divide_ARG_by_FAC preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
+  lda FACSGN                    ; Apply the law of signs: bit #7 of ARISGN is 0 (+) when signs are like and 1 when signs are unlike (-).
+  eor ARGSGN
+  sta ARISGN
+
   lda FACEXP                    ; When exponent of FAC is zero, the whole FAC is considered zero, regardless of mantissa:
                                 ; division routine needs to be notified of the condition to treat properly the case
-  jsr FDIVT
+  jsr FDIVT                     ; Perform division.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Divide_MEM_by_FAC: FAC = Memory / FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Divide_MEM_by_FAC addr_, preserve_ {
+!macro Divide_Mem_by_FAC addr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_from_Mem addr_
-
-  +Divide_ARG_by_FAC 0
+  lda #<addr_                   ; Point .A/.Y to address.
+  ldy #>addr_
+  jsr FDIV                      ; Perform division: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }
 
-; Macro Divide_PTR_by_FAC: FAC = (Ptr) / FAC
-; ARG is destroyed in the process unless 'preserve_' is <> 0.
-!macro Divide_PTR_by_FAC ptr_, preserve_ {
+!macro Divide_Ptr_by_FAC ptr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch
   }
 
-  +Load_ARG_from_Ptr ptr_
-
-  +Divide_ARG_by_FAC 0
+  lda ptr_                      ; Point .A/.Y to address.
+  ldy ptr_+1
+  jsr FDIV                      ; Perform division: no need to prepare FACEXP or adjust signs in advance.
 
   !if (preserve_) {
     +Load_ARG_from_Scratch
   }
-  +Adjust_Signs
 }

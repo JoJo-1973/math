@@ -17,6 +17,10 @@
 !source "fp_random.asm"         ; Random Numbers Generator
 !source "fp_io.asm"             ; Input / Output
 
+; Global constants
+__PRESERVE_ARG = 1              ; Symbolic constant: many macros destroy the content of ARG unless they're provided
+                                ; a 'preserve_' argument whose value is different from 0.
+
 ; Local variables
 _SCRATCH_1        = $3D         ; These two areas are used only by BASIC and are safe to use as scratchpad area
 _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. They are meant for internal use are
@@ -75,12 +79,6 @@ _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. T
 ; the BASIC routines avoid the issue because they update ARG after FAC: since the floating point
 ; macros aim to hide the internal details from the user this macro, intended for INTERNAL USE ONLY
 ; will be used to keep ARISGN consistent.
-
-!macro Adjust_Signs {
-  lda FACSGN                    ; Apply the law of signs: bit #7 of ARISGN is 0 (+) when signs are like and 1 when signs are unlike (-).
-  eor ARGSGN
-  sta ARISGN
-}
 
 ; Macro +Store[FAC/ARG]_in_Scratch: these macros copy the content of FAC or ARG in their reserved scratch area.
 ; For INTERNAL USE ONLY!

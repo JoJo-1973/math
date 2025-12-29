@@ -2,20 +2,19 @@
 ; Loading Binary Integers into FAC / ARG
 ; --------------------------------------
 
-; Title:                  MACRO: Load unsigned 8-bit integer into FAC or ARG
+; Title:                  MACRO: Load unsigned 8-bits integer into FAC or ARG
 ; Name:                   Load_FAC_with_UINT8
 ;                         Load_FAC_with_UINT8_Mem
 ;                         Load_FAC_with_UINT8_Ptr
 ;                         Load_ARG_with_UINT8
 ;                         Load_ARG_with_UINT8_Mem
 ;                         Load_ARG_with_UINT8_Ptr
-; Description:            Load floating point accumulator with an unsigned 8-bit integer.
+; Description:            Load floating point accumulator with an unsigned 8-bits integer.
 ;                         The value can be expressed directly as argument of the macro,
-;                         can be stored at a memory address or can be pointed at
-;                         by a zero-page pointer.
-; Input parameters:       value_: an 8-bit constant
-;                         addr_:  a 16-bit memory address
-;                         ptr_:   a zero-page pointer
+;                         can be stored at a memory address or referenced to by a pointer.
+; Input parameters:       value_: an 8-bits constant
+;                         addr_:  a  memory address
+;                         ptr_:   a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -92,20 +91,19 @@
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Load signed 8-bit integer into FAC or ARG
+; Title:                  MACRO: Load signed 8-bits integer into FAC or ARG
 ; Name:                   Load_FAC_with_INT8
 ;                         Load_FAC_with_INT8_Mem
 ;                         Load_FAC_with_INT8_Ptr
 ;                         Load_ARG_with_INT8
 ;                         Load_ARG_with_INT8_Mem
 ;                         Load_ARG_with_INT8_Ptr
-; Description:            Load floating point accumulator with a signed 8-bit integer.
+; Description:            Load floating point accumulator with a signed 8-bits integer.
 ;                         The value can be expressed directly as argument of the macro,
-;                         can be stored at a memory address or can be pointed at
-;                         by a zero-page pointer.
-; Input parameters:       value_: an 8-bit constant
-;                         addr_:  a 16-bit memory address
-;                         ptr_:   a zero-page pointer
+;                         can be stored at a memory address or referenced to by a pointer.
+; Input parameters:       value_: an 8-bits constant
+;                         addr_:  a  memory address
+;                         ptr_:   a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -177,20 +175,19 @@
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Load unsigned 16-bit integer into FAC or ARG
+; Title:                  MACRO: Load unsigned 16-bits integer into FAC or ARG
 ; Name:                   Load_FAC_with_UINT16
 ;                         Load_FAC_with_UINT16_Mem
 ;                         Load_FAC_with_UINT16_Ptr
 ;                         Load_ARG_with_UINT16
 ;                         Load_ARG_with_UINT16_Mem
 ;                         Load_ARG_with_UINT16_Ptr
-; Description:            Load floating point accumulator with an unsigned 16-bit integer.
+; Description:            Load floating point accumulator with an unsigned 16-bits integer.
 ;                         The value can be expressed directly as argument of the macro,
-;                         can be stored at a memory address or can be pointed at
-;                         by a zero-page pointer.
-; Input parameters:       value_: a 16-bit constant
-;                         addr_:  a 16-bit memory address
-;                         ptr_:   a zero-page pointer
+;                         can be stored at a memory address or referenced to by a pointer.
+; Input parameters:       value_: a 16-bits constant
+;                         addr_:  a memory address
+;                         ptr_:   a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -274,20 +271,19 @@
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Load signed 16-bit integer into FAC or ARG
+; Title:                  MACRO: Load signed 16-bits integer into FAC or ARG
 ; Name:                   Load_FAC_with_INT16
 ;                         Load_FAC_with_INT16_Mem
 ;                         Load_FAC_with_INT16_Ptr
 ;                         Load_ARG_with_INT16
 ;                         Load_ARG_with_INT16_Mem
 ;                         Load_ARG_with_INT16_Ptr
-; Description:            Load floating point accumulator with a signed 16-bit integer.
+; Description:            Load floating point accumulator with a signed 16-bits integer.
 ;                         The value can be expressed directly as argument of the macro,
-;                         can be stored at a memory address or can be pointed at
-;                         by a zero-page pointer.
-; Input parameters:       value_: a 16-bit constant
-;                         addr_:  a 16-bit memory address
-;                         ptr_:   a zero-page pointer
+;                         can be stored at a memory address or referenced to by a pointer.
+; Input parameters:       value_: a 16-bits constant
+;                         addr_:  a memory address
+;                         ptr_:   a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -368,20 +364,19 @@
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Load unsigned 24-bit integer into FAC or ARG
+; Title:                  MACRO: Load unsigned 24-bits integer into FAC or ARG
 ; Name:                   Load_FAC_with_UINT24
 ;                         Load_FAC_with_UINT24_Mem
 ;                         Load_FAC_with_UINT24_Ptr
 ;                         Load_ARG_with_UINT24
 ;                         Load_ARG_with_UINT24_Mem
 ;                         Load_ARG_with_UINT24_Ptr
-; Description:            Load floating point accumulator with an unsigned 24-bit integer.
+; Description:            Load floating point accumulator with an unsigned 24-bits integer.
 ;                         The value can be expressed directly as argument of the macro,
-;                         can be stored at a memory address or can be pointed at
-;                         by a zero-page pointer.
-; Input parameters:       value_: a 24-bit constant
-;                         addr_:  a 16-bit memory address
-;                         ptr_:   a zero-page pointer
+;                         can be stored at a memory address or referenced to by a pointer.
+; Input parameters:       value_: a 24-bits constant
+;                         addr_:  a memory address
+;                         ptr_:   a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -472,20 +467,19 @@
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Load signed 24-bit integer into FAC or ARG
+; Title:                  MACRO: Load signed 24-bits integer into FAC or ARG
 ; Name:                   Load_FAC_with_INT24
 ;                         Load_FAC_with_INT24_Mem
 ;                         Load_FAC_with_INT24_Ptr
 ;                         Load_ARG_with_INT24
 ;                         Load_ARG_with_INT24_Mem
 ;                         Load_ARG_with_INT24_Ptr
-; Description:            Load floating point accumulator with a signed 24-bit integer.
+; Description:            Load floating point accumulator with a signed 24-bits integer.
 ;                         The value can be expressed directly as argument of the macro,
-;                         can be stored at a memory address or can be pointed at
-;                         by a zero-page pointer.
-; Input parameters:       value_: a 24-bit constant
-;                         addr_:  a 16-bit memory address
-;                         ptr_:   a zero-page pointer
+;                         can be stored at a memory address or referenced to by a pointer.
+; Input parameters:       value_: a 24-bits constant
+;                         addr_:  a memory address
+;                         ptr_:   a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -573,20 +567,19 @@
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Load unsigned 32-bit integer into FAC or ARG
+; Title:                  MACRO: Load unsigned 32-bits integer into FAC or ARG
 ; Name:                   Load_FAC_with_UINT32
 ;                         Load_FAC_with_UINT32_Mem
 ;                         Load_FAC_with_UINT32_Ptr
 ;                         Load_ARG_with_UINT32
 ;                         Load_ARG_with_UINT32_Mem
 ;                         Load_ARG_with_UINT32_Ptr
-; Description:            Load floating point accumulator with an unsigned 32-bit integer.
+; Description:            Load floating point accumulator with an unsigned 32-bits integer.
 ;                         The value can be expressed directly as argument of the macro,
-;                         can be stored at a memory address or can be pointed at
-;                         by a zero-page pointer.
-; Input parameters:       value_: a 32-bit constant
-;                         addr_:  a 16-bit memory address
-;                         ptr_:   a zero-page pointer
+;                         can be stored at a memory address or referenced to by a pointer.
+; Input parameters:       value_: a 32-bits constant
+;                         addr_:  a memory address
+;                         ptr_:   a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -681,20 +674,19 @@
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Load signed 32-bit integer into FAC or ARG
+; Title:                  MACRO: Load signed 32-bits integer into FAC or ARG
 ; Name:                   Load_FAC_with_INT32
 ;                         Load_FAC_with_INT32_Mem
 ;                         Load_FAC_with_INT32_Ptr
 ;                         Load_ARG_with_INT32
 ;                         Load_ARG_with_INT32_Mem
 ;                         Load_ARG_with_INT32_Ptr
-; Description:            Load floating point accumulator with a signed 32-bit integer.
+; Description:            Load floating point accumulator with a signed 32-bits integer.
 ;                         The value can be expressed directly as argument of the macro,
-;                         can be stored at a memory address or can be pointed at
-;                         by a zero-page pointer.
-; Input parameters:       value_: a 32-bit constant
-;                         addr_:  a 16-bit memory address
-;                         ptr_:   a zero-page pointer
+;                         can be stored at a memory address or referenced to by a pointer.
+; Input parameters:       value_: a 32-bits constant
+;                         addr_:  a memory address
+;                         ptr_:   a pointer
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y
 ; Altered zero-page:      ---
@@ -786,12 +778,12 @@
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Convert FAC or ARG into 32-bit signed integer
+; Title:                  MACRO: Convert FAC or ARG into 32-bits signed integer
 ; Name:                   Convert_FAC_into_INT32
 ;                         Convert_ARG_into_INT32
-; Description:            Convert a floating point number stored into FAC or ARG into a signed 32-bit integer.
+; Description:            Convert a floating point number stored into FAC or ARG into a signed 32-bits integer.
 ;                         The value is stored in big-endian format, in the mantissa field, therefore a 24-, 16- or
-;                         8-bit conversion can be obtained just retrieving the bytes at the proper offset from the
+;                         8-bits conversion can be obtained just retrieving the bytes at the proper offset from the
 ;                         first byte of the FAC / ARG.
 ; Input parameters:       ---
 ; Output parameters:      ---
