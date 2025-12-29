@@ -43,12 +43,12 @@
 ; Title:                  MACRO: Return sign of FAC or ARG
 ; Name:                   Sign_FAC
 ;                         Sign_ARG
-; Description:            Return the sign of FAC or ARG in the accumulator.
+; Description:            Return the sign of FAC or ARG in .A.
 ;                           .A = $FF if FAC/ARG < 0
 ;                           .A = $00 if FAC/ARG = 0
 ;                           .A = $01 if FAC/ARG > 0
 ; Input parameters:       ---
-; Output parameters:      ---
+; Output parameters:      .A
 ; Altered registers:      .A
 ; Altered zero-page:      ---
 ; External dependencies:  standard.asm, symbols.asm, kernal.asm

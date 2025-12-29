@@ -80,6 +80,11 @@ _SCRATCH_2        = NUMWRK      ; to store and retrieve copies of FAC and ARG. T
 ; macros aim to hide the internal details from the user this macro, intended for INTERNAL USE ONLY
 ; will be used to keep ARISGN consistent.
 
+!macro Adjust_Signs {
+  nop
+}
+
+
 ; Macro +Store[FAC/ARG]_in_Scratch: these macros copy the content of FAC or ARG in their reserved scratch area.
 ; For INTERNAL USE ONLY!
 !macro Store_FAC_in_Scratch {

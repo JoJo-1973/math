@@ -7,7 +7,7 @@
 ;                         Load_FAC_from_Ptr
 ;                         Load_ARG_from_Mem
 ;                         Load_ARG_from_Ptr
-; Description:            Load floating point accumulator with a 5-byte floating point number from memory.
+; Description:            Load floating point accumulator with a Microsoft Binary Format floating point number from memory.
 ;                         The data can be located at an absolute memory address or referenced to by a pointer.
 ; Input parameters:       addr_: a memory address
 ;                         ptr_:  a pointer

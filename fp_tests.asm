@@ -947,7 +947,7 @@ COMP:
   rts
 
 COMP_MEM:
-  +Compare_FAC_to_MEM N32768
+  +Compare_FAC_to_Mem N32768
   pha
 
   clc
@@ -967,7 +967,7 @@ COMP_MEM:
   rts
 
 COMP_PTR:
-  +Compare_FAC_to_PTR ZP_3
+  +Compare_FAC_to_Ptr ZP_3
   pha
 
   clc

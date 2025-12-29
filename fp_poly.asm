@@ -9,7 +9,7 @@
 ;
 ; The parameter 'coeff_' points to a memory area where the first byte is
 ; 'n', the degree of the polynomial, followed by n floating point values
-; in 5-bytes format, from a_n to a_0.
+; in Microsoft Binary Format, from a_n to a_0.
 !macro Polynomial_in_FAC coeff_, preserve_ {
   !if (preserve_) {
     +Store_ARG_to_Mem STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
@@ -33,7 +33,7 @@
 ;
 ; The parameter 'coeff_' points to a memory area where the first byte is
 ; '(n-1)/2', the degree of the polynomial, followed by '(n+1)/2' floating point values
-; in 5-bytes format, from a_n to a_0.
+; in Microsoft Binary Format, from a_n to a_0.
 !macro Odd_Polynomial_in_FAC coeff_, preserve_ {
   !if (preserve_) {
     +Store_ARG_to_Mem STACK            ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.

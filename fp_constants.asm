@@ -40,7 +40,7 @@
   }
   sta FACLO
 
-  !if (ho_ and %10000000) {     ; Check sign of 5-bytes floating point value.
+  !if (ho_ and %10000000) {     ; Check sign of floating point value.
     !if ($FF - lo_) {
       lda #$FF
     }
@@ -81,7 +81,7 @@
   }
   sta ARGLO
 
-  !if (ho_ and %10000000) {     ; Check sign of 5-bytes floating point value.
+  !if (ho_ and %10000000) {     ; Check sign of floating point value.
     !if ($FF - lo_) {
       lda #$FF
     }
