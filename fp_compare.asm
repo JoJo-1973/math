@@ -8,9 +8,9 @@
 ;                         Compare_FAC_to_Ptr
 ; Description:            Compare a Microsoft Binary Format floating point number by FAC and return the result in .A.
 ;                         The data can be located in ARG, at an absolute memory address or referenced to by a pointer.
-;                           .A = $00 if FAC = ARG
-;                           .A = $01 if FAC > ARG
-;                           .A = $FF if FAC < ARG
+;                           .A = $00 if FAC = ARG.
+;                           .A = $01 if FAC > ARG.
+;                           .A = $FF if FAC < ARG.
 ; Input parameters:       addr_: a memory address
 ;                         ptr_:  a pointer
 ; Output parameters:      .A
