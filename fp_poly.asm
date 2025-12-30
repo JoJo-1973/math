@@ -2,7 +2,7 @@
 ; Polynomials
 ; -----------
 
-; Title:                  MACRO: Compute an univariate polynomial of n-th degree whose variable is FAC
+; Title:                  MACRO: Compute an univariate polynomial of n-th degree
 ; Name:                   Poly_Mem
 ;                         Poly_Ptr
 ; Description:            Compute a polynomial at a point stored in FAC using a table of coefficients.
@@ -46,7 +46,7 @@
   }
 }
 
-; Title:                  MACRO: Compute an odd univariate polynomial of n-th degree whose variable is FAC
+; Title:                  MACRO: Compute an univariate odd polynomial of n-th degree
 ; Name:                   Odd_Poly_Mem
 ;                         Odd_Poly_Ptr
 ; Description:            Compute an odd polynomial at a point stored in FAC using a table of coefficients.
