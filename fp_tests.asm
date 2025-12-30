@@ -1182,14 +1182,14 @@ DESC_EXPN_PTR:
 ; ------------------------------
 
 POLY:
-  +Polynomial_in_FAC .Coeff_GAMMA, _TEST_PRESERVE
+  +Poly_Mem .Coeff_GAMMA, _TEST_PRESERVE
   rts
 
 DESC_POLY:
   !text "FAC = GAMMA(X), 0 < X < 1",0
 
 POLY_ODD:
-  +Odd_Polynomial_in_FAC .Coeff_Test, _TEST_PRESERVE
+  +Odd_Poly_Mem .Coeff_Test, _TEST_PRESERVE
   rts
 
 DESC_POLY_ODD:
