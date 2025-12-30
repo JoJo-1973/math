@@ -14,7 +14,7 @@
 ;                         The behaviour of FAC = 0 is flawed because the relevant registers are not properly initialized
 ;                         on startup and some of them work in BCD mode, meaning that they will never return all possible
 ;                         values, restricting the space of the possible seeds.
-;                         For each possible negative value of 'arg_' the same pseudo-random sequence will be generated:
+;                         Any negative seed generates deterministically always the same pseudo-random sequence:
 ;                         an useful property for testing and debug.
 ; Input parameters:       preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
@@ -35,10 +35,10 @@
 
 ; Title:                  MACRO: Initialize the pseudo-random number generator
 ; Name:                   Randomize
-; Description:            The pseudo-random number generator is seeded with -TI: since TI is a 24-bits number
-;                         the remaining 8 bit will always be 0, limiting the space of possible seeds.
-;                         To minimize the issue a new seed is immediately generated from the full 32-bits number
-;                         now available in the FAC. In BASIC language the seed is RND(-RND(-TI)).
+; Description:            The pseudo-random number generator is initially seeded with -TI: since TI is a 24-bits number
+;                         8 bits will always be 0, limiting the space of possible seeds.
+;                         To add more randomness the newly generated value, a positive number between 0 and 1, is negated
+;                         and used to re-seed the pseudo-random number generator.
 ; Input parameters:       preserve_: ARG is destroyed by the operation unless this parameter is <> 0
 ; Output parameters:      ---
 ; Altered registers:      .A, .X, .Y

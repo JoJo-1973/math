@@ -1202,11 +1202,11 @@ BAND:
   rts
 
 BAND_MEM:
-  +AND_FAC_with_MEM $C000, _TEST_PRESERVE
+  +AND_FAC_with_Mem $C000, _TEST_PRESERVE
   rts
 
 BAND_PTR:
-  +AND_FAC_with_PTR ZP_3, _TEST_PRESERVE
+  +AND_FAC_with_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_BAND:
@@ -1225,11 +1225,11 @@ BOR:
   rts
 
 BOR_MEM:
-  +OR_FAC_with_MEM $C000, _TEST_PRESERVE
+  +OR_FAC_with_Mem $C000, _TEST_PRESERVE
   rts
 
 BOR_PTR:
-  +OR_FAC_with_PTR ZP_3, _TEST_PRESERVE
+  +OR_FAC_with_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_BOR:
@@ -1252,11 +1252,11 @@ BNOT_ARG:
   rts
 
 BNOT_MEM:
-  +NOT_MEM $C000
+  +NOT_Mem $C000
   rts
 
 BNOT_PTR:
-  +NOT_PTR ZP_3
+  +NOT_Ptr ZP_3
   rts
 
 DESC_BNOT_FAC:

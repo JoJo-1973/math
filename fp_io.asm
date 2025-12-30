@@ -2,10 +2,15 @@
 ; Input / Output
 ; --------------
 
-; Macro +[FAC/ARG]_to_String: Convert FAC to a string.
-; The kernal routine that does the conversion destroys both FAC and ARG:
-; The 'preserve_' parameter avoids this but bloats the resulting code
-; therefore it can be disabled if you know what you are doing.
+; Title:                  MACRO: Convert the content of FAC or ARG to a string
+; Name:                   FAC_to_String
+;                         ARG_to_String
+; Description:            Convert the content of FAC or ARG to a null-terminated string and place it at the bottom of the stack at $0100.
+; Input parameters:       preserve_: FAC and ARG are destroyed by the operation unless this parameter is <> 0
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro FAC_to_String preserve_ {
   !if (preserve_) {
     +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
@@ -18,8 +23,6 @@
     +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
     +Load_ARG_from_Scratch
   }
-
-  +Adjust_Signs
 }
 
 !macro ARG_to_String preserve_ {
@@ -35,22 +38,27 @@
     +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
     +Load_ARG_from_Scratch
   }
-
-  +Adjust_Signs
 }
 
-; Macro +String_to_[FAC/ARG]: Convert a string to float and stores it into FAC.
-; The kernal routine that does the conversion destroys both FAC and ARG:
-; The 'preserve_' parameter avoids this but bloats the resulting code
-; therefore it can be disabled if you know what you are doing.
-!macro String_to_FAC addr, preserve_ {
+; Title:                  MACRO: Convert a string to a floating point number
+; Name:                   String_to_FAC
+;                         String_to_ARG
+; Description:            Convert a null-terminated string representing a valid floating point number
+;                         to a floating point number and place it in FAC or ARG.
+; Input parameters:       addr_:     a memory address
+;                         preserve_: FAC and ARG are destroyed by the operation unless this parameter is <> 0
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
+!macro String_to_FAC addr_, preserve_ {
   !if (preserve_) {
     +Store_ARG_in_Scratch       ; Save a copy of ARG.
   }
 
-  lda #<addr                    ; Store the address of the string in TXTPTR
+  lda #<addr_                   ; Store the address of the string in TXTPTR.
   sta TXTPTR
-  lda #>addr
+  lda #>addr_
   sta TXTPTR+1
   jsr CHRGOT                    ; and place the first character of the string in the input stream
   jsr FIN                       ; then start the conversion, destroying ARG in the process.
@@ -58,18 +66,16 @@
   !if (preserve_) {
     +Load_ARG_from_Scratch      ; Restore ARG from the copy.
   }
-
-  +Adjust_Signs
 }
 
-!macro String_to_ARG addr, preserve_ {
+!macro String_to_ARG addr_, preserve_ {
   !if (preserve_) {
     +Store_FAC_in_Scratch       ; Save a copy of FAC.
   }
 
-  lda #<addr                    ; Store the address of the string in TXTPTR
+  lda #<addr_                   ; Store the address of the string in TXTPTR.
   sta TXTPTR
-  lda #>addr
+  lda #>addr_
   sta TXTPTR+1
   jsr CHRGOT                    ; and place the first character of the string in the input stream
   jsr FIN                       ; then start the conversion, destroying ARG in the process.
@@ -78,21 +84,26 @@
   !if (preserve_) {
     +Load_FAC_from_Scratch      ; Restore FAC from the copy.
   }
-
-  +Adjust_Signs
 }
 
-; Macro +Print_[FAC/ARG]: Print FAC to screen.
-; The kernal routine that does the conversion destroys both FAC and ARG:
-; The 'preserve_' parameter avoids this but bloats the resulting code
-; therefore it can be disabled if you know what you are doing.
-;
-; __PRINT must point to an actual printing routine. It's strongly
-; discouraged to use STROUT since it trashes FAC and ARG.
+; Title:                  MACRO: Convert the content of FAC or ARG to a string and send it to the output channel
+; Name:                   Print_FAC
+;                         Print_ARG
+; Description:            Convert the content of FAC or ARG to a null-terminated string and send it to the output channel.
+;                         By default the macro uses the STROUT routine from BASIC ROM to output the string.
+;                         If the programmer wants to use a custom print routine for whatever reason, an alternative is provided:
+;                         the programmer can define a special label __PRINT with the address of a custom printing routine
+;                         that prints a null-terminated string whose address is stored inn .A/.Y.
+; Input parameters:       preserve_: FAC and ARG are destroyed by the operation unless this parameter is <> 0
+; Output parameters:      ---
+; Altered registers:      .A, .X, .Y
+; Altered zero-page:      ---
+; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Print_FAC preserve_ {
   !ifndef __PRINT {
     __PRINT = STROUT
   }
+
   !if (preserve_) {
     +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
     +Store_ARG_in_Scratch
@@ -107,14 +118,13 @@
     +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
     +Load_ARG_from_Scratch
   }
-
-  +Adjust_Signs
 }
 
 !macro Print_ARG preserve_ {
   !ifndef __PRINT {
     __PRINT = STROUT
   }
+
   !if (preserve_) {
     +Store_FAC_in_Scratch       ; Save copies of FAC and ARG.
     +Store_ARG_in_Scratch
@@ -130,6 +140,4 @@
     +Load_FAC_from_Scratch      ; Restore the copies of FAC and ARG.
     +Load_ARG_from_Scratch
   }
-
-  +Adjust_Signs
 }
