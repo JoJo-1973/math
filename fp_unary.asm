@@ -2,13 +2,17 @@
 ; Unary Functions
 ; ---------------
 
-; Title:                  MACRO: Negate FAC or ARG
+; Title:                  MACRO: Negate a floating point number and store the result in FAC
 ; Name:                   Negate_FAC
 ;                         Negate_ARG
-; Description:            Flip the sign of the value stored in FAC or ARG.
-; Input parameters:       ---
+;                         Negate_Mem
+;                         Negate_Ptr
+; Description:            Negate a Microsoft Binary Format floating point number and store the result in FAC.
+;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_: a memory address
+;                         ptr_:  a pointer
 ; Output parameters:      ---
-; Altered registers:      .A
+; Altered registers:      .A, .Y
 ; Altered zero-page:      ---
 ; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Negate_FAC {
@@ -23,33 +27,65 @@
   sta ARGSGN
 }
 
-; Title:                  MACRO: Absolute value of FAC or ARG
-; Name:                   Abs_FAC
-;                         Abs_ARG
-; Description:            Compute the absolute value of FAC or ARG by clearing MSB of sign.
-; Input parameters:       ---
+!macro Negate_Mem addr_ {
+  +Load_FAC_from_Mem addr_
+  lda FACSGN
+  eor #$FF
+  sta FACSGN
+}
+
+!macro Negate_Ptr ptr_ {
+  +Load_FAC_from_Ptr ptr_
+  lda FACSGN
+  eor #$FF
+  sta FACSGN
+}
+
+; Title:                  MACRO: Compute the absolute value of a floating point number and store the result in FAC
+; Name:                   ABS_FAC
+;                         ABS_ARG
+;                         ABS_Mem
+;                         ABS_Ptr
+; Description:            Compute the absolute value of a Microsoft Binary Format floating point number and store the result in FAC.
+;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_: a memory address
+;                         ptr_:  a pointer
 ; Output parameters:      ---
-; Altered registers:      ---
+; Altered registers:      .A, .Y
 ; Altered zero-page:      ---
 ; External dependencies:  standard.asm, symbols.asm, kernal.asm
-!macro Abs_FAC {
+!macro ABS_FAC {
   lsr FACSGN                    ; Just replace bit #7 of sign with 0.
 }
 
-!macro Abs_ARG {
+!macro ABS_ARG {
   lsr ARGSGN                    ; Just replace bit #7 of sign with 0.
 }
 
-; Title:                  MACRO: Return sign of FAC or ARG
+!macro ABS_Mem addr_ {
+  +Load_FAC_from_Mem addr_
+  lsr FACSGN
+}
+
+!macro ABS_Ptr ptr_ {
+  +Load_FAC_from_Ptr ptr_
+  lsr FACSGN
+}
+
+; Title:                  MACRO: Return the sign of a floating point number and store the result in .A
 ; Name:                   Sign_FAC
 ;                         Sign_ARG
-; Description:            Return the sign of FAC or ARG in .A.
-;                           .A = $FF if FAC/ARG < 0.
-;                           .A = $00 if FAC/ARG = 0.
-;                           .A = $01 if FAC/ARG > 0.
-; Input parameters:       ---
+;                         Sign_Mem
+;                         Sign_Ptr
+; Description:            Return the sign of a Microsoft Binary Format floating point number and store the result in .A.
+;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
+;                           .A = $FF if data < 0.
+;                           .A = $00 if data = 0.
+;                           .A = $01 if data > 0.
+; Input parameters:       addr_: a memory address
+;                         ptr_:  a pointer
 ; Output parameters:      .A
-; Altered registers:      .A
+; Altered registers:      .A, .Y
 ; Altered zero-page:      ---
 ; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Sign_FAC {
@@ -57,45 +93,78 @@
 }
 
 !macro Sign_ARG {
-  lda ARGEXP
-  beq @Exit                     ; If .A = 0, exit
+  lda ARGEXP                    ; Test exponent,
+  beq @Exit                     ; if .A = 0, exit
 
   lda ARGSGN                    ; else rotate sign bit in carry.
   rol a
   lda #$FF                      ; Prepare negative sign answer
-  bcs @Exit                     ; and deliver it if .C = 1
-  lda #$01                      ; else deliver positive sign answer
+  bcs @Exit                     ; and deliver it if C = 1
+  lda #$01                      ; else deliver positive sign answer.
 @Exit
 }
 
-; Title:                  MACRO: Round FAC or ARG towards negative infinity
-; Name:                   Int_FAC
-;                         Int_ARG
-; Description:            Return FAC or ARG rounded towards negative infinity, i.e. 1.2 becomes 1 and -1.2 becomes -2.
-; Input parameters:       ---
+!macro Sign_Mem addr_ {
+  +Load_FAC_from_Mem addr_
+  jsr SIGN
+}
+
+!macro Sign_Ptr ptr_ {
+  +Load_FAC_from_Ptr ptr_
+  jsr SIGN
+}
+
+; Title:                  MACRO: Round a floating point number towards negative infinity and store the result in FAC
+; Name:                   INT_FAC
+;                         INT_ARG
+;                         INT_Mem
+;                         INT_Ptr
+; Description:            Round a Microsoft Binary Format floating point number towards negative infinity and store the result in FAC.
+;                         For example, 1.2 becomes 1 and -1.2 becomes -2.
+;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_: a memory address
+;                         ptr_:  a pointer
 ; Output parameters:      ---
-; Altered registers:      .A, .X, .Y
+; Altered registers:      .A, .Y
 ; Altered zero-page:      ---
 ; External dependencies:  standard.asm, symbols.asm, kernal.asm
-!macro Int_FAC {
+!macro INT_FAC {
   jsr INT
 }
 
-!macro Int_ARG {
+!macro INT_ARG {
   +Swap_FAC_and_ARG
   jsr INT
   +Swap_FAC_and_ARG
 }
 
-; Title:                  MACRO: Multiply or divide FAC or ARG by 2
+!macro INT_Mem addr_ {
+  +Load_FAC_from_Mem addr_
+  jsr INT
+}
+
+!macro INT_Ptr ptr_ {
+  +Load_FAC_from_Ptr ptr_
+  jsr INT
+}
+
+; Title:                  MACRO: Multiply or divide a floating point number by 2 and store the result in FAC
 ; Name:                   Multiply_FAC_by_2
 ;                         Multiply_ARG_by_2
+;                         Multiply_Mem_by_2
+;                         Multiply_Ptr_by_2
 ;                         Divide_FAC_by_2
 ;                         Divide_ARG_by_2
-; Description:            Multiply or divide FAC or ARG by 2 manipulating the exponent byte rather than using division.
-; Input parameters:       ---
+;                         Divide_Mem_by_2
+;                         Divide_Ptr_by_2
+; Description:            Multiply or divide a floating point number by 2 and store the result in FAC.
+;                         The operation is performed acting directly on the exponent byte and is much faster
+;                         than a proper multiplication or division.
+;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
+; Input parameters:       addr_: a memory address
+;                         ptr_:  a pointer
 ; Output parameters:      ---
-; Altered registers:      ---
+; Altered registers:      .A, .Y
 ; Altered zero-page:      ---
 ; External dependencies:  standard.asm, symbols.asm, kernal.asm
 !macro Multiply_FAC_by_2 {
@@ -106,10 +175,30 @@
   inc ARGEXP
 }
 
+!macro Multiply_Mem_by_2 addr_ {
+  +Load_FAC_from_Mem addr_
+  inc FACEXP
+}
+
+!macro Multiply_Ptr_by_2 ptr_ {
+  +Load_FAC_from_Ptr ptr_
+  inc FACEXP
+}
+
 !macro Divide_FAC_by_2 {
   dec FACEXP
 }
 
 !macro Divide_ARG_by_2 {
   dec ARGEXP
+}
+
+!macro Divide_Mem_by_2 addr_ {
+  +Load_FAC_from_Mem addr_
+  dec FACEXP
+}
+
+!macro Divide_Ptr_by_2 ptr_ {
+  +Load_FAC_from_Ptr ptr_
+  dec FACEXP
 }

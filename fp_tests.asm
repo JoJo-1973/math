@@ -735,11 +735,11 @@ DESC_NEGATE:
 ; ------------------------------
 
 ABS:
-  +Abs_FAC
+  +ABS_FAC
   nop
   nop
   nop
-  +Abs_ARG
+  +ABS_ARG
   rts
 
 DESC_ABS:
@@ -796,11 +796,11 @@ DESC_SIGNUM:
 ; ------------------------------
 
 INTG:
-  +Int_FAC
+  +INT_FAC
   nop
   nop
   nop
-  +Int_ARG
+  +INT_ARG
   rts
 
 DESC_INTG:
