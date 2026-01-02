@@ -2,7 +2,7 @@
 ; Exponentiation and Root
 ; -----------------------
 
-; Title:                  MACRO: Perform floating point exponentiation and store the result in FAC
+; Title:                  MACRO: Compute floating point exponentiation and store the result in FAC
 ; Name:                   Power_ARG_to_FAC
 ;                         Power_Mem_to_FAC
 ;                         Power_Ptr_to_FAC
@@ -57,10 +57,11 @@
 
 ; Title:                  MACRO: Compute the square root and store the result in FAC
 ; Name:                   SQR_FAC
+;                         SQR_ARG
 ;                         SQR_Mem
 ;                         SQR_Ptr
 ; Description:            Compute the square root of a Microsoft Binary Format floating point number and store the result in FAC.
-;                         The data can be located in FAC, at an absolute memory address or referenced to by a pointer.
+;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
 ; Input parameters:       addr_:     a memory address
 ;                         ptr_:      a pointer
 ;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0
@@ -73,6 +74,19 @@
     +Store_ARG_to_Mem STACK     ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
   }
 
+  jsr SQR                       ; Perform square root: no need to prepare FACEXP in advance.
+
+  !if (preserve_) {
+    +Load_ARG_from_Mem STACK
+  }
+}
+
+!macro SQR_ARG preserve_ {
+  !if (preserve_) {
+    +Store_ARG_to_Mem STACK     ; Power routine messes with contents of _SCRATCH_2, so we need a different place to save ARG.
+  }
+
+  +Transfer_ARG_to_FAC
   jsr SQR                       ; Perform square root: no need to prepare FACEXP in advance.
 
   !if (preserve_) {

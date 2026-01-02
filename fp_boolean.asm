@@ -61,7 +61,8 @@
 ;                         NOT_Mem
 ;                         NOT_Ptr
 ; Description:            Perform a bitwise NOT and store the result in FAC.
-;                         The data can be located in FAC, ARG, at an absolute memory address or referenced to by a pointer.
+;                         NOT_ARG is an exception because it operates in place rather than storing the result in FAC.
+;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
 ; Input parameters:       addr_:     a memory address
 ;                         ptr_:      a pointer
 ;                         preserve_: ARG is destroyed by the operation unless this parameter is <> 0

@@ -8,6 +8,7 @@
 ;                         Negate_Mem
 ;                         Negate_Ptr
 ; Description:            Negate a Microsoft Binary Format floating point number and store the result in FAC.
+;                         Negate_ARG is an exception because it operates in place rather than storing the result in FAC.
 ;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
 ; Input parameters:       addr_: a memory address
 ;                         ptr_:  a pointer
@@ -47,6 +48,7 @@
 ;                         ABS_Mem
 ;                         ABS_Ptr
 ; Description:            Compute the absolute value of a Microsoft Binary Format floating point number and store the result in FAC.
+;                         ABS_ARG is an exception because it operates in place rather than storing the result in FAC.
 ;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
 ; Input parameters:       addr_: a memory address
 ;                         ptr_:  a pointer
@@ -78,6 +80,7 @@
 ;                         Sign_Mem
 ;                         Sign_Ptr
 ; Description:            Return the sign of a Microsoft Binary Format floating point number and store the result in .A.
+;                         Sign_ARG is an exception because it operates in place rather than storing the result in FAC.
 ;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
 ;                           .A = $FF if data < 0.
 ;                           .A = $00 if data = 0.
@@ -121,6 +124,7 @@
 ;                         INT_Ptr
 ; Description:            Round a Microsoft Binary Format floating point number towards negative infinity and store the result in FAC.
 ;                         For example, 1.2 becomes 1 and -1.2 becomes -2.
+;                         INT_ARG is an exception because it operates in place rather than storing the result in FAC.
 ;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
 ; Input parameters:       addr_: a memory address
 ;                         ptr_:  a pointer
@@ -158,8 +162,9 @@
 ;                         Divide_Mem_by_2
 ;                         Divide_Ptr_by_2
 ; Description:            Multiply or divide a floating point number by 2 and store the result in FAC.
-;                         The operation is performed acting directly on the exponent byte and is much faster
+;                         The operation is performed by changing the exponent byte and it's much faster
 ;                         than a proper multiplication or division.
+;                         Operations on ARG are exceptions because they operate in place rather than storing the result in FAC.
 ;                         The data can be located in FAC, in ARG, at an absolute memory address or referenced to by a pointer.
 ; Input parameters:       addr_: a memory address
 ;                         ptr_:  a pointer
