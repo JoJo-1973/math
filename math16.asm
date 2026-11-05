@@ -1,758 +1,1111 @@
-; Macro per operazioni matematiche con valori a 16 bit
+; ==============================================================================
+; FILE:           math16.asm
+; PROGETTO:       Libreria di Sistema (math.c64)
+; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
+; DESCRIZIONE:    Macro per operazioni matematiche su valori a 16 bit.
+; CONTENUTO:      m_Asl16   Scorrimento a sinistra di un valore a 16 bit
+;                 m_Add16   Somma due valori a 16 bit
+;                 m_Sub16   Sottrae due valori a 16 bit
+;                 m_Neg16   Nega un valore a 16 bit
+;                 m_Not16   NOT booleano di un valore a 16 bit
+;                 m_And16   AND booleano di due valori a 16 bit
+;                 m_Ora16   OR booleano di due valori a 16 bit
+;                 m_Eor16   EOR booleano di due valori a 16 bit
+;                 m_AslS16  Scorrimento a sinistra con segno, segnala V
+;                 m_Lsr16   Scorrimento logico a destra a 16 bit
+;                 m_AsrS16  Scorrimento aritmetico a destra con segno
+;                 m_Rol16   Rotazione a sinistra attraverso il Carry
+;                 m_Rl16    Rotazione a sinistra senza passare per il Carry
+;                 m_Ror16   Rotazione a destra attraverso il Carry
+;                 m_Rr16    Rotazione a destra senza passare per il Carry
+; DIPENDENZE:     <mem/mem16.asm>
+; REQUISITI ZP:   Nessuno
+; ==============================================================================
 
-; Titolo:                 MACRO: Somma 2 valori a 16 bit
-; Nome:                   Add16
-; Descrizione:            Somma 2 valori a 16 bit usando l'indirizzamento scelto e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_IMM = Immediato: il primo operando è un indirizzo, il secondo è un valore a 16 bit
-;                               ADDR_ABS = Assoluto: entrambi gli operandi sono indirizzi a 16 bit
-;                               ADDR_ZER = Pagina Zero: entrambi gli operandi sono indirizzi in pagina zero
-;                         add1: Primo addendo
-;                         add2: Secondo addendo
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Add16 mode, add1, add2, res {
-  !if (mode = ADDR_IMM) {
-    !if (add2 != 0) {
-      clc
+!source "../mem/mem16.asm", once
 
-      lda add1
-      adc #<add2
-      sta res
+; ==============================================================================
+; MACRO: m_Asl16
+; ------------------------------------------------------------------------------
+; Descrizione:  Fa scorrere a sinistra di un bit un valore a 16 bit, secondo
+;               l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata. È uno scorrimento logico: non si tiene
+;               traccia di un eventuale overflow.
+;
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "ABS" oppure "ZP"
+;   - .op_ (1 o 2 byte, Macro)  : Indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;   - Flag Carry (1 bit, .P)    : 0 = bit uscito 0; 1 = bit uscito 1
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A (se .op_ != .res_), .P (Negative, Zero, Carry),
+;                       .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_Asl16 .mode_, .op_, .res_ {
+    !if (.mode_ = "ABS") {
+      !if (.op_ = .res_) {
+        asl+2 .op_                          ; Scorre il byte 0: il bit #7 va nel Carry.
+        rol+2 .op_+1                        ; Ruota il byte 1 con il Carry.
+      } else {
+        lda+2 .op_                          ; Byte 0 dell'operando.
+        asl a                               ; Scorre il byte 0: il bit #7 va nel Carry.
+        sta .res_                           ; Byte 0 del risultato.
 
-      lda add1+1
-      adc #>add2
-      sta res+1
-    } else {
-      clc
+        lda+2 .op_+1                        ; Byte 1 dell'operando.
+        rol a                               ; Ruota il byte 1 con il Carry.
+        sta .res_+1                         ; Byte 1 del risultato.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op_ = .res_) {
+        asl+1 .op_                          ; Scorre il byte 0: il bit #7 va nel Carry.
+        rol+1 .op_+1                        ; Ruota il byte 1 con il Carry.
+      } else {
+        lda+1 .op_                          ; Byte 0 dell'operando.
+        asl a                               ; Scorre il byte 0: il bit #7 va nel Carry.
+        sta .res_                           ; Byte 0 del risultato.
 
-      lda add1
-      sta res
-
-      lda add1+1
-      sta res+1
+        lda+1 .op_+1                        ; Byte 1 dell'operando.
+        rol a                               ; Ruota il byte 1 con il Carry.
+        sta .res_+1                         ; Byte 1 del risultato.
+      }
     }
-  } else if (mode = ADDR_ABS) {
-    clc
-
-    lda+2 add1
-    adc+2 add2
-    sta res
-
-    lda+2 add1+1
-    adc+2 add2+1
-    sta res+1
-  } else if (mode = ADDR_ZER) {
-    clc
-
-    lda+1 add1
-    adc+1 add2
-    sta res
-
-    lda+1 add1+1
-    adc+1 add2+1
-    sta res+1
-  }
 }
 
-; Titolo:                 MACRO: Sottrazione di 2 valori a 16 bit
-; Nome:                   Sub16
-; Descrizione:            Sottrae 2 valori a 16 bit usando l'indirizzamento scelto e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_IMM = Immediato: il primo operando è un indirizzo, il secondo è un valore a 16 bit
-;                               ADDR_ABS = Assoluto: entrambi gli operandi sono indirizzi a 16 bit
-;                               ADDR_ZER = Pagina Zero: entrambi gli operandi sono indirizzi in pagina zero
-;                         min:  Minuendo
-;                         sub:  Sottraendo
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Sub16 mode, min, sub, res {
-  !if (mode = ADDR_IMM) {
-    !if (sub != 0) {
-      sec
+; ==============================================================================
+; MACRO: m_Add16
+; ------------------------------------------------------------------------------
+; Descrizione:  Somma due valori a 16 bit, secondo l'indirizzamento scelto, e
+;               memorizza il risultato nella locazione desiderata.
+;
+;                 "IMM"  Immediato: .add1_ è un indirizzo e .add2_ è un
+;                        valore a 16 bit.
+;                 "ABS"  Assoluto: gli operandi sono indirizzi
+;                        assoluti.
+;                 "ZP"   Pagina Zero: gli operandi sono indirizzi in
+;                        pagina zero.
+;
+;               Se i due addendi coincidono ("ABS" e "ZP") il raddoppio è
+;               eseguito da m_Asl16, che non imposta V.
+;
+;               Se .res_ coincide con il primo operando le copie sono omesse, e
+;               N e Z non riflettono il risultato.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)    : Indirizzamento: "IMM", "ABS" oppure "ZP"
+;   - .add1_ (1 o 2 byte, Macro) : Indirizzo del primo addendo
+;   - .add2_ (2 byte, Macro)     : Secondo addendo: valore (IMM) o indirizzo
+;   - .res_ (1 o 2 byte, Macro)  : Indirizzo del risultato, assoluto o in pagina
+;                                  zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)      : Riceve il risultato a 16 bit
+;   - Flag Carry (1 bit, .P)     : 0 = riporto assente; 1 = riporto
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, oVerflow, Zero, Carry), .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_Add16 .mode_, .add1_, .add2_, .res_ {
+    !if (.mode_ = "IMM") {
+      !if (.add2_ != 0) {
+        clc                                 ; Nessun riporto iniziale.
 
-      lda min
-      sbc #<sub
-      sta res
+        lda .add1_                          ; Byte 0 del primo addendo.
+        adc #<.add2_                        ; Somma il byte 0 della costante.
+        sta .res_                           ; Byte 0 del risultato.
 
-      lda min+1
-      sbc #>sub
-      sta res+1
-    } else {
-      sec
+        lda .add1_+1                        ; Byte 1 del primo addendo.
+        adc #>.add2_                        ; Somma il byte 1 della costante. Con il riporto.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        clc                                 ; Con zero il risultato è il primo operando.
 
-      lda min
-      sta res
+        !if (.add1_ != .res_) {
+          lda .add1_                        ; Byte 0 del primo addendo.
+          sta .res_                         ; Byte 0 del risultato.
 
-      lda min+1
-      sta res+1
+          lda .add1_+1                      ; Byte 1 del primo addendo.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
+    } else if (.mode_ = "ABS") {
+      !if (.add1_ = .add2_) {
+        +m_Asl16 "ABS", .add1_, .res_       ; Un valore sommato a se stesso è il suo doppio.
+      } else {
+        clc                                 ; Nessun riporto iniziale.
+
+        lda+2 .add1_                        ; Byte 0 del primo addendo.
+        adc+2 .add2_                        ; Somma il byte 0 del secondo addendo.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+2 .add1_+1                      ; Byte 1 del primo addendo.
+        adc+2 .add2_+1                      ; Somma il byte 1 del secondo addendo. Con il riporto.
+        sta .res_+1                         ; Byte 1 del risultato.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.add1_ = .add2_) {
+        +m_Asl16 "ZP", .add1_, .res_        ; Un valore sommato a se stesso è il suo doppio.
+      } else {
+        clc                                 ; Nessun riporto iniziale.
+
+        lda+1 .add1_                        ; Byte 0 del primo addendo.
+        adc+1 .add2_                        ; Somma il byte 0 del secondo addendo.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+1 .add1_+1                      ; Byte 1 del primo addendo.
+        adc+1 .add2_+1                      ; Somma il byte 1 del secondo addendo. Con il riporto.
+        sta .res_+1                         ; Byte 1 del risultato.
+      }
     }
-  } else if (mode = ADDR_ABS) {
-    !if (min != sub) {
-      sec
+}
 
-      lda+2 min
-      sbc+2 sub
-      sta res
+; ==============================================================================
+; MACRO: m_Sub16
+; ------------------------------------------------------------------------------
+; Descrizione:  Sottrae il sottraendo dal minuendo, due valori a 16 bit, secondo
+;               l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata.
+;
+;                 "IMM"  Immediato: .min_ è un indirizzo e .sub_ è un
+;                        valore a 16 bit.
+;                 "ABS"  Assoluto: gli operandi sono indirizzi
+;                        assoluti.
+;                 "ZP"   Pagina Zero: gli operandi sono indirizzi in
+;                        pagina zero.
+;
+;               Se .res_ coincide con il minuendo e il sottraendo vale zero, la
+;               copia è omessa, e N e Z non riflettono il risultato.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "IMM", "ABS" oppure "ZP"
+;   - .min_ (1 o 2 byte, Macro) : Indirizzo del minuendo
+;   - .sub_ (2 byte, Macro)     : Sottraendo: valore (IMM) o indirizzo
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;   - Flag Carry (1 bit, .P)    : 0 = prestito; 1 = nessun prestito
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, oVerflow, Zero, Carry), .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_Sub16 .mode_, .min_, .sub_, .res_ {
+    !if (.mode_ = "IMM") {
+      !if (.sub_ != 0) {
+        sec                                 ; Nessun prestito iniziale.
 
-      lda+2 min+1
-      sbc+2 sub+1
-      sta res+1
-    } else {
-      sec
+        lda .min_                           ; Byte 0 del minuendo.
+        sbc #<.sub_                         ; Sottrae il byte 0 della costante.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda .min_+1                         ; Byte 1 del minuendo.
+        sbc #>.sub_                         ; Sottrae il byte 1 della costante. Con il prestito.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        sec                                 ; Con zero il risultato è il primo operando.
+
+        !if (.min_ != .res_) {
+          lda .min_                         ; Byte 0 del minuendo.
+          sta .res_                         ; Byte 0 del risultato.
+
+          lda .min_+1                       ; Byte 1 del minuendo.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
+    } else if (.mode_ = "ABS") {
+      !if (.min_ != .sub_) {
+        sec                                 ; Nessun prestito iniziale.
+
+        lda+2 .min_                         ; Byte 0 del minuendo.
+        sbc+2 .sub_                         ; Sottrae il byte 0 del sottraendo.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+2 .min_+1                       ; Byte 1 del minuendo.
+        sbc+2 .sub_+1                       ; Sottrae il byte 1 del sottraendo. Con il prestito.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        sec                                 ; Un valore meno se stesso: nessun prestito.
+        lda #0                              ; Il risultato è zero.
+        sta .res_                           ; Azzera il byte 0 del risultato.
+        sta .res_+1                         ; Azzera il byte 1 del risultato.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.min_ != .sub_) {
+        sec                                 ; Nessun prestito iniziale.
+
+        lda+1 .min_                         ; Byte 0 del minuendo.
+        sbc+1 .sub_                         ; Sottrae il byte 0 del sottraendo.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+1 .min_+1                       ; Byte 1 del minuendo.
+        sbc+1 .sub_+1                       ; Sottrae il byte 1 del sottraendo. Con il prestito.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        sec                                 ; Un valore meno se stesso: nessun prestito.
+        lda #0                              ; Il risultato è zero.
+        sta .res_                           ; Azzera il byte 0 del risultato.
+        sta .res_+1                         ; Azzera il byte 1 del risultato.
+      }
+    }
+}
+
+; ==============================================================================
+; MACRO: m_Neg16
+; ------------------------------------------------------------------------------
+; Descrizione:  Sottrae un valore a 16 bit da zero, secondo l'indirizzamento
+;               scelto, e memorizza il risultato nella locazione desiderata.
+;
+;                 "IMM"  .op_ è un valore a 16 bit.
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Con "IMM" il risultato è calcolato dall'assemblatore e caricato
+;               da m_Mov16.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "IMM", "ABS" oppure "ZP"
+;   - .op_ (2 byte, Macro)      : Valore (IMM) o indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, oVerflow, Zero, Carry), .res_+0 .. +1
+; Dipendenze Esterne:   <mem/mem16.asm>
+; ==============================================================================
+!macro m_Neg16 .mode_, .op_, .res_ {
+    !if (.mode_ = "IMM") {
+      !if (.op_ = 0) {
+        +m_Mov16 "IMM", 0, .res_            ; Il negato di zero è zero.
+      } else {
+        +m_Mov16 "IMM", $FFFF-.op_+1, .res_ ; Il complemento a 2 è noto all'assemblaggio.
+      }
+    } else if (.mode_ = "ABS") {
+      sec                                   ; Nessun prestito iniziale.
+
       lda #0
-      sta res
-      sta res+1
-    }
-  } else if (mode = ADDR_ZER) {
-    !if (min != sub) {
-      sec
-
-      lda+1 min
-      sbc+1 sub
-      sta res
-
-      lda+1 min+1
-      sbc+1 sub+1
-      sta res+1
-    } else {
-      sec
-      lda #0
-      sta res
-      sta res+1
-    }
-  }
-}
-
-; Titolo:                 MACRO: Negazione di un valore a 16 bit
-; Nome:                   Neg16
-; Descrizione:            Sottrae un valore a 16 bit da 0 usando l'indirizzamento scelto e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_IMM = Immediato: il primo operando è un indirizzo, il secondo è un valore a 16 bit
-;                               ADDR_ABS = Assoluto: entrambi gli operandi sono indirizzi a 16 bit
-;                               ADDR_ZER = Pagina Zero: entrambi gli operandi sono indirizzi in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Neg16 mode, op, res {
-  !if (mode = ADDR_IMM) {
-    !if (op != 0) {
-      sec
+      sbc+2 .op_                            ; Sottrae il byte 0.
+      sta .res_                             ; Byte 0 del risultato.
 
       lda #0
-      sbc #<op
-      sta res
+      sbc+2 .op_+1                          ; Sottrae il byte 1. Con il prestito.
+      sta .res_+1                           ; Byte 1 del risultato.
+    } else if (.mode_ = "ZP") {
+      sec                                   ; Nessun prestito iniziale.
 
       lda #0
-      sbc #>op
-      sta res+1
-    } else {
-      sec
+      sbc+1 .op_                            ; Sottrae il byte 0.
+      sta .res_                             ; Byte 0 del risultato.
+
       lda #0
-      sta res
-      sta res+1
+      sbc+1 .op_+1                          ; Sottrae il byte 1. Con il prestito.
+      sta .res_+1                           ; Byte 1 del risultato.
     }
-  } else if (mode = ADDR_ABS) {
-    sec
-
-    lda #0
-    sbc+2 op
-    sta res
-
-    lda #0
-    sbc+2 op+1
-    sta res+1
-  } else if (mode = ADDR_ZER) {
-    sec
-
-    lda #0
-    sbc+1 op
-    sta res
-
-    lda #0
-    sbc+1 op+1
-    sta res+1
-  }
 }
 
-; Titolo:                 MACRO: NOT booleano di un valore a 16 bit
-; Nome:                   Not16
-; Descrizione:            Inverte un valore a 16 bit usando l'indirizzamento scelto e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_IMM = Immediato: il primo operando è un indirizzo, il secondo è un valore a 16 bit
-;                               ADDR_ABS = Assoluto: entrambi gli operandi sono indirizzi a 16 bit
-;                               ADDR_ZER = Pagina Zero: entrambi gli operandi sono indirizzi in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Not16 mode, op, res {
-  !if (mode = ADDR_IMM) {
-    !if (op = 0) {
-      +Mov16 ADDR_IMM,$FFFF,res
-    } else if (op = $FFFF) {
-      +Mov16 ADDR_IMM,0,res
-    } else {
-      lda #<op
-      eor #$FF
-      sta res
+; ==============================================================================
+; MACRO: m_Not16
+; ------------------------------------------------------------------------------
+; Descrizione:  Inverte tutti i bit di un valore a 16 bit, secondo
+;               l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata.
+;
+;                 "IMM"  .op_ è un valore a 16 bit.
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Con "IMM" il risultato è calcolato dall'assemblatore e caricato
+;               da m_Mov16.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "IMM", "ABS" oppure "ZP"
+;   - .op_ (2 byte, Macro)      : Valore (IMM) o indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, Zero), .res_+0 .. +1
+; Dipendenze Esterne:   <mem/mem16.asm>
+; ==============================================================================
+!macro m_Not16 .mode_, .op_, .res_ {
+    !if (.mode_ = "IMM") {
+      +m_Mov16 "IMM", $FFFF-.op_, .res_     ; Il NOT è noto all'assemblaggio.
+    } else if (.mode_ = "ABS") {
+      lda+2 .op_                            ; Byte 0 dell'operando.
+      eor #$FF                              ; Inverte tutti i bit.
+      sta .res_                             ; Byte 0 del risultato.
 
-      lda #>op
-      eor #$FF
-      sta res+1
+      lda+2 .op_+1                          ; Byte 1 dell'operando.
+      eor #$FF                              ; Inverte tutti i bit.
+      sta .res_+1                           ; Byte 1 del risultato.
+    } else if (.mode_ = "ZP") {
+      lda+1 .op_                            ; Byte 0 dell'operando.
+      eor #$FF                              ; Inverte tutti i bit.
+      sta .res_                             ; Byte 0 del risultato.
+
+      lda+1 .op_+1                          ; Byte 1 dell'operando.
+      eor #$FF                              ; Inverte tutti i bit.
+      sta .res_+1                           ; Byte 1 del risultato.
     }
-  } else if (mode = ADDR_ABS) {
-    lda+2 op
-    eor #$FF
-    sta res
-
-    lda+2 op+1
-    eor #$FF
-    sta res+1
-  } else if (mode = ADDR_ZER) {
-    lda+1 op
-    eor #$FF
-    sta res
-
-    lda+1 op+1
-    eor #$FF
-    sta res+1
-  }
 }
 
-; Titolo:                 MACRO: AND booleano di due valori a 16 bit
-; Nome:                   And16
-; Descrizione:            Esegue un AND booleano tra due valori a 16 bit usando l'indirizzamento scelto e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_IMM = Immediato: il primo operando è un indirizzo, il secondo è un valore a 16 bit
-;                               ADDR_ABS = Assoluto: entrambi gli operandi sono indirizzi a 16 bit
-;                               ADDR_ZER = Pagina Zero: entrambi gli operandi sono indirizzi in pagina zero
-;                         op1:  Primo operando
-;                         op2:  Secondo operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro And16 mode, op1, op2, res {
-  !if (mode = ADDR_IMM) {
-    !if (op2 = 0) {
-      +Mov16 ADDR_IMM,0,res
-    } else if (op2 = $FFFF) {
-      lda op1
-      sta res
+; ==============================================================================
+; MACRO: m_And16
+; ------------------------------------------------------------------------------
+; Descrizione:  Esegue un AND booleano tra due valori a 16 bit, secondo
+;               l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata.
+;
+;                 "IMM"  Immediato: .op1_ è un indirizzo e .op2_ è un
+;                        valore a 16 bit.
+;                 "ABS"  Assoluto: gli operandi sono indirizzi
+;                        assoluti.
+;                 "ZP"   Pagina Zero: gli operandi sono indirizzi in
+;                        pagina zero.
+;
+;               Con "IMM" i byte della costante pari a $00 o $FF sono trattati a
+;               parte: azzerano il byte o lo lasciano com'è.
+;
+;               Se .res_ coincide con il primo operando le copie inutili sono
+;               omesse, e N e Z non riflettono il risultato.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "IMM", "ABS" oppure "ZP"
+;   - .op1_ (1 o 2 byte, Macro) : Indirizzo del primo operando
+;   - .op2_ (2 byte, Macro)     : Secondo operando: valore (IMM) o indirizzo
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, Zero), .res_+0 .. +1
+; Dipendenze Esterne:   <mem/mem16.asm>
+; ==============================================================================
+!macro m_And16 .mode_, .op1_, .op2_, .res_ {
+    !if (.mode_ = "IMM") {
+      !if (.op2_ = 0) {
+        +m_Mov16 "IMM", 0, .res_            ; AND con zero: il risultato è zero.
+      } else {
+        !if ((.op2_ & $FF) = 0) {
+          lda #0                            ; AND con zero: il byte 0 è zero.
+          sta .res_                         ; Byte 0 del risultato.
+        } else if ((.op2_ & $FF) = $FF) {
+          !if (.op1_ != .res_) {
+            lda .op1_                       ; Byte 0 del primo operando.
+            sta .res_                       ; Byte 0 del risultato.
+          }
+        } else {
+          lda .op1_                         ; Byte 0 del primo operando.
+          and #<.op2_                       ; AND con il byte 0 della costante.
+          sta .res_                         ; Byte 0 del risultato.
+        }
 
-      lda op1+1
-      sta res+1
-    } else {
-      lda op1
-      and #<op2
-      sta res
+        !if (((.op2_ >> 8) & $FF) = 0) {
+          lda #0                            ; AND con zero: il byte 1 è zero.
+          sta .res_+1                       ; Byte 1 del risultato.
+        } else if (((.op2_ >> 8) & $FF) = $FF) {
+          !if (.op1_ != .res_) {
+            lda .op1_+1                     ; Byte 1 del primo operando.
+            sta .res_+1                     ; Byte 1 del risultato.
+          }
+        } else {
+          lda .op1_+1                       ; Byte 1 del primo operando.
+          and #>.op2_                       ; AND con il byte 1 della costante.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
+    } else if (.mode_ = "ABS") {
+      !if (.op1_ != .op2_) {
+        lda+2 .op1_                         ; Byte 0 del primo operando.
+        and+2 .op2_                         ; AND con il byte 0 del secondo operando.
+        sta .res_                           ; Byte 0 del risultato.
 
-      lda op1+1
-      and #>op2
-      sta res+1
+        lda+2 .op1_+1                       ; Byte 1 del primo operando.
+        and+2 .op2_+1                       ; AND con il byte 1 del secondo operando.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        !if (.op1_ != .res_) {
+          lda+2 .op1_                       ; Byte 0 del primo operando.
+          sta .res_                         ; Byte 0 del risultato.
+
+          lda+2 .op1_+1                     ; Byte 1 del primo operando.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op1_ != .op2_) {
+        lda+1 .op1_                         ; Byte 0 del primo operando.
+        and+1 .op2_                         ; AND con il byte 0 del secondo operando.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+1 .op1_+1                       ; Byte 1 del primo operando.
+        and+1 .op2_+1                       ; AND con il byte 1 del secondo operando.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        !if (.op1_ != .res_) {
+          lda+1 .op1_                       ; Byte 0 del primo operando.
+          sta .res_                         ; Byte 0 del risultato.
+
+          lda+1 .op1_+1                     ; Byte 1 del primo operando.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
     }
-  } else if (mode = ADDR_ABS) {
-    !if (op1 != op2) {
-      lda+2 op1
-      and+2 op2
-      sta res
-
-      lda+2 op1+1
-      and+2 op2+1
-      sta res+1
-    } else {
-      lda+2 op1
-      sta res
-
-      lda+2 op1+1
-      sta res+1
-    }
-  } else if (mode = ADDR_ZER) {
-    !if (op1 != op2) {
-      lda+1 op1
-      and+1 op2
-      sta res
-
-      lda+1 op1+1
-      and+1 op2+1
-      sta res+1
-    } else {
-      lda+1 op1
-      sta res
-
-      lda+1 op1+1
-      sta res+1
-    }
-  }
 }
 
-; Titolo:                 MACRO: OR booleano di due valori a 16 bit
-; Nome:                   Ora16
-; Descrizione:            Esegue un OR booleano tra due valori a 16 bit usando l'indirizzamento scelto e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_IMM = Immediato: il primo operando è un indirizzo, il secondo è un valore a 16 bit
-;                               ADDR_ABS = Assoluto: entrambi gli operandi sono indirizzi a 16 bit
-;                               ADDR_ZER = Pagina Zero: entrambi gli operandi sono indirizzi in pagina zero
-;                         op1:  Primo operando
-;                         op2:  Secondo operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Ora16 mode, op1, op2, res {
-  !if (mode = ADDR_IMM) {
-    !if (op2 = 0) {
-      lda op1
-      sta res
+; ==============================================================================
+; MACRO: m_Ora16
+; ------------------------------------------------------------------------------
+; Descrizione:  Esegue un OR booleano tra due valori a 16 bit, secondo
+;               l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata.
+;
+;                 "IMM"  Immediato: .op1_ è un indirizzo e .op2_ è un
+;                        valore a 16 bit.
+;                 "ABS"  Assoluto: gli operandi sono indirizzi
+;                        assoluti.
+;                 "ZP"   Pagina Zero: gli operandi sono indirizzi in
+;                        pagina zero.
+;
+;               Con "IMM" i byte della costante pari a $00 o $FF sono trattati a
+;               parte: lasciano il byte com'è o lo portano a $FF.
+;
+;               Se .res_ coincide con il primo operando le copie inutili sono
+;               omesse, e N e Z non riflettono il risultato.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "IMM", "ABS" oppure "ZP"
+;   - .op1_ (1 o 2 byte, Macro) : Indirizzo del primo operando
+;   - .op2_ (2 byte, Macro)     : Secondo operando: valore (IMM) o indirizzo
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, Zero), .res_+0 .. +1
+; Dipendenze Esterne:   <mem/mem16.asm>
+; ==============================================================================
+!macro m_Ora16 .mode_, .op1_, .op2_, .res_ {
+    !if (.mode_ = "IMM") {
+      !if (.op2_ = $FFFF) {
+        +m_Mov16 "IMM", $FFFF, .res_        ; OR con tutto uno: il risultato è tutto uno.
+      } else {
+        !if ((.op2_ & $FF) = 0) {
+          !if (.op1_ != .res_) {
+            lda .op1_                       ; Byte 0 del primo operando.
+            sta .res_                       ; Byte 0 del risultato.
+          }
+        } else if ((.op2_ & $FF) = $FF) {
+          lda #$FF                          ; OR con tutto uno: il byte 0 è $FF.
+          sta .res_                         ; Byte 0 del risultato.
+        } else {
+          lda .op1_                         ; Byte 0 del primo operando.
+          ora #<.op2_                       ; OR con il byte 0 della costante.
+          sta .res_                         ; Byte 0 del risultato.
+        }
 
-      lda op1+1
-      sta res+1
-    } else if (op2 = $FFFF) {
-      +Mov16 ADDR_IMM,$FFFF,res
-    } else {
-      lda op1
-      ora #<op2
-      sta res
+        !if (((.op2_ >> 8) & $FF) = 0) {
+          !if (.op1_ != .res_) {
+            lda .op1_+1                     ; Byte 1 del primo operando.
+            sta .res_+1                     ; Byte 1 del risultato.
+          }
+        } else if (((.op2_ >> 8) & $FF) = $FF) {
+          lda #$FF                          ; OR con tutto uno: il byte 1 è $FF.
+          sta .res_+1                       ; Byte 1 del risultato.
+        } else {
+          lda .op1_+1                       ; Byte 1 del primo operando.
+          ora #>.op2_                       ; OR con il byte 1 della costante.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
+    } else if (.mode_ = "ABS") {
+      !if (.op1_ != .op2_) {
+        lda+2 .op1_                         ; Byte 0 del primo operando.
+        ora+2 .op2_                         ; OR con il byte 0 del secondo operando.
+        sta .res_                           ; Byte 0 del risultato.
 
-      lda op1+1
-      ora #>op2
-      sta res+1
+        lda+2 .op1_+1                       ; Byte 1 del primo operando.
+        ora+2 .op2_+1                       ; OR con il byte 1 del secondo operando.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        !if (.op1_ != .res_) {
+          lda+2 .op1_                       ; Byte 0 del primo operando.
+          sta .res_                         ; Byte 0 del risultato.
+
+          lda+2 .op1_+1                     ; Byte 1 del primo operando.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op1_ != .op2_) {
+        lda+1 .op1_                         ; Byte 0 del primo operando.
+        ora+1 .op2_                         ; OR con il byte 0 del secondo operando.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+1 .op1_+1                       ; Byte 1 del primo operando.
+        ora+1 .op2_+1                       ; OR con il byte 1 del secondo operando.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        !if (.op1_ != .res_) {
+          lda+1 .op1_                       ; Byte 0 del primo operando.
+          sta .res_                         ; Byte 0 del risultato.
+
+          lda+1 .op1_+1                     ; Byte 1 del primo operando.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
     }
-  } else if (mode = ADDR_ABS) {
-    !if (op1 != op2) {
-      lda+2 op1
-      ora+2 op2
-      sta res
-
-      lda+2 op1+1
-      ora+2 op2+1
-      sta res+1
-    } else {
-      lda+2 op1
-      sta res
-
-      lda+2 op1+1
-      sta res+1
-    }
-  } else if (mode = ADDR_ZER) {
-    !if (op1 != op2) {
-      lda+1 op1
-      ora+1 op2
-      sta res
-
-      lda+1 op1+1
-      ora+1 op2+1
-      sta res+1
-    } else {
-      lda+1 op1
-      sta res
-
-      lda+1 op1+1
-      sta res+1
-    }
-  }
 }
 
-; Titolo:                 MACRO: EOR booleano di due valori a 16 bit
-; Nome:                   Eor16
-; Descrizione:            Esegue un EOR booleano tra due valori a 16 bit usando l'indirizzamento scelto e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_IMM = Immediato: il primo operando è un indirizzo, il secondo è un valore a 16 bit
-;                               ADDR_ABS = Assoluto: entrambi gli operandi sono indirizzi a 16 bit
-;                               ADDR_ZER = Pagina Zero: entrambi gli operandi sono indirizzi in pagina zero
-;                         op1:  Primo operando
-;                         op2:  Secondo operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Eor16 mode, op1, op2, res {
-  !if (mode = ADDR_IMM) {
-    !if (op2 = 0) {
-      lda op1
-      sta res
+; ==============================================================================
+; MACRO: m_Eor16
+; ------------------------------------------------------------------------------
+; Descrizione:  Esegue un EOR booleano tra due valori a 16 bit, secondo
+;               l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata.
+;
+;                 "IMM"  Immediato: .op1_ è un indirizzo e .op2_ è un
+;                        valore a 16 bit.
+;                 "ABS"  Assoluto: gli operandi sono indirizzi
+;                        assoluti.
+;                 "ZP"   Pagina Zero: gli operandi sono indirizzi in
+;                        pagina zero.
+;
+;               Con "IMM" i byte della costante pari a $00 sono trattati a
+;               parte: lasciano il byte com'è.
+;
+;               Se .res_ coincide con il primo operando le copie inutili sono
+;               omesse, e N e Z non riflettono il risultato.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "IMM", "ABS" oppure "ZP"
+;   - .op1_ (1 o 2 byte, Macro) : Indirizzo del primo operando
+;   - .op2_ (2 byte, Macro)     : Secondo operando: valore (IMM) o indirizzo
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, Zero), .res_+0 .. +1
+; Dipendenze Esterne:   <mem/mem16.asm>
+; ==============================================================================
+!macro m_Eor16 .mode_, .op1_, .op2_, .res_ {
+    !if (.mode_ = "IMM") {
+      !if (.op2_ != 0) {
+        !if ((.op2_ & $FF) = 0) {
+          !if (.op1_ != .res_) {
+            lda .op1_                       ; Byte 0 del primo operando.
+            sta .res_                       ; Byte 0 del risultato.
+          }
+        } else {
+          lda .op1_                         ; Byte 0 del primo operando.
+          eor #<.op2_                       ; EOR con il byte 0 della costante.
+          sta .res_                         ; Byte 0 del risultato.
+        }
 
-      lda op1+1
-      sta res+1
-    } else {
-      lda op1
-      eor #<op2
-      sta res
+        !if (((.op2_ >> 8) & $FF) = 0) {
+          !if (.op1_ != .res_) {
+            lda .op1_+1                     ; Byte 1 del primo operando.
+            sta .res_+1                     ; Byte 1 del risultato.
+          }
+        } else {
+          lda .op1_+1                       ; Byte 1 del primo operando.
+          eor #>.op2_                       ; EOR con il byte 1 della costante.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      } else {
+        !if (.op1_ != .res_) {
+          lda .op1_                         ; Byte 0 del primo operando.
+          sta .res_                         ; Byte 0 del risultato.
 
-      lda op1+1
-      eor #>op2
-      sta res+1
+          lda .op1_+1                       ; Byte 1 del primo operando.
+          sta .res_+1                       ; Byte 1 del risultato.
+        }
+      }
+    } else if (.mode_ = "ABS") {
+      !if (.op1_ != .op2_) {
+        lda+2 .op1_                         ; Byte 0 del primo operando.
+        eor+2 .op2_                         ; EOR con il byte 0 del secondo operando.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+2 .op1_+1                       ; Byte 1 del primo operando.
+        eor+2 .op2_+1                       ; EOR con il byte 1 del secondo operando.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        +m_Mov16 "IMM", 0, .res_            ; EOR di un valore con se stesso: zero.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op1_ != .op2_) {
+        lda+1 .op1_                         ; Byte 0 del primo operando.
+        eor+1 .op2_                         ; EOR con il byte 0 del secondo operando.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+1 .op1_+1                       ; Byte 1 del primo operando.
+        eor+1 .op2_+1                       ; EOR con il byte 1 del secondo operando.
+        sta .res_+1                         ; Byte 1 del risultato.
+      } else {
+        +m_Mov16 "IMM", 0, .res_            ; EOR di un valore con se stesso: zero.
+      }
     }
-  } else if (mode = ADDR_ABS) {
-    !if (op1 != op2) {
-      lda+2 op1
-      eor+2 op2
-      sta res
-
-      lda+2 op1+1
-      eor+2 op2+1
-      sta res+1
-    } else {
-      +Mov16 ADDR_IMM,0,res
-    }
-  } else if (mode = ADDR_ZER) {
-    !if (op1 != op2) {
-      lda+1 op1
-      eor+1 op2
-      sta res
-
-      lda+1 op1+1
-      eor+1 op2+1
-      sta res+1
-    } else {
-      +Mov16 ADDR_IMM,0,res
-    }
-  }
 }
 
-; Titolo:                 MACRO: Spostamento aritmetico a sinistra di un valore a 16 bit
-; Nome:                   Asl16
-; Descrizione:            Esegue uno spostamento aritmetico a sinistra di un valore a 16 bit usando l'indirizzamento scelto
-;                         e memorizza il risultato nella locazione desiderata.
-;                         In realtà è uno spostamento logico, non aritmetico, perché non viene tenuta traccia di un eventuale overflow.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_ABS = Assoluto: l'operando è un indirizzo assoluto a 16 bit
-;                               ADDR_ZER = Pagina Zero: l'operando è un indirizzo in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   ---
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Asl16 mode, op, res {
-  !if (mode = ADDR_ABS) {
-    !if (op = res) {
-      asl+2 op
-      rol+2 op+1
-    } else {
-      lda+2 op
-      asl a
-      sta res
+; ==============================================================================
+; MACRO: m_AslS16
+; ------------------------------------------------------------------------------
+; Descrizione:  Fa scorrere a sinistra di un bit un valore a 16 bit con segno,
+;               secondo l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata. A differenza di m_Asl16 il cambiamento di
+;               segno dovuto all'uscita del bit più alto è segnalato da V.
+;
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "ABS" oppure "ZP"
+;   - .op_ (1 o 2 byte, Macro)  : Indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;   - Flag oVerflow (1 bit, .P) : 0 = segno invariato; 1 = segno cambiato
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, oVerflow, Zero, Carry), .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_AslS16 .mode_, .op_, .res_ {
+    !if (.mode_ = "ABS") {
+      !if (.op_ = .res_) {
+        asl+2 .op_                          ; Scorre il byte 0: il bit #7 va nel Carry.
 
-      lda+2 op+1
-      rol a
-      sta res+1
-    }
-  } else if (mode = ADDR_ZER) {
-    !if (op = res) {
-      asl+1 op
-      rol+1 op+1
-    } else {
-      lda+1 op
-      asl a
-      sta res
+        lda+2 .op_+1                        ; Byte più alto: la somma imposta V.
+        adc+2 .op_+1                        ; Raddoppia con il Carry: V segnala il cambio di segno.
+        sta .op_+1                          ; Memorizza il byte più alto.
+      } else {
+        lda+2 .op_                          ; Byte 0 dell'operando.
+        asl a                               ; Scorre il byte 0: il bit #7 va nel Carry.
+        sta .res_                           ; Byte 0 del risultato.
 
-      lda+1 op+1
-      rol a
-      sta res+1
+        lda+2 .op_+1                        ; Byte 1 dell'operando.
+        adc+2 .op_+1                        ; Raddoppia con il Carry: V segnala il cambio di segno.
+        sta .res_+1                         ; Byte 1 del risultato.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op_ = .res_) {
+        asl+1 .op_                          ; Scorre il byte 0: il bit #7 va nel Carry.
+
+        lda+1 .op_+1                        ; Byte più alto: la somma imposta V.
+        adc+1 .op_+1                        ; Raddoppia con il Carry: V segnala il cambio di segno.
+        sta .op_+1                          ; Memorizza il byte più alto.
+      } else {
+        lda+1 .op_                          ; Byte 0 dell'operando.
+        asl a                               ; Scorre il byte 0: il bit #7 va nel Carry.
+        sta .res_                           ; Byte 0 del risultato.
+
+        lda+1 .op_+1                        ; Byte 1 dell'operando.
+        adc+1 .op_+1                        ; Raddoppia con il Carry: V segnala il cambio di segno.
+        sta .res_+1                         ; Byte 1 del risultato.
+      }
     }
-  }
 }
 
-; Titolo:                 MACRO: Spostamento aritmetico a sinistra di un valore a 16 bit con segno
-; Nome:                   AslS16
-; Descrizione:            Esegue uno spostamento aritmetico a sinistra di un valore a 16 bit con segno usando l'indirizzamento scelto
-;                         e memorizza il risultato nella locazione desiderata.
-;                         A differenza di Asl16 l'eventuale cambiamento di segno dovuto alla fuoriuscita del bit più alto è segnalato dal flag V.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_ABS = Assoluto: l'operando è un indirizzo assoluto a 16 bit
-;                               ADDR_ZER = Pagina Zero: l'operando è un indirizzo in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro AslS16 mode, op, res {
-  !if (mode = ADDR_ABS) {
-    !if (op = res) {
-      asl+2 op
+; ==============================================================================
+; MACRO: m_Lsr16
+; ------------------------------------------------------------------------------
+; Descrizione:  Fa scorrere a destra di un bit un valore a 16 bit, secondo
+;               l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata. Il bit più alto del risultato vale zero.
+;
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "ABS" oppure "ZP"
+;   - .op_ (1 o 2 byte, Macro)  : Indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;   - Flag Carry (1 bit, .P)    : 0 = bit uscito 0; 1 = bit uscito 1
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A (se .op_ != .res_), .P (Negative, Zero, Carry),
+;                       .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_Lsr16 .mode_, .op_, .res_ {
+    !if (.mode_ = "ABS") {
+      !if (.op_ = .res_) {
+        lsr+2 .op_+1                        ; Scorre il byte 1: il bit #0 va nel Carry.
+        ror+2 .op_                          ; Ruota il byte 0 con il Carry.
+      } else {
+        lda+2 .op_+1                        ; Byte 1 dell'operando.
+        lsr a                               ; Scorre il byte 1: il bit #0 va nel Carry.
+        sta .res_+1                         ; Byte 1 del risultato.
 
-      lda+2 op+1
-      adc+2 op+1
-      sta op+1
-    } else {
-      lda+2 op
-      asl a
-      sta res
+        lda+2 .op_                          ; Byte 0 dell'operando.
+        ror a                               ; Ruota il byte 0 con il Carry.
+        sta .res_                           ; Byte 0 del risultato.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op_ = .res_) {
+        lsr+1 .op_+1                        ; Scorre il byte 1: il bit #0 va nel Carry.
+        ror+1 .op_                          ; Ruota il byte 0 con il Carry.
+      } else {
+        lda+1 .op_+1                        ; Byte 1 dell'operando.
+        lsr a                               ; Scorre il byte 1: il bit #0 va nel Carry.
+        sta .res_+1                         ; Byte 1 del risultato.
 
-      lda+2 op+1
-      adc+2 op+1
-      sta res+1
+        lda+1 .op_                          ; Byte 0 dell'operando.
+        ror a                               ; Ruota il byte 0 con il Carry.
+        sta .res_                           ; Byte 0 del risultato.
+      }
     }
-  } else if (mode = ADDR_ZER) {
-    !if (op = res) {
-      asl+1 op
-
-      lda+1 op+1
-      adc+1 op+1
-      sta op+1
-    } else {
-      lda+1 op
-      asl a
-      sta res
-
-      lda+1 op+1
-      adc+1 op+1
-      sta res+1
-    }
-  }
 }
 
-; Titolo:                 MACRO: Spostamento logico a destra di un valore a 16 bit
-; Nome:                   Lsr16
-; Descrizione:            Esegue uno spostamento logico a destra di un valore a 16 bit usando l'indirizzamento scelto
-;                         e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_ABS = Assoluto: l'operando è un indirizzo assoluto a 16 bit
-;                               ADDR_ZER = Pagina Zero: l'operando è un indirizzo in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   ---
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Lsr16 mode, op, res {
-  !if (mode = ADDR_ABS) {
-    !if (op = res) {
-      lsr+2 op+1
-      ror+2 op
-    } else {
-      lda+2 op+1
-      lsr a
-      sta res+1
+; ==============================================================================
+; MACRO: m_AsrS16
+; ------------------------------------------------------------------------------
+; Descrizione:  Fa scorrere a destra di un bit un valore a 16 bit con segno,
+;               secondo l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata. Il bit di segno si conserva.
+;
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "ABS" oppure "ZP"
+;   - .op_ (1 o 2 byte, Macro)  : Indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;   - Flag Carry (1 bit, .P)    : 0 = bit uscito 0; 1 = bit uscito 1
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, Zero, Carry), .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_AsrS16 .mode_, .op_, .res_ {
+    !if (.mode_ = "ABS") {
+      !if (.op_ = .res_) {
+        lda+2 .op_+1                        ; Byte più alto: il bit #7 è il segno.
+        asl a                               ; Il Carry riceve il bit di segno.
 
-      lda+2 op
-      ror a
-      sta res
-    }
-  } else if (mode = ADDR_ZER) {
-    !if (op = res) {
-      lsr+1 op+1
-      ror+1 op
-    } else {
-      lda+1 op+1
-      lsr a
-      sta res+1
+        ror+2 .op_+1                        ; Il segno rientra dall'alto: il segno si conserva.
+        ror+2 .op_                          ; Ruota il byte 0 con il Carry.
+      } else {
+        lda+2 .op_+1                        ; Byte più alto: il bit #7 è il segno.
+        asl a                               ; Il Carry riceve il bit di segno.
 
-      lda+1 op
-      ror a
-      sta res
+        lda+2 .op_+1                        ; Byte 1 dell'operando.
+        ror a                               ; Il segno rientra dall'alto: il segno si conserva.
+        sta .res_+1                         ; Byte 1 del risultato.
+
+        lda+2 .op_                          ; Byte 0 dell'operando.
+        ror a                               ; Ruota il byte 0 con il Carry.
+        sta .res_                           ; Byte 0 del risultato.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op_ = .res_) {
+        lda+1 .op_+1                        ; Byte più alto: il bit #7 è il segno.
+        asl a                               ; Il Carry riceve il bit di segno.
+
+        ror+1 .op_+1                        ; Il segno rientra dall'alto: il segno si conserva.
+        ror+1 .op_                          ; Ruota il byte 0 con il Carry.
+      } else {
+        lda+1 .op_+1                        ; Byte più alto: il bit #7 è il segno.
+        asl a                               ; Il Carry riceve il bit di segno.
+
+        lda+1 .op_+1                        ; Byte 1 dell'operando.
+        ror a                               ; Il segno rientra dall'alto: il segno si conserva.
+        sta .res_+1                         ; Byte 1 del risultato.
+
+        lda+1 .op_                          ; Byte 0 dell'operando.
+        ror a                               ; Ruota il byte 0 con il Carry.
+        sta .res_                           ; Byte 0 del risultato.
+      }
     }
-  }
 }
 
-; Titolo:                 MACRO: Spostamento aritmetico a destra di un valore a 16 bit con segno
-; Nome:                   AsrS16
-; Descrizione:            Esegue uno spostamento aritmetico a destra di un valore a 16 bit con segno usando l'indirizzamento scelto
-;                         e memorizza il risultato nella locazione desiderata.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_ABS = Assoluto: l'operando è un indirizzo assoluto a 16 bit
-;                               ADDR_ZER = Pagina Zero: l'operando è un indirizzo in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro AsrS16 mode, op, res {
-  !if (mode = ADDR_ABS) {
-    !if (op = res) {
-      lda+2 op+1
-      asl a
+; ==============================================================================
+; MACRO: m_Rol16
+; ------------------------------------------------------------------------------
+; Descrizione:  Ruota a sinistra di un bit un valore a 16 bit attraverso il
+;               Carry, secondo l'indirizzamento scelto, e memorizza il risultato
+;               nella locazione desiderata. Il bit più alto esce nel Carry.
+;
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "ABS" oppure "ZP"
+;   - .op_ (1 o 2 byte, Macro)  : Indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;   - Flag Carry (1 bit, .P)    : 0 = bit uscito 0; 1 = bit uscito 1
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A (se .op_ != .res_), .P (Negative, Zero, Carry),
+;                       .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_Rol16 .mode_, .op_, .res_ {
+    !if (.mode_ = "ABS") {
+      !if (.op_ = .res_) {
+        rol+2 .op_                          ; Ruota il byte 0: il Carry entra dal basso.
+        rol+2 .op_+1                        ; Ruota il byte 1: il Carry entra dal basso.
+      } else {
+        lda+2 .op_                          ; Byte 0 dell'operando.
+        rol a                               ; Ruota il byte 0: il Carry entra dal basso.
+        sta .res_                           ; Byte 0 del risultato.
 
-      ror+2 op+1
-      ror+2 op
-    } else {
-      lda+2 op+1
-      asl a
+        lda+2 .op_+1                        ; Byte 1 dell'operando.
+        rol a                               ; Ruota il byte 1: il Carry entra dal basso.
+        sta .res_+1                         ; Byte 1 del risultato.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op_ = .res_) {
+        rol+1 .op_                          ; Ruota il byte 0: il Carry entra dal basso.
+        rol+1 .op_+1                        ; Ruota il byte 1: il Carry entra dal basso.
+      } else {
+        lda+1 .op_                          ; Byte 0 dell'operando.
+        rol a                               ; Ruota il byte 0: il Carry entra dal basso.
+        sta .res_                           ; Byte 0 del risultato.
 
-      lda+2 op+1
-      ror a
-      sta res+1
-
-      lda+2 op
-      ror a
-      sta res
+        lda+1 .op_+1                        ; Byte 1 dell'operando.
+        rol a                               ; Ruota il byte 1: il Carry entra dal basso.
+        sta .res_+1                         ; Byte 1 del risultato.
+      }
     }
-  } else if (mode = ADDR_ZER) {
-    !if (op = res) {
-      lda+1 op+1
-      asl a
-
-      ror+1 op+1
-      ror+1 op
-    } else {
-      lda+1 op+1
-      asl a
-
-      lda+1 op+1
-      ror a
-      sta res+1
-
-      lda+1 op
-      ror a
-      sta res
-    }
-  }
 }
 
-; Titolo:                 MACRO: Rotazione a sinistra di un valore a 16 bit attraverso il Carry
-; Nome:                   Rol16
-; Descrizione:            Esegue una rotazione a sinistra di un valore a 16 bit usando l'indirizzamento scelto
-;                         e memorizza il risultato nella locazione desiderata.
-;                         Il bit di ordine più elevato finisce nel flag C.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_ABS = Assoluto: l'operando è un indirizzo assoluto a 16 bit
-;                               ADDR_ZER = Pagina Zero: l'operando è un indirizzo in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   ---
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Rol16 mode, op, res {
-  !if (mode = ADDR_ABS) {
-    !if (op = res) {
-      rol+2 op
-      rol+2 op+1
-    } else {
-      lda+2 op
-      rol a
-      sta res
-
-      lda+2 op+1
-      rol a
-      sta res+1
+; ==============================================================================
+; MACRO: m_Rl16
+; ------------------------------------------------------------------------------
+; Descrizione:  Ruota a sinistra di un bit un valore a 16 bit senza passare per
+;               il Carry, secondo l'indirizzamento scelto, e memorizza il
+;               risultato nella locazione desiderata. Il bit più alto finisce
+;               nella posizione più bassa.
+;
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "ABS" oppure "ZP"
+;   - .op_ (1 o 2 byte, Macro)  : Indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, Zero, Carry), .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_Rl16 .mode_, .op_, .res_ {
+    !if (.mode_ = "ABS") {
+      lda+2 .op_+1                          ; Byte più alto: il bit #7 deve rientrare dal basso.
+      rol a                                 ; Il Carry riceve il bit più alto.
+      +m_Rol16 "ABS", .op_, .res_           ; La rotazione col Carry lo fa rientrare nel byte 0.
+    } else if (.mode_ = "ZP") {
+      lda+1 .op_+1                          ; Byte più alto: il bit #7 deve rientrare dal basso.
+      rol a                                 ; Il Carry riceve il bit più alto.
+      +m_Rol16 "ZP", .op_, .res_            ; La rotazione col Carry lo fa rientrare nel byte 0.
     }
-  } else if (mode = ADDR_ZER) {
-    !if (op = res) {
-      rol+1 op
-      rol+1 op+1
-    } else {
-      lda+1 op
-      rol a
-      sta res
-
-      lda+1 op+1
-      rol a
-      sta res+1
-    }
-  }
 }
 
-; Titolo:                 MACRO: Rotazione a sinistra di un valore a 16 bit
-; Nome:                   Rl16
-; Descrizione:            Esegue una rotazione a sinistra di un valore a 16 bit senza passare per il Carry usando l'indirizzamento scelto
-;                         e memorizza il risultato nella locazione desiderata.
-;                         Il bit di ordine più elevato finisce nella posizione di ordine meno elevato.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_ABS = Assoluto: l'operando è un indirizzo assoluto a 16 bit
-;                               ADDR_ZER = Pagina Zero: l'operando è un indirizzo in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Rl16 mode, op, res {
-  !if (mode = ADDR_ABS) {
-    lda+2 op+1
-    rol a
-    +Rol16 ADDR_ABS, op, res
-  } else if (mode = ADDR_ZER) {
-    lda+1 op+1
-    rol a
-    +Rol16 ADDR_ZER, op, res
-  }
+; ==============================================================================
+; MACRO: m_Ror16
+; ------------------------------------------------------------------------------
+; Descrizione:  Ruota a destra di un bit un valore a 16 bit attraverso il Carry,
+;               secondo l'indirizzamento scelto, e memorizza il risultato nella
+;               locazione desiderata. Il bit più basso esce nel Carry.
+;
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "ABS" oppure "ZP"
+;   - .op_ (1 o 2 byte, Macro)  : Indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;   - Flag Carry (1 bit, .P)    : 0 = bit uscito 0; 1 = bit uscito 1
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A (se .op_ != .res_), .P (Negative, Zero, Carry),
+;                       .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_Ror16 .mode_, .op_, .res_ {
+    !if (.mode_ = "ABS") {
+      !if (.op_ = .res_) {
+        ror+2 .op_+1                        ; Ruota il byte 1: il Carry entra dall'alto.
+        ror+2 .op_                          ; Ruota il byte 0: il Carry entra dall'alto.
+      } else {
+        lda+2 .op_+1                        ; Byte 1 dell'operando.
+        ror a                               ; Ruota il byte 1: il Carry entra dall'alto.
+        sta .res_+1                         ; Byte 1 del risultato.
+
+        lda+2 .op_                          ; Byte 0 dell'operando.
+        ror a                               ; Ruota il byte 0: il Carry entra dall'alto.
+        sta .res_                           ; Byte 0 del risultato.
+      }
+    } else if (.mode_ = "ZP") {
+      !if (.op_ = .res_) {
+        ror+1 .op_+1                        ; Ruota il byte 1: il Carry entra dall'alto.
+        ror+1 .op_                          ; Ruota il byte 0: il Carry entra dall'alto.
+      } else {
+        lda+1 .op_+1                        ; Byte 1 dell'operando.
+        ror a                               ; Ruota il byte 1: il Carry entra dall'alto.
+        sta .res_+1                         ; Byte 1 del risultato.
+
+        lda+1 .op_                          ; Byte 0 dell'operando.
+        ror a                               ; Ruota il byte 0: il Carry entra dall'alto.
+        sta .res_                           ; Byte 0 del risultato.
+      }
+    }
 }
 
-; Titolo:                 MACRO: Rotazione a destra di un valore a 16 bit attraverso il Carry
-; Nome:                   Ror16
-; Descrizione:            Esegue una rotazione a destra di un valore a 16 bit usando l'indirizzamento scelto
-;                         e memorizza il risultato nella locazione desiderata.
-;                         Il bit di ordine meno elevato finisce nel flag C.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_ABS = Assoluto: l'operando è un indirizzo assoluto a 16 bit
-;                               ADDR_ZER = Pagina Zero: l'operando è un indirizzo in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   ---
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Ror16 mode, op, res {
-  !if (mode = ADDR_ABS) {
-    !if (op = res) {
-      ror+2 op+1
-      ror+2 op
-    } else {
-      lda+2 op+1
-      ror a
-      sta res+1
-
-      lda+2 op
-      ror a
-      sta res
+; ==============================================================================
+; MACRO: m_Rr16
+; ------------------------------------------------------------------------------
+; Descrizione:  Ruota a destra di un bit un valore a 16 bit senza passare per il
+;               Carry, secondo l'indirizzamento scelto, e memorizza il risultato
+;               nella locazione desiderata. Il bit più basso finisce nella
+;               posizione più alta.
+;
+;                 "ABS"  .op_ è un indirizzo assoluto.
+;                 "ZP"   .op_ è un indirizzo in pagina zero.
+;
+;               Gli operandi devono essere definiti prima dell'invocazione,
+;               perché la macro li confronta per scegliere il ramo.
+;
+; Input:
+;   - .mode_ (stringa, Macro)   : Indirizzamento: "ABS" oppure "ZP"
+;   - .op_ (1 o 2 byte, Macro)  : Indirizzo dell'operando
+;   - .res_ (1 o 2 byte, Macro) : Indirizzo del risultato, assoluto o in pagina
+;                                 zero
+;
+; Output:
+;   - .res_ (2 byte, Macro)     : Riceve il risultato a 16 bit
+;
+; Variazione Stack (.S):
+;   - Stabile
+;
+; Registri Modificati:  .A, .P (Negative, Zero, Carry), .res_+0 .. +1
+; Dipendenze Esterne:   Nessuna
+; ==============================================================================
+!macro m_Rr16 .mode_, .op_, .res_ {
+    !if (.mode_ = "ABS") {
+      lda+2 .op_                            ; Byte 0: il bit #0 deve rientrare dall'alto.
+      ror a                                 ; Il Carry riceve il bit più basso.
+      +m_Ror16 "ABS", .op_, .res_           ; La rotazione col Carry lo fa rientrare nel byte più alto.
+    } else if (.mode_ = "ZP") {
+      lda+1 .op_                            ; Byte 0: il bit #0 deve rientrare dall'alto.
+      ror a                                 ; Il Carry riceve il bit più basso.
+      +m_Ror16 "ZP", .op_, .res_            ; La rotazione col Carry lo fa rientrare nel byte più alto.
     }
-  } else if (mode = ADDR_ZER) {
-    !if (op = res) {
-      ror+1 op+1
-      ror+1 op
-    } else {
-      lda+1 op+1
-      ror a
-      sta res+1
-
-      lda+1 op+1
-      ror a
-      sta res
-    }
-  }
-}
-
-; Titolo:                 MACRO: Rotazione a destra di un valore a 16 bit
-; Nome:                   Rr16
-; Descrizione:            Esegue una rotazione a destra di un valore a 16 bit senza passare per il Carry usando l'indirizzamento scelto
-;                         e memorizza il risultato nella locazione desiderata.
-;                         Il bit di ordine meno elevato finisce nella posizione di ordine più elevato.
-; Parametri di ingresso:  mode: Indirizzamento da usare:
-;                               ADDR_ABS = Assoluto: l'operando è un indirizzo assoluto a 16 bit
-;                               ADDR_ZER = Pagina Zero: l'operando è un indirizzo in pagina zero
-;                         op:   Operando
-;                         res:  Indirizzo di memoria del risultato; può essere assoluto o in pagina zero indipendentemente dall'indirizzamento
-; Parametri di uscita:    ---
-; Alterazioni registri:   .A
-; Alterazioni pag. zero:  ---
-; Dipendenze esterne:     standard.asm
-!macro Rr16 mode, op, res {
-  !if (mode = ADDR_ABS) {
-    lda+2 op
-    ror a
-    +Ror16 ADDR_ABS, op, res
-  } else if (mode = ADDR_ZER) {
-    lda+1 op
-    ror a
-    +Ror16 ADDR_ZER, op, res
-  }
 }
