@@ -3,7 +3,7 @@
 !source <c64/kernal.asm>
 !source <chip/vic_ii.asm>
 !source <system/print.asm>
-!source "floating_point.asm"
+!source "fp.asm"
 
 !to "fp test integers",cbm
 
