@@ -306,9 +306,9 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
     bcs @Remainder_Overflow         ; Se il resto esce da 8 bit supera il divisore.
 
     cmp DIV_2+0                     ; Il Carry vale 1 se resto >= divisore.
-    bcc .Next_Div_Bit               ; Resto minore: bit 0 di quoziente e niente sottrazione.
+    bcc .Next_Div_Bit               ; Resto minore: bit #0 di quoziente e niente sottrazione.
 
-    sbc DIV_2+0                     ; Sottrae: il Carry resta 1, bit 1 di quoziente.
+    sbc DIV_2+0                     ; Sottrae: il Carry resta 1, bit #1 di quoziente.
 
   .Next_Div_Bit:
     dex                             ; NEXT: conta i bit del dividendo
@@ -394,7 +394,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
     ; è il bit di quoziente.
     lda DIV_REM+.dvs_bytes_-1
     cmp DIV_2+.dvs_bytes_-1
-    bcc .Next_Div_Multi_Bit         ; Resto minore: bit 0 di quoziente.
+    bcc .Next_Div_Multi_Bit         ; Resto minore: bit #0 di quoziente.
 
     bne @Subtract                   ; Resto maggiore: si sottrae.
 

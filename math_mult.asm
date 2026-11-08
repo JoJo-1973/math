@@ -254,9 +254,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
 ; Dipendenze Esterne:   <c64/symbols.asm>
 ; ==============================================================================
 !macro m_Mul_Stage .stage_, .mcand_bytes_, .mplier_bytes_ {
-    ; Il bit 0 del byte in esame entra nel Carry e decide se si
+    ; Il bit #0 del byte in esame entra nel Carry e decide se si
     ; somma alla prima iterazione.
-    lsr MUL_RES+.stage_             ; Estrae il bit 0 del moltiplicatore.
+    lsr MUL_RES+.stage_             ; Estrae il bit #0 del moltiplicatore.
     ldx #8                          ; FOR (Inizializzazione)
 
   .Loop_Mul_Bit:
@@ -710,9 +710,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       sta MUL_1+0                   ; Salva il moltiplicando.
       stx MUL_2+0                   ; Salva il moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+0                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+0                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -829,9 +829,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       stx MUL_1+1                   ; Salva il byte alto del moltiplicando.
       sty MUL_2+0                   ; Salva il moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+1                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+0                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -944,9 +944,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
     SMUL_24X8:
       sta MUL_2+0                   ; Salva il moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+2                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+0                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -1059,9 +1059,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
     SMUL_32X8:
       sta MUL_2+0                   ; Salva il moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+3                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+0                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -1177,9 +1177,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       sta MUL_2+0                   ; Salva il byte 0 del moltiplicatore.
       stx MUL_2+1                   ; Salva il byte 1 del moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+1                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+1                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -1295,9 +1295,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       sta MUL_2+0                   ; Salva il byte 0 del moltiplicatore.
       stx MUL_2+1                   ; Salva il byte 1 del moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+2                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+1                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -1413,9 +1413,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       sta MUL_2+0                   ; Salva il byte 0 del moltiplicatore.
       stx MUL_2+1                   ; Salva il byte 1 del moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+3                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+1                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -1535,9 +1535,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       stx MUL_2+1                   ; Salva il byte 1 del moltiplicatore.
       sty MUL_2+2                   ; Salva il byte 2 del moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+2                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+2                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -1657,9 +1657,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       stx MUL_2+1                   ; Salva il byte 1 del moltiplicatore.
       sty MUL_2+2                   ; Salva il byte 2 del moltiplicatore.
 
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+3                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+2                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
@@ -1768,9 +1768,9 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
   !zone Smul_32x32
 
     SMUL_32X32:
-      ; Il segno del prodotto è l'XOR dei segni degli operandi (bit
-      ; #7 dei byte più alti). Lo si calcola ora e lo si conserva
-      ; nello stack.
+      ; Il segno del prodotto è l'XOR dei segni degli operandi
+      ; (bit #7 dei byte più alti). Lo si calcola ora e lo si
+      ; conserva nello stack.
       lda MUL_1+3                   ; Il bit #7 dei byte più alti è il segno.
       eor MUL_2+3                   ; Segni diversi: il prodotto è negativo.
       pha                           ; Salva il segno del prodotto.
