@@ -210,8 +210,8 @@
 ; MACRO: m_Store_ARG_to_Mem
 ; ------------------------------------------------------------------------------
 ; Descrizione:  Scrive ARG in formato MBF (5 byte) a un indirizzo assoluto,
-;               senza chiamare la ROM del BASIC. Nel MSB della mantissa il bit
-;               #7, che in ARG è sempre 1, è sostituito dal segno. ARG non
+;               senza chiamare la ROM del BASIC. Nel MSB della mantissa il
+;               bit #7, che in ARG è sempre 1, è sostituito dal segno. ARG non
 ;               cambia e non va arrotondato, perché lo è già.
 ;
 ; Input:

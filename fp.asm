@@ -89,7 +89,7 @@
 ; --------
 ; Le macro chiamano routine della ROM BASIC ($A000-$BFFF) e della sua parte
 ; residente nella ROM KERNAL ($E000-$E4AC). Entrambe le ROM devono essere
-; visibili: LORAM e HIRAM (bit 0 e 1 di $01) devono valere 1, come nella
+; visibili: LORAM e HIRAM (bit #0 e #1 di $01) devono valere 1, come nella
 ; configurazione standard ($01 = $37).
 ;
 ;
