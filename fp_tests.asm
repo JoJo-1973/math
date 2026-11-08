@@ -5,22 +5,22 @@
 ; ----------------------------
 
 INIT_0:
-  +Load_FAC_with_0
-  +Load_ARG_with_0
+  +m_Load_FAC_with_0
+  +m_Load_ARG_with_0
   rts
 
 ; ----------------------------
 
 INIT_TRANSFER:
-  +Load_FAC_with_e
-  +Load_ARG_with_PI
+  +m_Load_FAC_with_e
+  +m_Load_ARG_with_PI
   rts
 
 ; ----------------------------
 
 INIT_UNARY:
-  +Load_FAC_with_PI
-  +Load_ARG_with $81, $C6, $66, $66, $66
+  +m_Load_FAC_with_PI
+  +m_Load_ARG_with $81, $C6, $66, $66, $66
   rts
 
 ; ----------------------------
@@ -31,27 +31,27 @@ INIT_SIGNUM:
   jsr PRINT_IMM
   !text 13,20,"SIGN:",0
 
-  +Load_FAC_with_PI
-  +Load_ARG_with $81, $C6, $66, $66, $66
+  +m_Load_FAC_with_PI
+  +m_Load_ARG_with $81, $C6, $66, $66, $66
   rts
 
 ; ----------------------------
 
 INIT_MAXR:
-  +Load_FAC_with_MINR
-  +Load_ARG_with_MINR
+  +m_Load_FAC_with_MINR
+  +m_Load_ARG_with_MINR
   rts
 
 ; ----------------------------
 
 INIT_ARITH:
-  +Load_FAC_with_MINUS_1
-  +Load_ARG_with_0.1
+  +m_Load_FAC_with_MINUS_1
+  +m_Load_ARG_with_0_1
   rts
 
 INIT_ARITH_MEM:
-  +Load_FAC_with_MINUS_1
-  +Load_ARG_with_0
+  +m_Load_FAC_with_MINUS_1
+  +m_Load_ARG_with_0
 
   jsr PRINT_IMM
   !text 8,10,"MEM = -32768",0
@@ -63,8 +63,8 @@ INIT_ARITH_PTR:
   lda #>N32768
   sta ZP_3+1
 
-  +Load_FAC_with_MINUS_1
-  +Load_ARG_with_0
+  +m_Load_FAC_with_MINUS_1
+  +m_Load_ARG_with_0
 
   jsr PRINT_IMM
   !text 8,10,"(PTR) = -32768",0
@@ -73,16 +73,16 @@ INIT_ARITH_PTR:
 ; ----------------------------
 
 INIT_COMP:
-  +Load_FAC_with_1
-  +Load_ARG_with_0
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_0
 
   jsr PRINT_IMM
   !text 13,20,"CMP:",0
   rts
 
 INIT_COMP_MEM:
-  +Load_FAC_with_1
-  +Load_ARG_with_0
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_0
 
   jsr PRINT_IMM
   !text 8,10,"MEM = -32768",0
@@ -96,8 +96,8 @@ INIT_COMP_PTR:
   lda #>N32768
   sta ZP_3+1
 
-  +Load_FAC_with_1
-  +Load_ARG_with_0
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_0
 
   jsr PRINT_IMM
   !text 8,10,"(PTR) = -32768",0
@@ -108,14 +108,14 @@ INIT_COMP_PTR:
 ; ----------------------------
 
 INIT_PWR:
-  +Load_FAC_with $82, $40, $00, $00, $00
-  +Load_ARG_with_2
-  +Negate_ARG
+  +m_Load_FAC_with $82, $40, $00, $00, $00
+  +m_Load_ARG_with_2
+  +m_Negate_ARG
   rts
 
 INIT_PWR_MEM:
-  +Load_FAC_with $82, $40, $00, $00, $00
-  +Load_ARG_with_0
+  +m_Load_FAC_with $82, $40, $00, $00, $00
+  +m_Load_ARG_with_0
 
   jsr PRINT_IMM
   !text 8,10,"MEM = 10",0
@@ -127,8 +127,8 @@ INIT_PWR_PTR:
   lda #>N32768
   sta ZP_3+1
 
-  +Load_FAC_with_2
-  +Load_ARG_with_0
+  +m_Load_FAC_with_2
+  +m_Load_ARG_with_0
 
   jsr PRINT_IMM
   !text 8,10,"(PTR) = -32768",0
@@ -137,23 +137,23 @@ INIT_PWR_PTR:
 ; ----------------------------
 
 INIT_SQRT:
-  +Load_FAC_with_2
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_2
+  +m_Load_ARG_with_2PI
   rts
 
 INIT_SQRT_MEM:
-  +Load_FAC_with $82, $40, $00, $00, $00
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with $82, $40, $00, $00, $00
+  +m_Load_ARG_with_2PI
 
   jsr PRINT_IMM
   !text 8,10,"MEM = 10",0
   rts
 
 INIT_SQRT_PTR:
-  +Load_FAC_with $8B, $00, $00, $00, $00
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_0
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with $8B, $00, $00, $00, $00
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_0
+  +m_Load_ARG_with_2PI
 
   lda #$00
   sta ZP_3
@@ -167,25 +167,25 @@ INIT_SQRT_PTR:
 ; ----------------------------
 
 INIT_SIN_COS:
-  +Load_FAC_with_PI4
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_PI4
+  +m_Load_ARG_with_2PI
   rts
 
 INIT_SIN_COS_MEM:
-  +Load_FAC_with $80, $06, $0A, $91, $C1
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_0
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with $80, $06, $0A, $91, $C1
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_0
+  +m_Load_ARG_with_2PI
 
   jsr PRINT_IMM
   !text 8,10,"MEM = ",126,"/6",0
   rts
 
 INIT_SIN_COS_PTR:
-  +Load_FAC_with_PI2
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_0
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_PI2
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_0
+  +m_Load_ARG_with_2PI
 
   lda #$00
   sta ZP_3
@@ -199,25 +199,25 @@ INIT_SIN_COS_PTR:
 ; ----------------------------
 
 INIT_TANG:
-  +Load_FAC_with_PI4
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_PI4
+  +m_Load_ARG_with_2PI
   rts
 
 INIT_TANG_MEM:
-  +Load_FAC_with $80, $06, $0A, $91, $C1
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_0
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with $80, $06, $0A, $91, $C1
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_0
+  +m_Load_ARG_with_2PI
 
   jsr PRINT_IMM
   !text 8,10,"MEM = ",126,"/6",0
   rts
 
 INIT_TANG_PTR:
-  +Load_FAC_with $81, $06, $0A, $91, $C1
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_0
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with $81, $06, $0A, $91, $C1
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_0
+  +m_Load_ARG_with_2PI
 
   lda #$00
   sta ZP_3
@@ -231,27 +231,27 @@ INIT_TANG_PTR:
 ; ----------------------------
 
 INIT_ARCTAN:
-  +Load_FAC_with_1
-  +Load_ARG_with_1
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_1
   rts
 
 INIT_ARCTAN_MEM:
-  +Load_FAC_with_SQR3
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_0
-  +Load_ARG_with_1
+  +m_Load_FAC_with_SQR3
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_0
+  +m_Load_ARG_with_1
 
   jsr PRINT_IMM
   !text 8,10,"MEM = SQR(3)",0
   rts
 
 INIT_ARCTAN_PTR:
-  +Load_FAC_with_SQR3
-  +Load_ARG_with_2
-  +Add_FAC_to_ARG 0
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_0
-  +Load_ARG_with_1
+  +m_Load_FAC_with_SQR3
+  +m_Load_ARG_with_2
+  +m_Add_FAC_to_ARG 0
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_0
+  +m_Load_ARG_with_1
 
   lda #$00
   sta ZP_3
@@ -265,27 +265,27 @@ INIT_ARCTAN_PTR:
 ; ----------------------------
 
 INIT_LN:
-  +Load_FAC_with_1
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_2PI
   rts
 
 INIT_LN_MEM:
-  +Load_FAC_with_e
-  +Store_FAC_to_Mem $C000
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_e
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_ARG_with_2PI
 
   jsr PRINT_IMM
   !text 8,10,"MEM = EXP(1)",0
   rts
 
 INIT_LN_PTR:
-  +Load_ARG_with_e
-  +Load_FAC_with_2
-  +Multiply_FAC_by_2
-  +Power_ARG_to_FAC 0
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_1
-  +Load_ARG_with_2PI
+  +m_Load_ARG_with_e
+  +m_Load_FAC_with_2
+  +m_Multiply_FAC_by_2
+  +m_Power_ARG_to_FAC 0
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_2PI
 
   lda #$00
   sta ZP_3
@@ -299,25 +299,25 @@ INIT_LN_PTR:
 ; ----------------------------
 
 INIT_EXPN:
-  +Load_FAC_with_1
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_2PI
   rts
 
 INIT_EXPN_MEM:
-  +Load_FAC_with_2
-  +Store_FAC_to_Mem $C000
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_2
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_ARG_with_2PI
 
   jsr PRINT_IMM
   !text 8,10,"MEM = 2",0
   rts
 
 INIT_EXPN_PTR:
-  +Load_FAC_with_2
-  +Multiply_FAC_by_2
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_1
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_2
+  +m_Multiply_FAC_by_2
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_2PI
 
   lda #$00
   sta ZP_3
@@ -331,8 +331,8 @@ INIT_EXPN_PTR:
 ; ----------------------------
 
 INIT_POLY:
-  +Load_FAC_with_0.1
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_0_1
+  +m_Load_ARG_with_2PI
   rts
 
 .Coeff_GAMMA:                   ; This 8-th degree polynomial approximates with
@@ -350,8 +350,8 @@ INIT_POLY:
   !byte $81, $00, $00, $00, $00 ; a_0 = 1.
 
 INIT_POLY_ODD:
-  +Load_FAC_with_2
-  +Load_ARG_with_2PI
+  +m_Load_FAC_with_2
+  +m_Load_ARG_with_2PI
   rts
 
 .Coeff_Test:                    ; A sample odd polynomial of degree 7:
@@ -366,15 +366,15 @@ INIT_POLY_ODD:
 ; ------------------------------
 
 INIT_BOOL:
-  +Load_FAC_with_INT16 $AAAA
-  +Load_ARG_with_UINT16 $FF
+  +m_Load_FAC_with_INT16 $AAAA
+  +m_Load_ARG_with_UINT16 $FF
   rts
 
 INIT_BOOL_MEM:
-  +Load_FAC_with_UINT16 $FF
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_INT16 $AAAA
-  +Load_ARG_with_UINT16 $FF
+  +m_Load_FAC_with_UINT16 $FF
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_INT16 $AAAA
+  +m_Load_ARG_with_UINT16 $FF
 
   jsr PRINT_IMM
   !text 8,10,"MEM = 255",0
@@ -382,10 +382,10 @@ INIT_BOOL_MEM:
   rts
 
 INIT_BOOL_PTR:
-  +Load_FAC_with_UINT16 $FF
-  +Store_FAC_to_Mem $C000
-  +Load_FAC_with_INT16 $AAAA
-  +Load_ARG_with_UINT16 $FF
+  +m_Load_FAC_with_UINT16 $FF
+  +m_Store_FAC_to_Mem $C000
+  +m_Load_FAC_with_INT16 $AAAA
+  +m_Load_ARG_with_UINT16 $FF
 
   lda #$00
   sta ZP_3
@@ -400,20 +400,20 @@ INIT_BOOL_PTR:
 ; ------------------------------
 
 INIT_RND:
-  +Randomize _TEST_PRESERVE
-  +Load_FAC_with_1
-  +Load_ARG_with_2PI
+  +m_Randomize _TEST_PRESERVE
+  +m_Load_FAC_with_1
+  +m_Load_ARG_with_2PI
 
   rts
 
 ; ------------------------------
 
 LOAD_0.25:
-  +Load_FAC_with_0.25
+  +m_Load_FAC_with_0_25
   nop
   nop
   nop
-  +Load_ARG_with_0.25
+  +m_Load_ARG_with_0_25
   rts
 
 DESC_0.25:
@@ -422,11 +422,11 @@ DESC_0.25:
 ; ------------------------------
 
 LOAD_0.5:
-  +Load_FAC_with_0.5
+  +m_Load_FAC_with_0_5
   nop
   nop
   nop
-  +Load_ARG_with_0.5
+  +m_Load_ARG_with_0_5
   rts
 
 DESC_0.5:
@@ -435,11 +435,11 @@ DESC_0.5:
 ; ------------------------------
 
 LOAD_1:
-  +Load_FAC_with_1
+  +m_Load_FAC_with_1
   nop
   nop
   nop
-  +Load_ARG_with_1
+  +m_Load_ARG_with_1
   rts
 
 DESC_1:
@@ -448,11 +448,11 @@ DESC_1:
 ; ------------------------------
 
 LOAD_MINUS_1:
-  +Load_FAC_with_MINUS_1
+  +m_Load_FAC_with_MINUS_1
   nop
   nop
   nop
-  +Load_ARG_with_MINUS_1
+  +m_Load_ARG_with_MINUS_1
   rts
 
 DESC_MINUS_1:
@@ -461,11 +461,11 @@ DESC_MINUS_1:
 ; ------------------------------
 
 LOAD_2:
-  +Load_FAC_with_2
+  +m_Load_FAC_with_2
   nop
   nop
   nop
-  +Load_ARG_with_2
+  +m_Load_ARG_with_2
   rts
 
 DESC_2:
@@ -474,11 +474,11 @@ DESC_2:
 ; ------------------------------
 
 LOAD_10:
-  +Load_FAC_with_10
+  +m_Load_FAC_with_10
   nop
   nop
   nop
-  +Load_ARG_with_10
+  +m_Load_ARG_with_10
   rts
 
 DESC_10:
@@ -487,11 +487,11 @@ DESC_10:
 ; ------------------------------
 
 LOAD_0.1:
-  +Load_FAC_with_0.1
+  +m_Load_FAC_with_0_1
   nop
   nop
   nop
-  +Load_ARG_with_0.1
+  +m_Load_ARG_with_0_1
   rts
 
 DESC_0.1:
@@ -500,11 +500,11 @@ DESC_0.1:
 ; ------------------------------
 
 LOAD_PI4:
-  +Load_FAC_with_PI4
+  +m_Load_FAC_with_PI4
   nop
   nop
   nop
-  +Load_ARG_with_PI4
+  +m_Load_ARG_with_PI4
   rts
 
 DESC_PI4:
@@ -513,11 +513,11 @@ DESC_PI4:
 ; ------------------------------
 
 LOAD_PI2:
-  +Load_FAC_with_PI2
+  +m_Load_FAC_with_PI2
   nop
   nop
   nop
-  +Load_ARG_with_PI2
+  +m_Load_ARG_with_PI2
   rts
 
 DESC_PI2:
@@ -526,11 +526,11 @@ DESC_PI2:
 ; ------------------------------
 
 LOAD_PI:
-  +Load_FAC_with_PI
+  +m_Load_FAC_with_PI
   nop
   nop
   nop
-  +Load_ARG_with_PI
+  +m_Load_ARG_with_PI
   rts
 
 DESC_PI:
@@ -539,11 +539,11 @@ DESC_PI:
 ; ------------------------------
 
 LOAD_2PI:
-  +Load_FAC_with_2PI
+  +m_Load_FAC_with_2PI
   nop
   nop
   nop
-  +Load_ARG_with_2PI
+  +m_Load_ARG_with_2PI
   rts
 
 DESC_2PI:
@@ -552,11 +552,11 @@ DESC_2PI:
 ; ------------------------------
 
 LOAD_PI180:
-  +Load_FAC_with_PI180
+  +m_Load_FAC_with_PI180
   nop
   nop
   nop
-  +Load_ARG_with_PI180
+  +m_Load_ARG_with_PI180
   rts
 
 DESC_PI180:
@@ -565,11 +565,11 @@ DESC_PI180:
 ; ------------------------------
 
 LOAD_180PI:
-  +Load_FAC_with_180PI
+  +m_Load_FAC_with_180PI
   nop
   nop
   nop
-  +Load_ARG_with_180PI
+  +m_Load_ARG_with_180PI
   rts
 
 DESC_180PI:
@@ -578,11 +578,11 @@ DESC_180PI:
 ; ------------------------------
 
 LOAD_PI200:
-  +Load_FAC_with_PI200
+  +m_Load_FAC_with_PI200
   nop
   nop
   nop
-  +Load_ARG_with_PI200
+  +m_Load_ARG_with_PI200
   rts
 
 DESC_PI200:
@@ -591,11 +591,11 @@ DESC_PI200:
 ; ------------------------------
 
 LOAD_200PI:
-  +Load_FAC_with_200PI
+  +m_Load_FAC_with_200PI
   nop
   nop
   nop
-  +Load_ARG_with_200PI
+  +m_Load_ARG_with_200PI
   rts
 
 DESC_200PI:
@@ -604,11 +604,11 @@ DESC_200PI:
 ; ------------------------------
 
 LOAD_SQR2:
-  +Load_FAC_with_SQR2
+  +m_Load_FAC_with_SQR2
   nop
   nop
   nop
-  +Load_ARG_with_SQR2
+  +m_Load_ARG_with_SQR2
   rts
 
 DESC_SQR2:
@@ -617,11 +617,11 @@ DESC_SQR2:
 ; ------------------------------
 
 LOAD_SQR3:
-  +Load_FAC_with_SQR3
+  +m_Load_FAC_with_SQR3
   nop
   nop
   nop
-  +Load_ARG_with_SQR3
+  +m_Load_ARG_with_SQR3
   rts
 
 DESC_SQR3:
@@ -630,11 +630,11 @@ DESC_SQR3:
 ; ------------------------------
 
 LOAD_e:
-  +Load_FAC_with_e
+  +m_Load_FAC_with_e
   nop
   nop
   nop
-  +Load_ARG_with_e
+  +m_Load_ARG_with_e
   rts
 
 DESC_e:
@@ -643,11 +643,11 @@ DESC_e:
 ; ------------------------------
 
 LOAD_LOG2:
-  +Load_FAC_with_LOG2
+  +m_Load_FAC_with_LOG2
   nop
   nop
   nop
-  +Load_ARG_with_LOG2
+  +m_Load_ARG_with_LOG2
   rts
 
 DESC_LOG2:
@@ -656,11 +656,11 @@ DESC_LOG2:
 ; ------------------------------
 
 LOAD_LOG10:
-  +Load_FAC_with_LOG10
+  +m_Load_FAC_with_LOG10
   nop
   nop
   nop
-  +Load_ARG_with_LOG10
+  +m_Load_ARG_with_LOG10
   rts
 
 DESC_LOG10:
@@ -669,11 +669,11 @@ DESC_LOG10:
 ; ------------------------------
 
 LOAD_EPS:
-  +Load_FAC_with_eps
+  +m_Load_FAC_with_eps
   nop
   nop
   nop
-  +Load_ARG_with_eps
+  +m_Load_ARG_with_eps
   rts
 
 DESC_EPS:
@@ -682,11 +682,11 @@ DESC_EPS:
 ; ------------------------------
 
 LOAD_MAXR:
-  +Load_FAC_with_MAXR
+  +m_Load_FAC_with_MAXR
   nop
   nop
   nop
-  +Load_ARG_with_MAXR
+  +m_Load_ARG_with_MAXR
   rts
 
 DESC_MAXR:
@@ -695,7 +695,7 @@ DESC_MAXR:
 ; ------------------------------
 
 COPY_FAC_ARG:
-  +Transfer_FAC_to_ARG
+  +m_Transfer_FAC_to_ARG
   rts
 
 DESC_FAC_ARG:
@@ -704,7 +704,7 @@ DESC_FAC_ARG:
 ; ------------------------------
 
 COPY_ARG_FAC:
-  +Transfer_ARG_to_FAC
+  +m_Transfer_ARG_to_FAC
   rts
 
 DESC_ARG_FAC:
@@ -713,7 +713,7 @@ DESC_ARG_FAC:
 ; ------------------------------
 
 SWAP_FAC_ARG:
-  +Swap_FAC_and_ARG
+  +m_Swap_FAC_and_ARG
   rts
 
 DESC_SWAP:
@@ -722,11 +722,11 @@ DESC_SWAP:
 ; ------------------------------
 
 NEGATE:
-  +Negate_FAC
+  +m_Negate_FAC
   nop
   nop
   nop
-  +Negate_ARG
+  +m_Negate_ARG
   rts
 
 DESC_NEGATE:
@@ -735,11 +735,11 @@ DESC_NEGATE:
 ; ------------------------------
 
 ABS:
-  +ABS_FAC
+  +m_ABS_FAC
   nop
   nop
   nop
-  +ABS_ARG
+  +m_ABS_ARG
   rts
 
 DESC_ABS:
@@ -748,7 +748,7 @@ DESC_ABS:
 ; ------------------------------
 
 SIGNUM:
-  +Sign_FAC
+  +m_Sign_FAC
   pha
 
   clc
@@ -770,7 +770,7 @@ SIGNUM:
   nop
   nop
 
-  +Sign_ARG
+  +m_Sign_ARG
   pha
 
   clc
@@ -796,11 +796,11 @@ DESC_SIGNUM:
 ; ------------------------------
 
 INTG:
-  +INT_FAC
+  +m_INT_FAC
   nop
   nop
   nop
-  +INT_ARG
+  +m_INT_ARG
   rts
 
 DESC_INTG:
@@ -809,11 +809,11 @@ DESC_INTG:
 ; ------------------------------
 
 MUL2:
-  +Multiply_FAC_by_2
+  +m_Multiply_FAC_by_2
   nop
   nop
   nop
-  +Multiply_ARG_by_2
+  +m_Multiply_ARG_by_2
   rts
 
 DESC_MUL2:
@@ -822,11 +822,11 @@ DESC_MUL2:
 ; ------------------------------
 
 DIV2:
-  +Divide_FAC_by_2
+  +m_Divide_FAC_by_2
   nop
   nop
   nop
-  +Divide_ARG_by_2
+  +m_Divide_ARG_by_2
   rts
 
 DESC_DIV2:
@@ -835,15 +835,15 @@ DESC_DIV2:
 ; ------------------------------
 
 ADD:
-  +Add_FAC_to_ARG _TEST_PRESERVE
+  +m_Add_FAC_to_ARG _TEST_PRESERVE
   rts
 
 ADD_MEM:
-  +Add_FAC_to_Mem N32768, _TEST_PRESERVE
+  +m_Add_FAC_to_Mem N32768, _TEST_PRESERVE
   rts
 
 ADD_PTR:
-  +Add_FAC_to_Ptr ZP_3, _TEST_PRESERVE
+  +m_Add_FAC_to_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_ADD:
@@ -858,15 +858,15 @@ DESC_ADD_PTR:
 ; ------------------------------
 
 SUB:
-  +Subtract_FAC_from_ARG _TEST_PRESERVE
+  +m_Subtract_FAC_from_ARG _TEST_PRESERVE
   rts
 
 SUB_MEM:
-  +Subtract_FAC_from_Mem N32768, _TEST_PRESERVE
+  +m_Subtract_FAC_from_Mem N32768, _TEST_PRESERVE
   rts
 
 SUB_PTR:
-  +Subtract_FAC_from_Ptr ZP_3, _TEST_PRESERVE
+  +m_Subtract_FAC_from_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_SUB:
@@ -881,15 +881,15 @@ DESC_SUB_PTR:
 ; ------------------------------
 
 MULT:
-  +Multiply_FAC_by_ARG _TEST_PRESERVE
+  +m_Multiply_FAC_by_ARG _TEST_PRESERVE
   rts
 
 MULT_MEM:
-  +Multiply_FAC_by_Mem N32768, _TEST_PRESERVE
+  +m_Multiply_FAC_by_Mem N32768, _TEST_PRESERVE
   rts
 
 MULT_PTR:
-  +Multiply_FAC_by_Ptr ZP_3, _TEST_PRESERVE
+  +m_Multiply_FAC_by_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_MULT:
@@ -904,15 +904,15 @@ DESC_MULT_PTR:
 ; ------------------------------
 
 DIV:
-  +Divide_ARG_by_FAC _TEST_PRESERVE
+  +m_Divide_ARG_by_FAC _TEST_PRESERVE
   rts
 
 DIV_MEM:
-  +Divide_Mem_by_FAC N32768, _TEST_PRESERVE
+  +m_Divide_Mem_by_FAC N32768, _TEST_PRESERVE
   rts
 
 DIV_PTR:
-  +Divide_Ptr_by_FAC ZP_3, _TEST_PRESERVE
+  +m_Divide_Ptr_by_FAC ZP_3, _TEST_PRESERVE
   rts
 
 DESC_DIV:
@@ -927,7 +927,7 @@ DESC_DIV_PTR:
 ; ------------------------------
 
 COMP:
-  +Compare_FAC_to_ARG
+  +m_Compare_FAC_to_ARG
   pha
 
   clc
@@ -947,7 +947,7 @@ COMP:
   rts
 
 COMP_MEM:
-  +Compare_FAC_to_Mem N32768
+  +m_Compare_FAC_to_Mem N32768
   pha
 
   clc
@@ -967,7 +967,7 @@ COMP_MEM:
   rts
 
 COMP_PTR:
-  +Compare_FAC_to_Ptr ZP_3
+  +m_Compare_FAC_to_Ptr ZP_3
   pha
 
   clc
@@ -998,15 +998,15 @@ DESC_COMP_PTR:
 ; ------------------------------
 
 PWR:
-  +Power_ARG_to_FAC _TEST_PRESERVE
+  +m_Power_ARG_to_FAC _TEST_PRESERVE
   rts
 
 PWR_MEM:
-  +Power_Mem_to_FAC TENC, _TEST_PRESERVE
+  +m_Power_Mem_to_FAC TENC, _TEST_PRESERVE
   rts
 
 PWR_PTR:
-  +Power_Ptr_to_FAC ZP_3, _TEST_PRESERVE
+  +m_Power_Ptr_to_FAC ZP_3, _TEST_PRESERVE
   rts
 
 DESC_PWR:
@@ -1021,15 +1021,15 @@ DESC_PWR_PTR:
 ; ------------------------------
 
 SQRT:
-  +SQR_FAC _TEST_PRESERVE
+  +m_SQR_FAC _TEST_PRESERVE
   rts
 
 SQRT_MEM:
-  +SQR_Mem TENC, _TEST_PRESERVE
+  +m_SQR_Mem TENC, _TEST_PRESERVE
   rts
 
 SQRT_PTR:
-  +SQR_Ptr ZP_3, _TEST_PRESERVE
+  +m_SQR_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_SQRT:
@@ -1044,15 +1044,15 @@ DESC_SQRT_PTR:
 ; ------------------------------
 
 SINE:
-  +SIN_FAC _TEST_PRESERVE
+  +m_SIN_FAC _TEST_PRESERVE
   rts
 
 SINE_MEM:
-  +SIN_Mem $C000, _TEST_PRESERVE
+  +m_SIN_Mem $C000, _TEST_PRESERVE
   rts
 
 SINE_PTR:
-  +SIN_Ptr ZP_3, _TEST_PRESERVE
+  +m_SIN_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_SINE:
@@ -1067,15 +1067,15 @@ DESC_SINE_PTR:
 ; ------------------------------
 
 COSINE:
-  +COS_FAC _TEST_PRESERVE
+  +m_COS_FAC _TEST_PRESERVE
   rts
 
 COSINE_MEM:
-  +COS_Mem $C000, _TEST_PRESERVE
+  +m_COS_Mem $C000, _TEST_PRESERVE
   rts
 
 COSINE_PTR:
-  +COS_Ptr ZP_3, _TEST_PRESERVE
+  +m_COS_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_COSINE:
@@ -1090,15 +1090,15 @@ DESC_COSINE_PTR:
 ; ------------------------------
 
 TANG:
-  +TAN_FAC _TEST_PRESERVE
+  +m_TAN_FAC _TEST_PRESERVE
   rts
 
 TANG_MEM:
-  +TAN_Mem $C000, _TEST_PRESERVE
+  +m_TAN_Mem $C000, _TEST_PRESERVE
   rts
 
 TANG_PTR:
-  +TAN_Ptr ZP_3, _TEST_PRESERVE
+  +m_TAN_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_TANG:
@@ -1113,15 +1113,15 @@ DESC_TANG_PTR:
 ; ------------------------------
 
 ARCTAN:
-  +ATN_FAC _TEST_PRESERVE
+  +m_ATN_FAC _TEST_PRESERVE
   rts
 
 ARCTAN_MEM:
-  +ATN_Mem $C000, _TEST_PRESERVE
+  +m_ATN_Mem $C000, _TEST_PRESERVE
   rts
 
 ARCTAN_PTR:
-  +ATN_Ptr ZP_3, _TEST_PRESERVE
+  +m_ATN_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_ARCTAN:
@@ -1136,15 +1136,15 @@ DESC_ARCTAN_PTR:
 ; ------------------------------
 
 LN:
-  +LOG_FAC _TEST_PRESERVE
+  +m_LOG_FAC _TEST_PRESERVE
   rts
 
 LN_MEM:
-  +LOG_Mem $C000, _TEST_PRESERVE
+  +m_LOG_Mem $C000, _TEST_PRESERVE
   rts
 
 LN_PTR:
-  +LOG_Ptr ZP_3, _TEST_PRESERVE
+  +m_LOG_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_LN:
@@ -1159,15 +1159,15 @@ DESC_LN_PTR:
 ; ------------------------------
 
 EXPN:
-  +EXP_FAC _TEST_PRESERVE
+  +m_EXP_FAC _TEST_PRESERVE
   rts
 
 EXPN_MEM:
-  +EXP_Mem $C000, _TEST_PRESERVE
+  +m_EXP_Mem $C000, _TEST_PRESERVE
   rts
 
 EXPN_PTR:
-  +EXP_Ptr ZP_3, _TEST_PRESERVE
+  +m_EXP_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_EXPN:
@@ -1182,14 +1182,14 @@ DESC_EXPN_PTR:
 ; ------------------------------
 
 POLY:
-  +Poly_Mem .Coeff_GAMMA, _TEST_PRESERVE
+  +m_Poly_Mem .Coeff_GAMMA, _TEST_PRESERVE
   rts
 
 DESC_POLY:
   !text "FAC = GAMMA(X), 0 < X < 1",0
 
 POLY_ODD:
-  +Odd_Poly_Mem .Coeff_Test, _TEST_PRESERVE
+  +m_Odd_Poly_Mem .Coeff_Test, _TEST_PRESERVE
   rts
 
 DESC_POLY_ODD:
@@ -1198,15 +1198,15 @@ DESC_POLY_ODD:
 ; ------------------------------
 
 BAND:
-  +AND_FAC_with_ARG _TEST_PRESERVE
+  +m_AND_FAC_with_ARG _TEST_PRESERVE
   rts
 
 BAND_MEM:
-  +AND_FAC_with_Mem $C000, _TEST_PRESERVE
+  +m_AND_FAC_with_Mem $C000, _TEST_PRESERVE
   rts
 
 BAND_PTR:
-  +AND_FAC_with_Ptr ZP_3, _TEST_PRESERVE
+  +m_AND_FAC_with_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_BAND:
@@ -1221,15 +1221,15 @@ DESC_BAND_PTR:
 ; ------------------------------
 
 BOR:
-  +OR_FAC_with_ARG _TEST_PRESERVE
+  +m_OR_FAC_with_ARG _TEST_PRESERVE
   rts
 
 BOR_MEM:
-  +OR_FAC_with_Mem $C000, _TEST_PRESERVE
+  +m_OR_FAC_with_Mem $C000, _TEST_PRESERVE
   rts
 
 BOR_PTR:
-  +OR_FAC_with_Ptr ZP_3, _TEST_PRESERVE
+  +m_OR_FAC_with_Ptr ZP_3, _TEST_PRESERVE
   rts
 
 DESC_BOR:
@@ -1244,19 +1244,19 @@ DESC_BOR_PTR:
 ; ------------------------------
 
 BNOT_FAC:
-  +NOT_FAC
+  +m_NOT_FAC
   rts
 
 BNOT_ARG:
-  +NOT_ARG
+  +m_NOT_ARG
   rts
 
 BNOT_MEM:
-  +NOT_Mem $C000
+  +m_NOT_Mem $C000
   rts
 
 BNOT_PTR:
-  +NOT_Ptr ZP_3
+  +m_NOT_Ptr ZP_3
   rts
 
 DESC_BNOT_FAC:
@@ -1274,7 +1274,7 @@ DESC_BNOT_PTR:
 ; ------------------------------
 
 RND_FAC:
-  +Load_FAC_with_RND _TEST_PRESERVE
+  +m_Load_FAC_with_RND _TEST_PRESERVE
   rts
 
 DESC_RND_FAC:
