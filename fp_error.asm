@@ -65,19 +65,19 @@
       tax                       ; Rimette il codice d'errore in .X.
 
       cpx #ERR_ILLEGAL_QUANTITY
-      beq .Illegal_Quantity
+      beq .Case_Illegal_Quantity
 
       cpx #ERR_OVERFLOW
-      beq .Overflow
+      beq .Case_Overflow
 
       cpx #ERR_DIVISION_BY_ZERO
-      beq .Division_By_Zero
+      beq .Case_Division_By_Zero
 
     .Exit_FP_ERROR_HANDLER:
       clc
       rts
 
-    .Illegal_Quantity:
+    .Case_Illegal_Quantity:
       ; Qui ci potrà andare una routine di gestione dell'errore
       ; ILLEGAL QUANTITY più sofisticata.
       nop
@@ -86,7 +86,7 @@
       sec
       rts
 
-    .Overflow:
+    .Case_Overflow:
       ; Qui ci potrà andare una routine di gestione dell'errore
       ; OVERFLOW più sofisticata.
       nop
@@ -95,7 +95,7 @@
       sec
       rts
 
-    .Division_By_Zero:
+    .Case_Division_By_Zero:
       ; Qui ci potrà andare una routine di gestione dell'errore
       ; DIVISION BY ZERO più sofisticata.
       nop
