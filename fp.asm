@@ -21,6 +21,7 @@
 ;                 <fp/fp_transcend.asm>
 ;                 <fp/fp_trig.asm>
 ;                 <fp/fp_unary.asm>
+; REQUISITI ZP:   __FP_SAVED_SP, _SCRATCH_1, _SCRATCH_2
 ; ==============================================================================
 
 ; ******************************************************************************
@@ -47,8 +48,8 @@
 ; ----------------------------------------
 ;
 ; Quando il numero viene memorizzato in un FAC, o trasferito in esso, la
-; rappresentazione viene espansa in una forma più adatta alla manipolazione
-; numerica:
+; rappresentazione viene espansa in una forma più adatta alla
+; manipolazione numerica:
 ;
 ;     Byte 0   Byte 1   Byte 2   Byte 3   Byte 4   Byte 5
 ;   |76543210|76543210|76543210|76543210|76543210|76543210|
