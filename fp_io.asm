@@ -284,14 +284,14 @@
 ;               la forma esponenziale (1E+10) quando serve. Si trova in STACK,
 ;               da $0100 in poi.
 ;
-;               La stringa è stampata con la subroutine __PUTSTRING, un punto di
-;               personalizzazione di config.asm: per default è STROUT della ROM
-;               del BASIC. Una subroutine alternativa deve stampare la stringa
-;               in STACK, terminata da $00; ne riceve l'indirizzo in .A (LSB) e
-;               .Y (MSB).
+;               La stringa è stampata con la subroutine __PUT_STRING, un punto
+;               di personalizzazione di config.asm: per default è STROUT della
+;               ROM del BASIC. Una subroutine alternativa deve stampare la
+;               stringa in STACK, terminata da $00; ne riceve l'indirizzo in .A
+;               (LSB) e .Y (MSB).
 ;
 ;               Chiama la routine FOUT della ROM del BASIC, che altera FAC e
-;               ARG, e poi __PUTSTRING con l'indirizzo di STACK. Con
+;               ARG, e poi __PUT_STRING con l'indirizzo di STACK. Con
 ;               m_Store_FAC_in_Scratch e m_Store_ARG_in_Scratch la macro salva
 ;               FAC in _SCRATCH_1 e ARG in _SCRATCH_2 prima della chiamata e li
 ;               ripristina dopo. Per le variabili del BASIC alterate vedi
@@ -301,20 +301,20 @@
 ;               garantito dopo la chiamata: INDEX, INDEX2, RESHO, $47, $56,
 ;               $5D-$5E e $71.
 ;
-;               La subroutine __PUTSTRING può alterare a sua volta registri e
+;               La subroutine __PUT_STRING può alterare a sua volta registri e
 ;               celle, che non sono elencati qui.
 ;
 ;               Per l'accuratezza della conversione vedi
 ;               [NOTA #08 in <fp/fp.asm>].
 ;
 ; Input:
-;   - FAC (7 byte, ZP)            : Registri da FACEXP a FACOV
-;   - __PUTSTRING (2 byte, Macro) : Indirizzo della subroutine di stampa
+;   - FAC (7 byte, ZP)             : Registri da FACEXP a FACOV
+;   - __PUT_STRING (2 byte, Macro) : Indirizzo della subroutine di stampa
 ;
 ; Output:
-;   - STACK (16 byte, RAM)        : Stringa terminata da zero, da $0100
-;   - FAC (7 byte, ZP)            : Invariato
-;   - ARG (6 byte, ZP)            : Invariato
+;   - STACK (16 byte, RAM)         : Stringa terminata da zero, da $0100
+;   - FAC (7 byte, ZP)             : Invariato
+;   - ARG (6 byte, ZP)             : Invariato
 ;
 ; Variazione Stack (.S):
 ;   - Stabile
@@ -331,7 +331,7 @@
     jsr FOUT                    ; Scrive la stringa in STACK.
     lda #<STACK                 ; Punta .A/.Y alla stringa.
     ldy #>STACK
-    jsr __PUTSTRING             ; Stampa la stringa.
+    jsr __PUT_STRING            ; Stampa la stringa.
 
     +m_Load_FAC_from_Scratch    ; Ripristina FAC e ARG.
     +m_Load_ARG_from_Scratch
@@ -348,37 +348,38 @@
 ;               la forma esponenziale (1E+10) quando serve. Si trova in STACK,
 ;               da $0100 in poi.
 ;
-;               La stringa è stampata con la subroutine __PUTSTRING, un punto di
-;               personalizzazione di config.asm: per default è STROUT della ROM
-;               del BASIC. Una subroutine alternativa deve stampare la stringa
-;               in STACK, terminata da $00; ne riceve l'indirizzo in .A (LSB) e
-;               .Y (MSB).
+;               La stringa è stampata con la subroutine __PUT_STRING, un punto
+;               di personalizzazione di config.asm: per default è STROUT della
+;               ROM del BASIC. Una subroutine alternativa deve stampare la
+;               stringa in STACK, terminata da $00; ne riceve l'indirizzo in .A
+;               (LSB) e .Y (MSB).
 ;
 ;               Copia prima ARG in FAC con m_Transfer_ARG_to_FAC, poi chiama la
 ;               routine FOUT della ROM del BASIC, che altera FAC e ARG, e poi
-;               __PUTSTRING con l'indirizzo di STACK. Con m_Store_FAC_in_Scratch
-;               e m_Store_ARG_in_Scratch la macro salva FAC in _SCRATCH_1 e ARG
-;               in _SCRATCH_2 prima della copia e li ripristina dopo. Per le
-;               variabili del BASIC alterate vedi [NOTA #06 in <fp/fp.asm>].
+;               __PUT_STRING con l'indirizzo di STACK. Con
+;               m_Store_FAC_in_Scratch e m_Store_ARG_in_Scratch la macro salva
+;               FAC in _SCRATCH_1 e ARG in _SCRATCH_2 prima della copia e li
+;               ripristina dopo. Per le variabili del BASIC alterate vedi
+;               [NOTA #06 in <fp/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, INDEX2, RESHO, $47, $56,
 ;               $5D-$5E e $71.
 ;
-;               La subroutine __PUTSTRING può alterare a sua volta registri e
+;               La subroutine __PUT_STRING può alterare a sua volta registri e
 ;               celle, che non sono elencati qui.
 ;
 ;               Per l'accuratezza della conversione vedi
 ;               [NOTA #08 in <fp/fp.asm>].
 ;
 ; Input:
-;   - ARG (6 byte, ZP)            : Registri da ARGEXP a ARGSGN
-;   - __PUTSTRING (2 byte, Macro) : Indirizzo della subroutine di stampa
+;   - ARG (6 byte, ZP)             : Registri da ARGEXP a ARGSGN
+;   - __PUT_STRING (2 byte, Macro) : Indirizzo della subroutine di stampa
 ;
 ; Output:
-;   - STACK (16 byte, RAM)        : Stringa terminata da zero, da $0100
-;   - FAC (7 byte, ZP)            : Invariato
-;   - ARG (6 byte, ZP)            : Invariato
+;   - STACK (16 byte, RAM)         : Stringa terminata da zero, da $0100
+;   - FAC (7 byte, ZP)             : Invariato
+;   - ARG (6 byte, ZP)             : Invariato
 ;
 ; Variazione Stack (.S):
 ;   - Stabile
@@ -397,7 +398,7 @@
     jsr FOUT                    ; Scrive la stringa in STACK.
     lda #<STACK                 ; Punta .A/.Y alla stringa.
     ldy #>STACK
-    jsr __PUTSTRING             ; Stampa la stringa.
+    jsr __PUT_STRING            ; Stampa la stringa.
 
     +m_Load_FAC_from_Scratch    ; Ripristina FAC e ARG.
     +m_Load_ARG_from_Scratch

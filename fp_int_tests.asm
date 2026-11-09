@@ -65,7 +65,7 @@ TEST_UINT8_FAC:
   ldx #0
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_FAC_with_UINT8_Mem ADDR ; Do the conversion.
   ldx #0
@@ -73,8 +73,8 @@ TEST_UINT8_FAC:
 
   +m_Print_FAC 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -86,7 +86,7 @@ TEST_UINT8_ARG:
   ldx #8
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_ARG_with_UINT8_Mem ADDR ; Do the conversion.
   ldx #8
@@ -94,8 +94,8 @@ TEST_UINT8_ARG:
 
   +m_Print_ARG 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -107,7 +107,7 @@ TEST_INT8_FAC:
   ldx #0
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_FAC_with_INT8_Mem ADDR  ; Do the conversion.
   ldx #0
@@ -115,8 +115,8 @@ TEST_INT8_FAC:
 
   +m_Print_FAC 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -128,7 +128,7 @@ TEST_INT8_ARG:
   ldx #8
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_ARG_with_INT8_Mem ADDR  ; Do the conversion.
   ldx #8
@@ -136,8 +136,8 @@ TEST_INT8_ARG:
 
   +m_Print_ARG 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -149,7 +149,7 @@ TEST_UINT16_FAC:
   ldx #0
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_FAC_with_UINT16_Mem ADDR; Do the conversion.
   ldx #0
@@ -157,8 +157,8 @@ TEST_UINT16_FAC:
 
   +m_Print_FAC 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -170,7 +170,7 @@ TEST_UINT16_ARG:
   ldx #8
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_ARG_with_UINT16_Mem ADDR; Do the conversion.
   ldx #8
@@ -178,8 +178,8 @@ TEST_UINT16_ARG:
 
   +m_Print_ARG 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -191,7 +191,7 @@ TEST_INT16_FAC:
   ldx #0
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_FAC_with_INT16_Mem ADDR ; Do the conversion.
   ldx #0
@@ -199,8 +199,8 @@ TEST_INT16_FAC:
 
   +m_Print_FAC 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -212,7 +212,7 @@ TEST_INT16_ARG:
   ldx #8
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_ARG_with_INT16_Mem ADDR ; Do the conversion.
   ldx #8
@@ -220,8 +220,8 @@ TEST_INT16_ARG:
 
   +m_Print_ARG 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -233,7 +233,7 @@ TEST_UINT24_FAC:
   ldx #0
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_FAC_with_UINT24_Mem ADDR; Do the conversion.
   ldx #0
@@ -241,8 +241,8 @@ TEST_UINT24_FAC:
 
   +m_Print_FAC 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -254,7 +254,7 @@ TEST_UINT24_ARG:
   ldx #8
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_ARG_with_UINT24_Mem ADDR; Do the conversion.
   ldx #8
@@ -262,8 +262,8 @@ TEST_UINT24_ARG:
 
   +m_Print_ARG 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -275,7 +275,7 @@ TEST_INT24_FAC:
   ldx #0
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_FAC_with_INT24_Mem ADDR ; Do the conversion.
   ldx #0
@@ -283,8 +283,8 @@ TEST_INT24_FAC:
 
   +m_Print_FAC 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -296,7 +296,7 @@ TEST_INT24_ARG:
   ldx #8
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_ARG_with_INT24_Mem ADDR ; Do the conversion.
   ldx #8
@@ -304,8 +304,8 @@ TEST_INT24_ARG:
 
   +m_Print_ARG 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -317,7 +317,7 @@ TEST_UINT32_FAC:
   ldx #0
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_FAC_with_UINT32_Mem ADDR; Do the conversion.
   ldx #0
@@ -325,8 +325,8 @@ TEST_UINT32_FAC:
 
   +m_Print_FAC 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -338,7 +338,7 @@ TEST_UINT32_ARG:
   ldx #8
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_ARG_with_UINT32_Mem ADDR; Do the conversion.
   ldx #8
@@ -346,8 +346,8 @@ TEST_UINT32_ARG:
 
   +m_Print_ARG 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -359,7 +359,7 @@ TEST_INT32_FAC:
   ldx #0
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_FAC_with_INT32_Mem ADDR ; Do the conversion.
   ldx #0
@@ -367,8 +367,8 @@ TEST_INT32_FAC:
 
   +m_Print_FAC 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts
 
@@ -380,7 +380,7 @@ TEST_INT32_ARG:
   ldx #8
   jsr PRINT_FAC_ARG
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   +m_Load_ARG_with_INT32_Mem ADDR ; Do the conversion.
   ldx #8
@@ -388,7 +388,7 @@ TEST_INT32_ARG:
 
   +m_Print_ARG 1                  ; Print the result too.
   lda #13
-  jsr __PUTCHAR
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
+  jsr __PUT_CHAR
 
   rts

@@ -43,7 +43,7 @@ TEST_SUITE:
   inx
   jsr LINPRT
   lda #":"
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
 .Loop_Msg:
   lda #ZP_2
@@ -87,7 +87,7 @@ TEST_SUITE:
 
   +At 0,39                      ; If _TEST_PRESERVE is on, print an asterisk.
   lda #"*"
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
 .Do_Test:
   pla

@@ -471,7 +471,7 @@ PRINT_FAC_HEADER:
   bcc .Loop_Print_FAC_Headers
 
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
 .Exit_PRINT_FAC_HEADER:
   rts
@@ -489,7 +489,7 @@ PRINT_ARG_HEADER:
   bcc .Loop_Print_ARG_Headers
 
   lda #13
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
 .Exit_PRINT_ARG_HEADER:
   rts
@@ -498,29 +498,29 @@ PRINT_FAC_ARG:
   lda FACEXP,x
   jsr PRINT_BYTE
   lda #" "
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   lda FACHO,x
   jsr PRINT_BYTE
   lda #" "
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   lda FACMOH,x
   jsr PRINT_BYTE
   lda #" "
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   lda FACMO,x
   jsr PRINT_BYTE
   lda #" "
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   lda FACLO,x
   jsr PRINT_BYTE
   lda #146
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
   lda #" "
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
 
   lda FACSGN,x
   jsr PRINT_BYTE
@@ -552,7 +552,7 @@ PRINT_HEX_DIGIT:
   adc #$06
 
 .Exit_PRINT_HEX_DIGIT:
-  jsr __PUTCHAR
+  jsr __PUT_CHAR
   rts
 
 INT8_TABLE:
