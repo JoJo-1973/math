@@ -128,7 +128,7 @@
     sta FACSGN                  ; Imposta il byte del segno.
 
     !if (.ho_ AND %10000000) {
-      lda #0                    ; Azzera il byte di arrotondamento di FAC.
+      lda #$00                  ; Azzera il byte di arrotondamento di FAC.
     }
 
     sta FACOV

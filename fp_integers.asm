@@ -1625,7 +1625,7 @@
     sta FACLO
 
     !if (.BYTE_0 != 0) {
-      lda #0                    ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
+      lda #$00                  ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
     }
 
     ldx #$A0                    ; Esponente = $80 + numero di bit.
@@ -1669,7 +1669,7 @@
     lda .addr_
     sta FACLO
 
-    lda #0                      ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
+    lda #$00                    ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
 
     ldx #$A0                    ; Esponente = $80 + numero di bit.
 
@@ -1717,7 +1717,7 @@
     lda (.ptr_),y
     sta FACLO
 
-    lda #0                      ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
+    lda #$00                    ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
 
     ldx #$A0                    ; Esponente = $80 + numero di bit.
 
@@ -1892,7 +1892,7 @@
     sta FACLO
 
     !if (.BYTE_0 != 0) {
-      lda #0                    ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
+      lda #$00                  ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
     }
 
     ldx #$A0                    ; Esponente = $80 + numero di bit.
@@ -1937,7 +1937,7 @@
     lda .addr_
     sta FACLO
 
-    lda #0                      ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
+    lda #$00                    ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
 
     ldx #$A0                    ; Esponente = $80 + numero di bit.
 
@@ -1986,7 +1986,7 @@
     lda (.ptr_),y
     sta FACLO
 
-    lda #0                      ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
+    lda #$00                    ; Azzera .A: FLOATB lo copia in FACOV e nel segno.
 
     ldx #$A0                    ; Esponente = $80 + numero di bit.
 
@@ -2189,7 +2189,7 @@
 
     jsr QINT                    ; Converte FAC in un intero a 32 bit con segno.
 
-    lda #0                      ; Azzera FACOV, dove QINT lascia i bit scartati:
+    lda #$00                    ; Azzera FACOV, dove QINT lascia i bit scartati:
     sta FACOV                   ; altrimenti lo Swap arrotonderebbe l'intero.
 
     +m_Swap_FAC_and_ARG         ; Porta l'intero in ARG e ripristina FAC.

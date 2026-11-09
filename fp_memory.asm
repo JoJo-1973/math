@@ -411,6 +411,6 @@
     lda _SCRATCH_2+5            ; Ripristina il byte del segno di ARG in FAC.
     sta FACSGN
 
-    lda #0                      ; Azzera il byte di arrotondamento di FAC,
+    lda #$00                    ; Azzera il byte di arrotondamento di FAC,
     sta FACOV                   ; perché il valore di ARG è sempre arrotondato.
 }
