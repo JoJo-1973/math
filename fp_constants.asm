@@ -7,13 +7,13 @@
 ; CONTENUTO:      m_Load_FAC_with           Carica FAC con 5 byte MBF
 ;                 m_Load_ARG_with           Carica ARG con 5 byte MBF
 ;                 m_Load_FAC_with_0         Carica FAC con 0
-;                 m_Load_FAC_with_0_25      Carica FAC con 0,25
-;                 m_Load_FAC_with_0_5       Carica FAC con 0,5
+;                 m_Load_FAC_with_0_25      Carica FAC con 0.25
+;                 m_Load_FAC_with_0_5       Carica FAC con 0.5
 ;                 m_Load_FAC_with_1         Carica FAC con 1
 ;                 m_Load_FAC_with_MINUS_1   Carica FAC con -1
 ;                 m_Load_FAC_with_2         Carica FAC con 2
 ;                 m_Load_FAC_with_10        Carica FAC con 10
-;                 m_Load_FAC_with_0_1       Carica FAC con 0,1
+;                 m_Load_FAC_with_0_1       Carica FAC con 0.1
 ;                 m_Load_FAC_with_PI4       Carica FAC con π/4
 ;                 m_Load_FAC_with_PI2       Carica FAC con π/2
 ;                 m_Load_FAC_with_PI        Carica FAC con π
@@ -31,13 +31,13 @@
 ;                 m_Load_FAC_with_MINR      Carica FAC con MINR
 ;                 m_Load_FAC_with_MAXR      Carica FAC con MAXR
 ;                 m_Load_ARG_with_0         Carica ARG con 0
-;                 m_Load_ARG_with_0_25      Carica ARG con 0,25
-;                 m_Load_ARG_with_0_5       Carica ARG con 0,5
+;                 m_Load_ARG_with_0_25      Carica ARG con 0.25
+;                 m_Load_ARG_with_0_5       Carica ARG con 0.5
 ;                 m_Load_ARG_with_1         Carica ARG con 1
 ;                 m_Load_ARG_with_MINUS_1   Carica ARG con -1
 ;                 m_Load_ARG_with_2         Carica ARG con 2
 ;                 m_Load_ARG_with_10        Carica ARG con 10
-;                 m_Load_ARG_with_0_1       Carica ARG con 0,1
+;                 m_Load_ARG_with_0_1       Carica ARG con 0.1
 ;                 m_Load_ARG_with_PI4       Carica ARG con π/4
 ;                 m_Load_ARG_with_PI2       Carica ARG con π/2
 ;                 m_Load_ARG_with_PI        Carica ARG con π
@@ -233,7 +233,7 @@
 ; ==============================================================================
 ; MACRO: m_Load_FAC_with_0_25
 ; ------------------------------------------------------------------------------
-; Descrizione:  Carica FAC con la costante 0,25. FACOV viene azzerato.
+; Descrizione:  Carica FAC con la costante 0.25. FACOV viene azzerato.
 ;
 ;               Legge la costante da FR4 ($E2EA) nella ROM del BASIC con
 ;               m_Load_FAC_from_Mem, che altera anche INDEX: il suo contenuto
@@ -259,7 +259,7 @@
 ; ==============================================================================
 ; MACRO: m_Load_FAC_with_0_5
 ; ------------------------------------------------------------------------------
-; Descrizione:  Carica FAC con la costante 0,5. FACOV viene azzerato.
+; Descrizione:  Carica FAC con la costante 0.5. FACOV viene azzerato.
 ;
 ;               Legge la costante da FHALF ($BF11) nella ROM del BASIC con
 ;               m_Load_FAC_from_Mem, che altera anche INDEX: il suo contenuto
@@ -385,7 +385,7 @@
 ; ==============================================================================
 ; MACRO: m_Load_FAC_with_0_1
 ; ------------------------------------------------------------------------------
-; Descrizione:  Carica FAC con la costante 0,1. FACOV viene azzerato.
+; Descrizione:  Carica FAC con la costante 0.1. FACOV viene azzerato.
 ;
 ;               Scrive i 5 byte della costante ($7D, $4C, $CC, $CC, $CD) con
 ;               m_Load_FAC_with, senza chiamare la ROM del BASIC.
@@ -743,7 +743,7 @@
 ;               Scrive i 5 byte della costante ($62, $00, $00, $00, $00) con
 ;               m_Load_FAC_with, senza chiamare la ROM del BASIC.
 ;
-;               Vale 4,65661287*10^-10 ed è la differenza tra 1 e il numero in
+;               Vale 4.65661287*10^-10 ed è la differenza tra 1 e il numero in
 ;               virgola mobile successivo.
 ;
 ; Input:
@@ -771,7 +771,7 @@
 ;               Scrive i 5 byte della costante ($01, $00, $00, $00, $00) con
 ;               m_Load_FAC_with, senza chiamare la ROM del BASIC.
 ;
-;               Vale 2,93873588*10^-39 ed è il più piccolo numero diverso da
+;               Vale 2.93873588*10^-39 ed è il più piccolo numero diverso da
 ;               zero rappresentabile in formato MBF.
 ;
 ; Input:
@@ -799,7 +799,7 @@
 ;               Scrive i 5 byte della costante ($FF, $7F, $FF, $FF, $FF) con
 ;               m_Load_FAC_with, senza chiamare la ROM del BASIC.
 ;
-;               Vale 1,70141183*10^38 ed è il più grande numero rappresentabile
+;               Vale 1.70141183*10^38 ed è il più grande numero rappresentabile
 ;               in formato MBF.
 ;
 ; Input:
@@ -848,7 +848,7 @@
 ; ==============================================================================
 ; MACRO: m_Load_ARG_with_0_25
 ; ------------------------------------------------------------------------------
-; Descrizione:  Carica ARG con la costante 0,25. FAC non cambia.
+; Descrizione:  Carica ARG con la costante 0.25. FAC non cambia.
 ;
 ;               Legge la costante da FR4 ($E2EA) nella ROM del BASIC con
 ;               m_Load_ARG_from_Mem, che altera anche INDEX: il suo contenuto
@@ -878,7 +878,7 @@
 ; ==============================================================================
 ; MACRO: m_Load_ARG_with_0_5
 ; ------------------------------------------------------------------------------
-; Descrizione:  Carica ARG con la costante 0,5. FAC non cambia.
+; Descrizione:  Carica ARG con la costante 0.5. FAC non cambia.
 ;
 ;               Legge la costante da FHALF ($BF11) nella ROM del BASIC con
 ;               m_Load_ARG_from_Mem, che altera anche INDEX: il suo contenuto
@@ -1016,7 +1016,7 @@
 ; ==============================================================================
 ; MACRO: m_Load_ARG_with_0_1
 ; ------------------------------------------------------------------------------
-; Descrizione:  Carica ARG con la costante 0,1. FAC non cambia.
+; Descrizione:  Carica ARG con la costante 0.1. FAC non cambia.
 ;
 ;               Scrive i 5 byte della costante ($7D, $4C, $CC, $CC, $CD) con
 ;               m_Load_ARG_with, senza chiamare la ROM del BASIC.
@@ -1398,7 +1398,7 @@
 ;               Scrive i 5 byte della costante ($62, $00, $00, $00, $00) con
 ;               m_Load_ARG_with, senza chiamare la ROM del BASIC.
 ;
-;               Vale 4,65661287*10^-10 ed è la differenza tra 1 e il numero in
+;               Vale 4.65661287*10^-10 ed è la differenza tra 1 e il numero in
 ;               virgola mobile successivo.
 ;
 ; Input:
@@ -1426,7 +1426,7 @@
 ;               Scrive i 5 byte della costante ($01, $00, $00, $00, $00) con
 ;               m_Load_ARG_with, senza chiamare la ROM del BASIC.
 ;
-;               Vale 2,93873588*10^-39 ed è il più piccolo numero diverso da
+;               Vale 2.93873588*10^-39 ed è il più piccolo numero diverso da
 ;               zero rappresentabile in formato MBF.
 ;
 ; Input:
@@ -1454,7 +1454,7 @@
 ;               Scrive i 5 byte della costante ($FF, $7F, $FF, $FF, $FF) con
 ;               m_Load_ARG_with, senza chiamare la ROM del BASIC.
 ;
-;               Vale 1,70141183*10^38 ed è il più grande numero rappresentabile
+;               Vale 1.70141183*10^38 ed è il più grande numero rappresentabile
 ;               in formato MBF.
 ;
 ; Input:

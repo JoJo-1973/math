@@ -559,7 +559,7 @@
 ; MACRO: m_INT_FAC
 ; ------------------------------------------------------------------------------
 ; Descrizione:  Arrotonda per difetto, verso -infinito, il numero in virgola
-;               mobile di FAC: 1,2 diventa 1 e -1,2 diventa -2.
+;               mobile di FAC: 1.2 diventa 1 e -1.2 diventa -2.
 ;
 ;               I numeri con esponente maggiore o uguale a $A0, cioè di valore
 ;               assoluto non inferiore a 2^31, sono già interi e non cambiano.
@@ -590,7 +590,7 @@
 ; MACRO: m_INT_ARG
 ; ------------------------------------------------------------------------------
 ; Descrizione:  Arrotonda per difetto, verso -infinito, il numero in virgola
-;               mobile di ARG: 1,2 diventa 1 e -1,2 diventa -2.
+;               mobile di ARG: 1.2 diventa 1 e -1.2 diventa -2.
 ;
 ;               I numeri con esponente maggiore o uguale a $A0, cioè di valore
 ;               assoluto non inferiore a 2^31, sono già interi e non cambiano.
@@ -632,7 +632,7 @@
 ; ------------------------------------------------------------------------------
 ; Descrizione:  Carica FAC con il numero in formato MBF che si trova a un
 ;               indirizzo assoluto e lo arrotonda per difetto, verso -infinito:
-;               1,2 diventa 1 e -1,2 diventa -2. Il risultato resta in FAC.
+;               1.2 diventa 1 e -1.2 diventa -2. Il risultato resta in FAC.
 ;
 ;               La lettura usa m_Load_FAC_from_Mem, che altera anche INDEX: il
 ;               suo contenuto non è garantito dopo la chiamata. Il vecchio
@@ -672,7 +672,7 @@
 ; ------------------------------------------------------------------------------
 ; Descrizione:  Carica FAC con il numero in formato MBF che si trova
 ;               all'indirizzo a cui punta un puntatore e lo arrotonda per
-;               difetto, verso -infinito: 1,2 diventa 1 e -1,2 diventa -2. Il
+;               difetto, verso -infinito: 1.2 diventa 1 e -1.2 diventa -2. Il
 ;               risultato resta in FAC.
 ;
 ;               La lettura usa m_Load_FAC_from_Ptr, che altera anche INDEX: il

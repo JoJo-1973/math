@@ -295,7 +295,7 @@
 ;               risultato in FAC.
 ;
 ;               Chiama la routine EXP della ROM del BASIC. Se il risultato è
-;               troppo grande, cioè per un numero da circa 88,03 in su, la ROM
+;               troppo grande, cioè per un numero da circa 88.03 in su, la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
 ;               [NOTA #07 in <fp/fp.asm>]; se è troppo piccolo il risultato è
 ;               zero. EXP(0) vale 1.
@@ -362,7 +362,7 @@
 ;               Copia prima ARG in FAC con m_Transfer_ARG_to_FAC.
 ;
 ;               Chiama la routine EXP della ROM del BASIC. Se il risultato è
-;               troppo grande, cioè per un numero da circa 88,03 in su, la ROM
+;               troppo grande, cioè per un numero da circa 88.03 in su, la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
 ;               [NOTA #07 in <fp/fp.asm>]; se è troppo piccolo il risultato è
 ;               zero. EXP(0) vale 1.
@@ -432,7 +432,7 @@
 ;               altera INDEX.
 ;
 ;               Chiama la routine EXP della ROM del BASIC. Se il risultato è
-;               troppo grande, cioè per un numero da circa 88,03 in su, la ROM
+;               troppo grande, cioè per un numero da circa 88.03 in su, la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
 ;               [NOTA #07 in <fp/fp.asm>]; se è troppo piccolo il risultato è
 ;               zero. EXP(0) vale 1.
@@ -503,7 +503,7 @@
 ;               altera INDEX.
 ;
 ;               Chiama la routine EXP della ROM del BASIC. Se il risultato è
-;               troppo grande, cioè per un numero da circa 88,03 in su, la ROM
+;               troppo grande, cioè per un numero da circa 88.03 in su, la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
 ;               [NOTA #07 in <fp/fp.asm>]; se è troppo piccolo il risultato è
 ;               zero. EXP(0) vale 1.

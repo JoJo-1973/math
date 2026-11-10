@@ -249,7 +249,7 @@
 ;               lascia il risultato in FAC.
 ;
 ;               Chiama la routine SQR della ROM del BASIC, che copia FAC in ARG,
-;               carica 0,5 in FAC e chiama FPWRT: calcola quindi ARG ^ 0,5. La
+;               carica 0.5 in FAC e chiama FPWRT: calcola quindi ARG ^ 0.5. La
 ;               radice di zero è zero; se il numero è negativo la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
 ;               [NOTA #07 in <fp/fp.asm>].
@@ -317,7 +317,7 @@
 ;               Copia prima ARG in FAC con m_Transfer_ARG_to_FAC.
 ;
 ;               Chiama la routine SQR della ROM del BASIC, che copia FAC in ARG,
-;               carica 0,5 in FAC e chiama FPWRT: calcola quindi ARG ^ 0,5. La
+;               carica 0.5 in FAC e chiama FPWRT: calcola quindi ARG ^ 0.5. La
 ;               radice di zero è zero; se il numero è negativo la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
 ;               [NOTA #07 in <fp/fp.asm>].
@@ -388,7 +388,7 @@
 ;               altera INDEX.
 ;
 ;               Chiama la routine SQR della ROM del BASIC, che copia FAC in ARG,
-;               carica 0,5 in FAC e chiama FPWRT: calcola quindi ARG ^ 0,5. La
+;               carica 0.5 in FAC e chiama FPWRT: calcola quindi ARG ^ 0.5. La
 ;               radice di zero è zero; se il numero è negativo la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
 ;               [NOTA #07 in <fp/fp.asm>].
@@ -460,7 +460,7 @@
 ;               altera INDEX.
 ;
 ;               Chiama la routine SQR della ROM del BASIC, che copia FAC in ARG,
-;               carica 0,5 in FAC e chiama FPWRT: calcola quindi ARG ^ 0,5. La
+;               carica 0.5 in FAC e chiama FPWRT: calcola quindi ARG ^ 0.5. La
 ;               radice di zero è zero; se il numero è negativo la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
 ;               [NOTA #07 in <fp/fp.asm>].

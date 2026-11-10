@@ -29,7 +29,7 @@
 ;               in ARG e lascia il risultato in FAC: FAC = FAC AND ARG.
 ;
 ;               Entrambi i numeri sono convertiti in interi a 16 bit con segno,
-;               arrotondati per difetto (-1,5 diventa -2); il risultato è
+;               arrotondati per difetto (-1.5 diventa -2); il risultato è
 ;               riconvertito in virgola mobile.
 ;
 ;               Chiama la routine ANDOP della ROM del BASIC. Se FAC o l'altro
@@ -76,7 +76,7 @@
 ;               FAC = FAC AND (.addr_).
 ;
 ;               Entrambi i numeri sono convertiti in interi a 16 bit con segno,
-;               arrotondati per difetto (-1,5 diventa -2); il risultato è
+;               arrotondati per difetto (-1.5 diventa -2); il risultato è
 ;               riconvertito in virgola mobile.
 ;
 ;               Carica prima il numero in ARG con m_Load_ARG_from_Mem, che
@@ -147,7 +147,7 @@
 ;               risultato in FAC: FAC = FAC AND ((.ptr_)).
 ;
 ;               Entrambi i numeri sono convertiti in interi a 16 bit con segno,
-;               arrotondati per difetto (-1,5 diventa -2); il risultato è
+;               arrotondati per difetto (-1.5 diventa -2); il risultato è
 ;               riconvertito in virgola mobile.
 ;
 ;               Carica prima il numero in ARG con m_Load_ARG_from_Ptr, che
@@ -218,7 +218,7 @@
 ;               in ARG e lascia il risultato in FAC: FAC = FAC OR ARG.
 ;
 ;               Entrambi i numeri sono convertiti in interi a 16 bit con segno,
-;               arrotondati per difetto (-1,5 diventa -2); il risultato è
+;               arrotondati per difetto (-1.5 diventa -2); il risultato è
 ;               riconvertito in virgola mobile.
 ;
 ;               Chiama la routine OROP della ROM del BASIC. Se FAC o l'altro
@@ -265,7 +265,7 @@
 ;               = FAC OR (.addr_).
 ;
 ;               Entrambi i numeri sono convertiti in interi a 16 bit con segno,
-;               arrotondati per difetto (-1,5 diventa -2); il risultato è
+;               arrotondati per difetto (-1.5 diventa -2); il risultato è
 ;               riconvertito in virgola mobile.
 ;
 ;               Carica prima il numero in ARG con m_Load_ARG_from_Mem, che
@@ -336,7 +336,7 @@
 ;               risultato in FAC: FAC = FAC OR ((.ptr_)).
 ;
 ;               Entrambi i numeri sono convertiti in interi a 16 bit con segno,
-;               arrotondati per difetto (-1,5 diventa -2); il risultato è
+;               arrotondati per difetto (-1.5 diventa -2); il risultato è
 ;               riconvertito in virgola mobile.
 ;
 ;               Carica prima il numero in ARG con m_Load_ARG_from_Ptr, che
@@ -407,7 +407,7 @@
 ;               = NOT FAC.
 ;
 ;               Il numero è convertito in un intero a 16 bit con segno,
-;               arrotondato per difetto (-1,5 diventa -2); il risultato, che
+;               arrotondato per difetto (-1.5 diventa -2); il risultato, che
 ;               vale -n-1, è riconvertito in virgola mobile.
 ;
 ;               Chiama la routine NOTOP della ROM del BASIC. Se il numero è
@@ -455,7 +455,7 @@
 ;               li scambia di nuovo.
 ;
 ;               Il numero è convertito in un intero a 16 bit con segno,
-;               arrotondato per difetto (-1,5 diventa -2); il risultato, che
+;               arrotondato per difetto (-1.5 diventa -2); il risultato, che
 ;               vale -n-1, è riconvertito in virgola mobile.
 ;
 ;               Chiama la routine NOTOP della ROM del BASIC. Se il numero
@@ -508,7 +508,7 @@
 ;               altera INDEX.
 ;
 ;               Il numero è convertito in un intero a 16 bit con segno,
-;               arrotondato per difetto (-1,5 diventa -2); il risultato, che
+;               arrotondato per difetto (-1.5 diventa -2); il risultato, che
 ;               vale -n-1, è riconvertito in virgola mobile.
 ;
 ;               Chiama la routine NOTOP della ROM del BASIC. Se il numero è
@@ -559,7 +559,7 @@
 ;               altera INDEX.
 ;
 ;               Il numero è convertito in un intero a 16 bit con segno,
-;               arrotondato per difetto (-1,5 diventa -2); il risultato, che
+;               arrotondato per difetto (-1.5 diventa -2); il risultato, che
 ;               vale -n-1, è riconvertito in virgola mobile.
 ;
 ;               Chiama la routine NOTOP della ROM del BASIC. Se il numero è

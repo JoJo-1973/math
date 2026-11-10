@@ -137,7 +137,7 @@
 ; Fonte: https://www.c64-wiki.com/wiki/Multiply_bug
 ;
 ; Nella sola moltiplicazione si può ridurre il problema scambiando i due
-; operandi: su 20.000 coppie casuali lo scambio corregge circa il 94% dei casi
+; operandi: su 20000 coppie casuali lo scambio corregge circa il 94% dei casi
 ; in cui un ordine è sbagliato, ma non tutti, perché in 300 casi sono
 ; sbagliati entrambi. Dopo lo scambio ARISGN va ricalcolato (FACSGN xor
 ; ARGSGN). Per le altre funzioni il rimedio non si applica: l'ordine delle
@@ -149,7 +149,7 @@
 ; SQR calcola la radice tramite LOG ed EXP, quindi ne eredita i polinomi e il
 ; bug della moltiplicazione (NOTA #08). Il wiki dichiara un accordo col valore
 ; vero fino a 30 bit (25 bit per pochi ingressi). Nelle nostre misure, su
-; 1.500 ingressi casuali, la mediana è 33,0 bit e il minimo 31,0 (la mantissa
+; 1500 ingressi casuali, la mediana è 33.0 bit e il minimo 31.0 (la mantissa
 ; ha 32 bit). SQR(0) = 0; un argomento negativo dà ?ILLEGAL QUANTITY.
 ;
 ; Fonte: https://www.c64-wiki.com/wiki/SQR
@@ -158,11 +158,11 @@
 ; NOTA #10
 ; --------
 ; RND dipende dal segno di FAC. Con FAC > 0 restituisce il numero successivo
-; della sequenza (seme x 11879546 + 3,927677739E-8, poi i byte della mantissa
+; della sequenza (seme x 11879546 + 3.927677739E-8, poi i byte della mantissa
 ; vengono scambiati). Con FAC < 0 FAC diventa il nuovo seme, e lo stesso seme
 ; dà sempre la stessa sequenza: utile per collaudi e debug. Il risultato di
 ; quella chiamata è il seme stesso, quindi con un seme piccolo è un numero
-; molto piccolo (RND(-1) = 2,99E-8). Con FAC = 0 il seme viene ricavato dai
+; molto piccolo (RND(-1) = 2.99E-8). Con FAC = 0 il seme viene ricavato dai
 ; timer A e dall'orologio TOD del CIA #1 ($DC04, $DC05, $DC08, $DC09): questi
 ; registri non sono inizializzati all'avvio e alcuni lavorano in BCD, quindi
 ; non assumono tutti i valori possibili e lo spazio dei semi si riduce.
@@ -181,10 +181,10 @@
 ; --------
 ; LOG(V) dà ?ILLEGAL QUANTITY per V <= 0; LOG(1) = 0. Il wiki dichiara un
 ; accordo col valore vero fino a 29 bit (24 per pochi ingressi), con
-; peggioramento vicino a V = 1. Nelle nostre misure su 1.500 ingressi casuali
-; la mediana è 31,9 bit e il minimo 22,8 (26 ingressi sotto 27 bit). I casi
-; peggiori sono vicini a 1: LOG(0,99) dà 24,4 bit, LOG(1,01) 26,9, LOG(1,1)
-; 27,7. L'errore assoluto resta piccolo, ma il risultato è piccolo, perciò
+; peggioramento vicino a V = 1. Nelle nostre misure su 1500 ingressi casuali
+; la mediana è 31.9 bit e il minimo 22.8 (26 ingressi sotto 27 bit). I casi
+; peggiori sono vicini a 1: LOG(0.99) dà 24.4 bit, LOG(1.01) 26.9, LOG(1.1)
+; 27.7. L'errore assoluto resta piccolo, ma il risultato è piccolo, perciò
 ; cresce l'errore relativo. Il bug della moltiplicazione (NOTA #08) non è la
 ; causa: con la ROM corretta i valori sono identici. La potenza (m_Power_*)
 ; passa da LOG ed EXP e ne eredita i limiti.
@@ -194,11 +194,11 @@
 ;
 ; NOTA #12
 ; --------
-; EXP(V) dà ?OVERFLOW per V oltre circa 88,03 (il wiki indica 89,03, ma
-; EXP(89,02) dà già errore; EXP(88) = 1,65E38). Per argomenti molto negativi
+; EXP(V) dà ?OVERFLOW per V oltre circa 88.03 (il wiki indica 89.03, ma
+; EXP(89.02) dà già errore; EXP(88) = 1.65E38). Per argomenti molto negativi
 ; il risultato è 0 senza errore (provati -89 e -100). Il wiki dichiara un
 ; accordo col valore vero fino a 30 bit (26 per pochi ingressi); nelle nostre
-; misure su 1.500 ingressi casuali la mediana è 33,0 bit e il minimo 30,9.
+; misure su 1500 ingressi casuali la mediana è 33.0 bit e il minimo 30.9.
 ; EXP(0) = 1. La potenza (m_Power_*) passa da LOG ed EXP: stessi limiti.
 ;
 ; Fonte: https://www.c64-wiki.com/wiki/EXP
@@ -207,11 +207,11 @@
 ; NOTA #13
 ; --------
 ; SIN riduce l'argomento a un quarto di periodo e valuta un polinomio. Il wiki
-; dichiara un accordo col valore vero fino a 30 bit tra circa -2,6 e +2,6, con
+; dichiara un accordo col valore vero fino a 30 bit tra circa -2.6 e +2.6, con
 ; peggioramento oltre per l'imprecisione di PI (NOTA #17) e per pochi ingressi
-; fino a 24 bit. Nelle nostre misure su 1.500 ingressi casuali la mediana è
-; 32,1 bit e il minimo 27,5. Per argomenti piccoli l'errore relativo sale: da
-; 4E-11 per 0,04 a 3,4E-9 per 1E-4 (da 34 a 28 bit), perché i coefficienti del
+; fino a 24 bit. Nelle nostre misure su 1500 ingressi casuali la mediana è
+; 32.1 bit e il minimo 27.5. Per argomenti piccoli l'errore relativo sale: da
+; 4E-11 per 0.04 a 3.4E-9 per 1E-4 (da 34 a 28 bit), perché i coefficienti del
 ; polinomio non sono esatti. Un argomento fuori dai limiti della virgola
 ; mobile dà ?OVERFLOW; SIN stessa non ne ha altri.
 ;
@@ -223,9 +223,9 @@
 ; COS(V) è calcolata come SIN(V + PI/2): valgono quindi i limiti della NOTA
 ; #13 e il bug della moltiplicazione (NOTA #08). Il wiki dichiara un accordo
 ; col valore vero fino a 29 bit, con pochi ingressi a 24 e peggioramento
-; vicino ai multipli dispari di PI/2. Nelle nostre misure su 1.500 ingressi
-; casuali la mediana è 31,8 bit e il minimo 27,7. La simmetria non è esatta:
-; COS(0,9) - COS(-0,9) = -2 x 2^-32 (il wiki riporta 3 x 2^-32).
+; vicino ai multipli dispari di PI/2. Nelle nostre misure su 1500 ingressi
+; casuali la mediana è 31.8 bit e il minimo 27.7. La simmetria non è esatta:
+; COS(0.9) - COS(-0.9) = -2 x 2^-32 (il wiki riporta 3 x 2^-32).
 ;
 ; Fonte: https://www.c64-wiki.com/wiki/COS
 ;
@@ -234,11 +234,11 @@
 ; --------
 ; TAN(V) è calcolata come SIN(V)/COS(V): eredita i limiti di entrambe e perde
 ; precisione dove le perdono loro. Il wiki dichiara un accordo di circa 29 bit
-; (25 per pochi ingressi). Nelle nostre misure su 1.500 ingressi casuali la
-; mediana è 32,2 bit e il minimo 27,3. Se COS vale 0 la divisione dà ?DIVISION
+; (25 per pochi ingressi). Nelle nostre misure su 1500 ingressi casuali la
+; mediana è 32.2 bit e il minimo 27.3. Se COS vale 0 la divisione dà ?DIVISION
 ; BY ZERO (il wiki cita TAN(PI/2)); questo è l'unico errore di TAN oltre a
-; ?OVERFLOW. TAN(PI) non è esattamente 0: con PI arrotondato a 3,14159265359
-; abbiamo misurato 0, il wiki riporta -7,3E-10.
+; ?OVERFLOW. TAN(PI) non è esattamente 0: con PI arrotondato a 3.14159265359
+; abbiamo misurato 0, il wiki riporta -7.3E-10.
 ;
 ; Fonte: https://www.c64-wiki.com/wiki/TAN
 ;
@@ -247,8 +247,8 @@
 ; --------
 ; ATN usa la simmetria dispari e, per |V| > 1, l'identità PI/2 - ATN(1/V); per
 ; 0 <= V <= 1 valuta un polinomio. Il wiki dichiara un accordo col valore vero
-; fino a 30 bit (25 per pochi ingressi). Nelle nostre misure su 1.500 ingressi
-; casuali la mediana è 32,1 bit e il minimo 30,6. ATN non dà errori a parte
+; fino a 30 bit (25 per pochi ingressi). Nelle nostre misure su 1500 ingressi
+; casuali la mediana è 32.1 bit e il minimo 30.6. ATN non dà errori a parte
 ; ?OVERFLOW per argomenti fuori dai limiti della virgola mobile.
 ;
 ; Fonte: https://www.c64-wiki.com/wiki/ATN
@@ -257,10 +257,10 @@
 ; NOTA #17
 ; --------
 ; La costante PI della ROM (5 byte $82 $49 $0F $DA $A1 a $AEA8) vale
-; 3,1415926525 invece di 3,1415926536: l'ultimo byte $A1 è meno preciso del
-; valore più vicino, che si ottiene con $A2 (errore -1,2E-10 invece di
-; -1,05E-9). 2*PI e PI/2, usate da SIN, COS e TAN, hanno invece l'ultimo byte
-; $A2. Di conseguenza ATN(1)*4 dà 3,1415926525 (non 3,1415266 come riporta il
+; 3.1415926525 invece di 3.1415926536: l'ultimo byte $A1 è meno preciso del
+; valore più vicino, che si ottiene con $A2 (errore -1.2E-10 invece di
+; -1.05E-9). 2*PI e PI/2, usate da SIN, COS e TAN, hanno invece l'ultimo byte
+; $A2. Di conseguenza ATN(1)*4 dà 3.1415926525 (non 3.1415266 come riporta il
 ; wiki, che è sbagliato). Per usare il valore più vicino a pi greco si può
 ; caricare una propria costante ($82 $49 $0F $DA $A2).
 ;
