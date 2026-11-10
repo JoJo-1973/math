@@ -1972,7 +1972,7 @@ Rende positivi gli operandi, esegue il nucleo senza segno e, se i segni erano di
 <a id="nota-math_mult-01"></a>
 #### Nota #01
 
-Il primo operando è il più lungo e fa da moltiplicando; il secondo è il moltiplicatore. Le routine con operandi in registri usano, dal byte più basso al più alto, `.A`, `.X` e `.Y` (cioè la terna .`YXA`, come nell'ordine di memoria). I byte del prodotto oltre il terzo non entrano nei registri: si leggono da `MUL_RES+3` in poi.
+Il primo operando è il più lungo e fa da moltiplicando; il secondo è il moltiplicatore. Le routine con operandi in registri usano, dal byte più basso al più alto, `.A`, `.X` e `.Y` (cioè la terna `.YXA`, come nell'ordine di memoria). I byte del prodotto oltre il terzo non entrano nei registri: si leggono da `MUL_RES+3` in poi.
 
 ```
   Routine  1º operando    2º operando    Registri in uscita
@@ -2605,7 +2605,7 @@ Se il divisore è zero esce con il Carry a 1 e `ERR_DIVISION_BY_ZERO` in `.A`, s
 <a id="nota-math_div-01"></a>
 #### Nota #01
 
-Il dividendo ha m byte e il divisore n byte, con m maggiore o uguale a n. Il quoziente ha la lunghezza del dividendo e il resto quella del divisore, quindi nessuna informazione va persa. I valori a più byte si scambiano con i registri dal byte più basso al più alto: byte 0 in `.A`, byte 1 in `.X` e byte 2 in `.Y` (cioè la terna .`YXA`, come nell'ordine di memoria). I byte del quoziente oltre il terzo si leggono da `DIV_QUOT+3`.
+Il dividendo ha m byte e il divisore n byte, con m maggiore o uguale a n. Il quoziente ha la lunghezza del dividendo e il resto quella del divisore, quindi nessuna informazione va persa. I valori a più byte si scambiano con i registri dal byte più basso al più alto: byte 0 in `.A`, byte 1 in `.X` e byte 2 in `.Y` (cioè la terna `.YXA`, come nell'ordine di memoria). I byte del quoziente oltre il terzo si leggono da `DIV_QUOT+3`.
 
 Il resto si legge sempre da `DIV_REM`. Quando il resto ha un solo byte ed è rimasto un registro libero, la routine lo restituisce anche in quel registro.
 
