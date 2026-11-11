@@ -60,13 +60,13 @@
 ; ==============================================================================
 !macro m_Negate_FAC {
     lda FACEXP                  ; Se è zero, non cambia il segno.
-    beq .Exit_NEGATE_FAC
+    beq .Exit_M_NEGATE_FAC
 
     lda FACSGN                  ; Inverte il bit #7 del segno.
     eor #$FF
     sta FACSGN
 
-  .Exit_NEGATE_FAC:
+  .Exit_M_NEGATE_FAC:
 }
 
 ; ==============================================================================
@@ -92,13 +92,13 @@
 ; ==============================================================================
 !macro m_Negate_ARG {
     lda ARGEXP                  ; Se è zero, non cambia il segno.
-    beq .Exit_NEGATE_ARG
+    beq .Exit_M_NEGATE_ARG
 
     lda ARGSGN                  ; Inverte il bit #7 del segno.
     eor #$FF
     sta ARGSGN
 
-  .Exit_NEGATE_ARG:
+  .Exit_M_NEGATE_ARG:
 }
 
 ; ==============================================================================
@@ -134,13 +134,13 @@
 !macro m_Negate_Mem .addr_ {
     +m_Load_FAC_from_Mem .addr_
     lda FACEXP                  ; Se è zero, non cambia il segno.
-    beq .Exit_NEGATE_MEM
+    beq .Exit_M_NEGATE_MEM
 
     lda FACSGN                  ; Inverte il bit #7 del segno.
     eor #$FF
     sta FACSGN
 
-  .Exit_NEGATE_MEM:
+  .Exit_M_NEGATE_MEM:
 }
 
 ; ==============================================================================
@@ -177,13 +177,13 @@
 !macro m_Negate_Ptr .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
     lda FACEXP                  ; Se è zero, non cambia il segno.
-    beq .Exit_NEGATE_PTR
+    beq .Exit_M_NEGATE_PTR
 
     lda FACSGN                  ; Inverte il bit #7 del segno.
     eor #$FF
     sta FACSGN
 
-  .Exit_NEGATE_PTR:
+  .Exit_M_NEGATE_PTR:
 }
 
 ; ==============================================================================
@@ -349,16 +349,16 @@
 ; ==============================================================================
 !macro m_Sign_ARG {
     lda ARGEXP                  ; Se ARG è zero, .A = 0 ed esce.
-    beq .Exit_SIGN_ARG
+    beq .Exit_M_SIGN_ARG
 
     lda ARGSGN                  ; Altrimenti ruota il segno nel Carry.
     rol a
     lda #$FF                    ; Prepara .A = $FF (negativo)
-    bcs .Exit_SIGN_ARG          ; ed esce se C = 1.
+    bcs .Exit_M_SIGN_ARG        ; ed esce se C = 1.
 
     lda #$01                    ; Altrimenti .A = $01 (positivo).
 
-  .Exit_SIGN_ARG:
+  .Exit_M_SIGN_ARG:
 }
 
 ; ==============================================================================
@@ -735,11 +735,11 @@
 ; ==============================================================================
 !macro m_Multiply_FAC_by_2 {
     lda FACEXP                  ; Se è zero, lo lascia com'è.
-    beq .Exit_MULTIPLY_FAC_BY_2
+    beq .Exit_M_MULTIPLY_FAC_BY_2
 
     inc FACEXP                  ; Cambia l'esponente.
 
-  .Exit_MULTIPLY_FAC_BY_2:
+  .Exit_M_MULTIPLY_FAC_BY_2:
 }
 
 ; ==============================================================================
@@ -769,11 +769,11 @@
 ; ==============================================================================
 !macro m_Multiply_ARG_by_2 {
     lda ARGEXP                  ; Se è zero, lo lascia com'è.
-    beq .Exit_MULTIPLY_ARG_BY_2
+    beq .Exit_M_MULTIPLY_ARG_BY_2
 
     inc ARGEXP                  ; Cambia l'esponente.
 
-  .Exit_MULTIPLY_ARG_BY_2:
+  .Exit_M_MULTIPLY_ARG_BY_2:
 }
 
 ; ==============================================================================
@@ -812,11 +812,11 @@
 !macro m_Multiply_Mem_by_2 .addr_ {
     +m_Load_FAC_from_Mem .addr_
     lda FACEXP                  ; Se è zero, lo lascia com'è.
-    beq .Exit_MULTIPLY_MEM_BY_2
+    beq .Exit_M_MULTIPLY_MEM_BY_2
 
     inc FACEXP                  ; Cambia l'esponente.
 
-  .Exit_MULTIPLY_MEM_BY_2:
+  .Exit_M_MULTIPLY_MEM_BY_2:
 }
 
 ; ==============================================================================
@@ -856,11 +856,11 @@
 !macro m_Multiply_Ptr_by_2 .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
     lda FACEXP                  ; Se è zero, lo lascia com'è.
-    beq .Exit_MULTIPLY_PTR_BY_2
+    beq .Exit_M_MULTIPLY_PTR_BY_2
 
     inc FACEXP                  ; Cambia l'esponente.
 
-  .Exit_MULTIPLY_PTR_BY_2:
+  .Exit_M_MULTIPLY_PTR_BY_2:
 }
 
 ; ==============================================================================
@@ -890,11 +890,11 @@
 ; ==============================================================================
 !macro m_Divide_FAC_by_2 {
     lda FACEXP                  ; Se è zero, lo lascia com'è.
-    beq .Exit_DIVIDE_FAC_BY_2
+    beq .Exit_M_DIVIDE_FAC_BY_2
 
     dec FACEXP                  ; Cambia l'esponente.
 
-  .Exit_DIVIDE_FAC_BY_2:
+  .Exit_M_DIVIDE_FAC_BY_2:
 }
 
 ; ==============================================================================
@@ -924,11 +924,11 @@
 ; ==============================================================================
 !macro m_Divide_ARG_by_2 {
     lda ARGEXP                  ; Se è zero, lo lascia com'è.
-    beq .Exit_DIVIDE_ARG_BY_2
+    beq .Exit_M_DIVIDE_ARG_BY_2
 
     dec ARGEXP                  ; Cambia l'esponente.
 
-  .Exit_DIVIDE_ARG_BY_2:
+  .Exit_M_DIVIDE_ARG_BY_2:
 }
 
 ; ==============================================================================
@@ -967,11 +967,11 @@
 !macro m_Divide_Mem_by_2 .addr_ {
     +m_Load_FAC_from_Mem .addr_
     lda FACEXP                  ; Se è zero, lo lascia com'è.
-    beq .Exit_DIVIDE_MEM_BY_2
+    beq .Exit_M_DIVIDE_MEM_BY_2
 
     dec FACEXP                  ; Cambia l'esponente.
 
-  .Exit_DIVIDE_MEM_BY_2:
+  .Exit_M_DIVIDE_MEM_BY_2:
 }
 
 ; ==============================================================================
@@ -1011,9 +1011,9 @@
 !macro m_Divide_Ptr_by_2 .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
     lda FACEXP                  ; Se è zero, lo lascia com'è.
-    beq .Exit_DIVIDE_PTR_BY_2
+    beq .Exit_M_DIVIDE_PTR_BY_2
 
     dec FACEXP                  ; Cambia l'esponente.
 
-  .Exit_DIVIDE_PTR_BY_2:
+  .Exit_M_DIVIDE_PTR_BY_2:
 }
