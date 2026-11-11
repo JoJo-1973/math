@@ -56,7 +56,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, _SCRATCH_1, _SCRATCH_2, STACK (16 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_FAC_to_String {
     +m_Store_FAC_in_Scratch     ; Salva FAC e ARG.
@@ -107,8 +107,8 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, _SCRATCH_1, _SCRATCH_2, STACK (16 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <fp/fp_common.asm>
 ;                       <fp/fp_memory.asm>
-;                       <fp/fp_scratch.asm>
 ; ==============================================================================
 !macro m_ARG_to_String {
     +m_Store_FAC_in_Scratch     ; Salva FAC e ARG.
@@ -181,7 +181,7 @@
 ;                       ARISGN, INDEX, TXTPTR,
 ;                       _SCRATCH_2 (se __PRESERVE_ARG = 1), __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_String_to_FAC .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -255,7 +255,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, TXTPTR, _SCRATCH_1, __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_String_to_ARG .addr_ {
     +m_Store_FAC_in_Scratch
@@ -322,7 +322,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, _SCRATCH_1, _SCRATCH_2, STACK (16 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Print_FAC {
     +m_Store_FAC_in_Scratch     ; Salva FAC e ARG.
@@ -387,8 +387,8 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, _SCRATCH_1, _SCRATCH_2, STACK (16 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <fp/fp_common.asm>
 ;                       <fp/fp_memory.asm>
-;                       <fp/fp_scratch.asm>
 ; ==============================================================================
 !macro m_Print_ARG {
     +m_Store_FAC_in_Scratch     ; Salva FAC e ARG.

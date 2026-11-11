@@ -121,8 +121,8 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <fp/fp_common.asm>
 ;                       <fp/fp_memory.asm>
-;                       <fp/fp_scratch.asm>
 ; ==============================================================================
 !macro m_AND_FAC_with_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -193,8 +193,8 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <fp/fp_common.asm>
 ;                       <fp/fp_memory.asm>
-;                       <fp/fp_scratch.asm>
 ; ==============================================================================
 !macro m_AND_FAC_with_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -310,8 +310,8 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <fp/fp_common.asm>
 ;                       <fp/fp_memory.asm>
-;                       <fp/fp_scratch.asm>
 ; ==============================================================================
 !macro m_OR_FAC_with_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -382,8 +382,8 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <fp/fp_common.asm>
 ;                       <fp/fp_memory.asm>
-;                       <fp/fp_scratch.asm>
 ; ==============================================================================
 !macro m_OR_FAC_with_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -486,8 +486,8 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       _SCRATCH_2, __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <fp/fp_common.asm>
 ;                       <fp/fp_memory.asm>
-;                       <fp/fp_scratch.asm>
 ; ==============================================================================
 !macro m_NOT_ARG {
     +m_Swap_FAC_and_ARG         ; Porta ARG in FAC.

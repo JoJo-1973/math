@@ -1,5 +1,5 @@
 ; ==============================================================================
-; FILE:           fp_scratch.asm
+; FILE:           fp_common.asm
 ; PROGETTO:       Libreria di Sistema (fp.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Aree di appoggio e macro per salvare e ripristinare una copia

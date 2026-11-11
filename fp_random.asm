@@ -63,7 +63,7 @@
 ;                       ARISGN, INDEX, RNDX (5 byte), _SCRATCH_2 (se
 ;                       __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_RND {
     !if (__PRESERVE_ARG = 1) {

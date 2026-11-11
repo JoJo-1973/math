@@ -6,6 +6,7 @@
 ;                 BASIC Commodore, basate sulle routine della ROM.
 ; DIPENDENZE:     <c64/errors.asm>
 ;                 <c64/symbols.asm>
+;                 <fp/fp_common.asm>
 ;                 <fp/fp_arith.asm>
 ;                 <fp/fp_boolean.asm>
 ;                 <fp/fp_compare.asm>
@@ -17,7 +18,6 @@
 ;                 <fp/fp_poly.asm>
 ;                 <fp/fp_power.asm>
 ;                 <fp/fp_random.asm>
-;                 <fp/fp_scratch.asm>
 ;                 <fp/fp_transcend.asm>
 ;                 <fp/fp_trig.asm>
 ;                 <fp/fp_unary.asm>
@@ -269,6 +269,7 @@
 
 !source "../c64/errors.asm", once
 !source "../c64/symbols.asm", once
+!source "fp_common.asm", once
 !source "fp_arith.asm", once
 !source "fp_boolean.asm", once
 !source "fp_compare.asm", once
@@ -280,7 +281,6 @@
 !source "fp_poly.asm", once
 !source "fp_power.asm", once
 !source "fp_random.asm", once
-!source "fp_scratch.asm", once
 !source "fp_transcend.asm", once
 !source "fp_trig.asm", once
 !source "fp_unary.asm", once

@@ -386,7 +386,7 @@
 ;
 ; Registri Modificati:  .A, .X, .P (Negative, oVerflow, Zero, Carry), FAC, _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Swap_FAC_and_ARG {
     +m_Store_ARG_in_Scratch     ; Salva ARG in _SCRATCH_2.

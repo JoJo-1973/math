@@ -71,7 +71,7 @@
 ;                       ARISGN, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Add_FAC_to_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -140,7 +140,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Add_FAC_to_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -208,7 +208,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Add_FAC_to_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -272,7 +272,7 @@
 ;                       ARISGN, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Subtract_FAC_from_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -337,7 +337,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Subtract_FAC_from_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -405,7 +405,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Subtract_FAC_from_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -529,7 +529,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Multiply_FAC_by_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -599,7 +599,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Multiply_FAC_by_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -667,7 +667,7 @@
 ;                       ARISGN, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Divide_ARG_by_FAC {
     !if (__PRESERVE_ARG = 1) {
@@ -740,7 +740,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Divide_Mem_by_FAC .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -811,7 +811,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_scratch.asm>
+;                       <fp/fp_common.asm>
 ; ==============================================================================
 !macro m_Divide_Ptr_by_FAC .ptr_ {
     !if (__PRESERVE_ARG = 1) {
