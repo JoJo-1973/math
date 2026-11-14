@@ -721,14 +721,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+0
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 1
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+0
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 1
 
@@ -840,14 +840,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+1
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 2
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+0
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 1
 
@@ -955,14 +955,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+2
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 3
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+0
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 1
 
@@ -1070,14 +1070,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+3
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 4
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+0
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 1
 
@@ -1188,14 +1188,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+1
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 2
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+1
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 2
 
@@ -1306,14 +1306,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+2
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 3
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+1
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 2
 
@@ -1424,14 +1424,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+3
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 4
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+1
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 2
 
@@ -1546,14 +1546,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+2
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 3
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+2
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 3
 
@@ -1668,14 +1668,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+3
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 4
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+2
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 3
 
@@ -1779,14 +1779,14 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       ; Un moltiplicando negativo si nega sul posto: il nucleo
       ; lavora solo su valori senza segno.
       lda MUL_1+3
-      bpl .No_Negate_Multiplicand
+      bpl .No_Negate_Multiplicand   ; IF: il moltiplicando è negativo
 
       +m_Mul_Negate MUL_1, 4
 
     .No_Negate_Multiplicand:
       ; Lo stesso vale per il moltiplicatore.
       lda MUL_2+3
-      bpl .No_Negate_Multiplier
+      bpl .No_Negate_Multiplier     ; IF: il moltiplicatore è negativo
 
       +m_Mul_Negate MUL_2, 4
 

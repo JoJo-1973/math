@@ -831,7 +831,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       stx DIV_2+0                   ; Salva il divisore.
 
       cpx #0                        ; Il divisore è nullo?
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_8X8_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -896,7 +896,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       stx DIV_2+0                   ; Salva il divisore.
 
       cpx #0                        ; Il divisore è nullo?
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_8X8_Div_Zero:
       clv                           ; Nessun overflow.
@@ -915,15 +915,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 1
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+0
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 1
 
@@ -932,7 +933,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 1
 
@@ -1006,7 +1007,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       sta DIV_2+0                   ; Salva il divisore.
 
       cmp #0                        ; Il divisore è nullo?
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_16X8_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -1072,7 +1073,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       sta DIV_2+0                   ; Salva il divisore.
 
       cmp #0                        ; Il divisore è nullo?
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_16X8_Div_Zero:
       clv                           ; Nessun overflow.
@@ -1091,15 +1092,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 2
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+0
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 1
 
@@ -1108,7 +1110,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 1
 
@@ -1184,7 +1186,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       sta DIV_2+0                   ; Salva il divisore.
 
       cmp #0                        ; Il divisore è nullo?
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_24X8_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -1250,7 +1252,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       sta DIV_2+0                   ; Salva il divisore.
 
       cmp #0                        ; Il divisore è nullo?
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_24X8_Div_Zero:
       clv                           ; Nessun overflow.
@@ -1269,15 +1271,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 3
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+0
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 1
 
@@ -1286,7 +1289,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 1
 
@@ -1362,7 +1365,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       sta DIV_2+0                   ; Salva il divisore.
 
       cmp #0                        ; Il divisore è nullo?
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_32X8_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -1428,7 +1431,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       sta DIV_2+0                   ; Salva il divisore.
 
       cmp #0                        ; Il divisore è nullo?
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_32X8_Div_Zero:
       clv                           ; Nessun overflow.
@@ -1447,15 +1450,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 4
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+0
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 1
 
@@ -1464,7 +1468,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 1
 
@@ -1542,7 +1546,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       stx DIV_2+1                   ; Salva il byte 1 del divisore.
 
       ora DIV_2+1                   ; Il divisore è nullo se lo sono entrambi i byte.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_16X16_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -1609,7 +1613,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       stx DIV_2+1                   ; Salva il byte 1 del divisore.
 
       ora DIV_2+1                   ; Il divisore è nullo se lo sono entrambi i byte.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_16X16_Div_Zero:
       clv                           ; Nessun overflow.
@@ -1628,15 +1632,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 2
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+1
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 2
 
@@ -1645,7 +1650,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 2
 
@@ -1722,7 +1727,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       stx DIV_2+1                   ; Salva il byte 1 del divisore.
 
       ora DIV_2+1                   ; Il divisore è nullo se lo sono entrambi i byte.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_24X16_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -1791,7 +1796,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       stx DIV_2+1                   ; Salva il byte 1 del divisore.
 
       ora DIV_2+1                   ; Il divisore è nullo se lo sono entrambi i byte.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_24X16_Div_Zero:
       clv                           ; Nessun overflow.
@@ -1810,15 +1815,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 3
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+1
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 2
 
@@ -1827,7 +1833,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 2
 
@@ -1906,7 +1912,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       stx DIV_2+1                   ; Salva il byte 1 del divisore.
 
       ora DIV_2+1                   ; Il divisore è nullo se lo sono entrambi i byte.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_32X16_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -1975,7 +1981,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       stx DIV_2+1                   ; Salva il byte 1 del divisore.
 
       ora DIV_2+1                   ; Il divisore è nullo se lo sono entrambi i byte.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_32X16_Div_Zero:
       clv                           ; Nessun overflow.
@@ -1994,15 +2000,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 4
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+1
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 2
 
@@ -2011,7 +2018,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 2
 
@@ -2093,7 +2100,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ora DIV_2+1                   ; Unisce i byte del divisore: se il risultato
       ora DIV_2+2                   ; è zero, il divisore è nullo.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_24X24_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -2165,7 +2172,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ora DIV_2+1                   ; Unisce i byte del divisore: se il risultato
       ora DIV_2+2                   ; è zero, il divisore è nullo.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_24X24_Div_Zero:
       clv                           ; Nessun overflow.
@@ -2184,15 +2191,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 3
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+2
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 3
 
@@ -2201,7 +2209,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 3
 
@@ -2283,7 +2291,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ora DIV_2+1                   ; Unisce i byte del divisore: se il risultato
       ora DIV_2+2                   ; è zero, il divisore è nullo.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_32X24_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -2355,7 +2363,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ora DIV_2+1                   ; Unisce i byte del divisore: se il risultato
       ora DIV_2+2                   ; è zero, il divisore è nullo.
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_32X24_Div_Zero:
       clv                           ; Nessun overflow.
@@ -2374,15 +2382,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 4
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+2
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 3
 
@@ -2391,7 +2400,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 3
 
@@ -2469,7 +2478,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       ora DIV_2+1                   ; è zero, il divisore è nullo.
       ora DIV_2+2
       ora DIV_2+3
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_DIV_32X32_Div_Zero:
       lda #ERR_DIVISION_BY_ZERO     ; Codice di errore.
@@ -2538,7 +2547,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       ora DIV_2+1                   ; è zero, il divisore è nullo.
       ora DIV_2+2
       ora DIV_2+3
-      bne .No_Div_Zero
+      bne .No_Div_Zero              ; IF: il divisore è zero
 
     .Exit_SDIV_32X32_Div_Zero:
       clv                           ; Nessun overflow.
@@ -2557,15 +2566,16 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       pha                           ; Salva il segno del resto.
 
       ; Un dividendo negativo si nega sul posto: il nucleo lavora
-      ; solo su valori senza segno.
-      bpl .No_Negate_Dividend       ; Il segno del dividendo è ancora in .A.
+      ; solo su valori senza segno. Il segno del dividendo è ancora
+      ; in .A.
+      bpl .No_Negate_Dividend       ; IF: il dividendo è negativo
 
       +m_Div_Negate DIV_1, 4
 
     .No_Negate_Dividend:
       ; Lo stesso vale per il divisore.
       lda DIV_2+3
-      bpl .No_Negate_Divisor
+      bpl .No_Negate_Divisor        ; IF: il divisore è negativo
 
       +m_Div_Negate DIV_2, 4
 
@@ -2574,7 +2584,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
       ; Il resto prende il segno del dividendo.
       pla                           ; Recupera il segno del resto.
-      bpl .No_Negate_Remainder
+      bpl .No_Negate_Remainder      ; IF: il resto è negativo
 
       +m_Div_Negate DIV_REM, 4
 
