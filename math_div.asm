@@ -149,8 +149,9 @@
 ; oVerflow vale 0.
 ; ******************************************************************************
 
-!source "../c64/errors.asm", once
-!source "../c64/symbols.asm", once
+; PROVA TEMPORANEA: once sospeso (LIB-01).
+; !source "../c64/errors.asm", once
+; !source "../c64/symbols.asm", once
 
 ; ------------------------------------------------------------------------------
 ; Simboli di pagina zero

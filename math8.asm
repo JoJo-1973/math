@@ -13,7 +13,8 @@
 ; REQUISITI ZP:   Nessuno
 ; ==============================================================================
 
-!source "../c64/symbols.asm", once
+; PROVA TEMPORANEA: once sospeso (LIB-01).
+; !source "../c64/symbols.asm", once
 
 ; ==============================================================================
 ; MACRO: m_Neg
