@@ -53,7 +53,7 @@
   !zone Fp_Error_Handler
 
     FP_ERROR_HANDLER:
-      txa                       ; Conserva il codice d'errore.
+      txa                         ; Conserva il codice d'errore.
 
       ; Ripristina .S come prima della chiamata alla ROM, meno i 2
       ; byte dell'indirizzo di ritorno.
@@ -62,16 +62,16 @@
       dex
       txs
 
-      tax                       ; Rimette il codice d'errore in .X.
+      tax                         ; Rimette il codice d'errore in .X.
 
       cpx #ERR_ILLEGAL_QUANTITY
-      beq .Case_Illegal_Quantity
+      beq .Case_Illegal_Quantity  ; CASE: ERR_ILLEGAL_QUANTITY
 
       cpx #ERR_OVERFLOW
-      beq .Case_Overflow
+      beq .Case_Overflow          ; CASE: ERR_OVERFLOW
 
       cpx #ERR_DIVISION_BY_ZERO
-      beq .Case_Division_By_Zero
+      beq .Case_Division_By_Zero  ; CASE: ERR_DIVISION_BY_ZERO
 
     .Exit_FP_ERROR_HANDLER:
       clc
