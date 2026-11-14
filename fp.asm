@@ -267,20 +267,21 @@
 ; Fonte: https://www.c64-wiki.com/wiki/Pi
 ; ******************************************************************************
 
-!source "../c64/errors.asm", once
-!source "../c64/symbols.asm", once
-!source "fp_common.asm", once
-!source "fp_arith.asm", once
-!source "fp_boolean.asm", once
-!source "fp_compare.asm", once
-!source "fp_constants.asm", once
-!source "fp_error.asm", once
-!source "fp_integers.asm", once
-!source "fp_io.asm", once
-!source "fp_memory.asm", once
-!source "fp_poly.asm", once
-!source "fp_power.asm", once
-!source "fp_random.asm", once
-!source "fp_transcend.asm", once
-!source "fp_trig.asm", once
-!source "fp_unary.asm", once
+; PROVA TEMPORANEA: once sospeso (LIB-01).
+!source "../c64/errors.asm"
+; !source "../c64/symbols.asm", once
+!source "fp_common.asm"
+!source "fp_arith.asm"
+!source "fp_boolean.asm"
+!source "fp_compare.asm"
+!source "fp_constants.asm"
+!source "fp_error.asm"
+!source "fp_integers.asm"
+!source "fp_io.asm"
+!source "fp_memory.asm"
+!source "fp_poly.asm"
+!source "fp_power.asm"
+!source "fp_random.asm"
+!source "fp_transcend.asm"
+!source "fp_trig.asm"
+!source "fp_unary.asm"
