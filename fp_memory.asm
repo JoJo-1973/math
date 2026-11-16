@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_memory.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per copiare numeri in virgola mobile (formato MBF) tra la
 ;                 memoria, FAC e ARG, e per scambiare FAC e ARG.
@@ -386,7 +386,7 @@
 ;
 ; Registri Modificati:  .A, .X, .P (Negative, oVerflow, Zero, Carry), FAC, _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Swap_FAC_and_ARG {
     +m_Store_ARG_in_Scratch     ; Salva ARG in _SCRATCH_2.

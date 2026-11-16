@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_common.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Aree di appoggio e macro per salvare e ripristinare una copia
 ;                 di FAC e di ARG, ad uso interno della libreria fp.

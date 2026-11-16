@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_trig.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per le funzioni trigonometriche sui numeri in virgola
 ;                 mobile (formato MBF): seno, coseno, tangente e arcotangente.
@@ -47,8 +47,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #13 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #13 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - FAC (7 byte, ZP)               : Registri da FACEXP a FACOV
@@ -66,7 +66,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_SIN_FAC {
     !if (__PRESERVE_ARG = 1) {
@@ -102,8 +102,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #13 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #13 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - ARG (6 byte, ZP)               : Registri da ARGEXP a ARGSGN
@@ -121,7 +121,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_SIN_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -159,8 +159,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #13 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #13 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - .addr_ (1 o 2 byte, Macro)     : Indirizzo del numero
@@ -179,7 +179,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_SIN_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -217,8 +217,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #13 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #13 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - .ptr_ (1 o 2 byte, Macro)      : Indirizzo del puntatore
@@ -238,7 +238,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_SIN_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -272,8 +272,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #14 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #14 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - FAC (7 byte, ZP)               : Registri da FACEXP a FACOV
@@ -291,7 +291,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_COS_FAC {
     !if (__PRESERVE_ARG = 1) {
@@ -327,8 +327,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #14 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #14 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - ARG (6 byte, ZP)               : Registri da ARGEXP a ARGSGN
@@ -346,7 +346,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_COS_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -384,8 +384,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #14 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #14 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - .addr_ (1 o 2 byte, Macro)     : Indirizzo del numero
@@ -404,7 +404,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_COS_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -442,8 +442,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #14 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #14 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - .ptr_ (1 o 2 byte, Macro)      : Indirizzo del puntatore
@@ -463,7 +463,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_COS_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -486,7 +486,7 @@
 ;
 ;               Chiama la routine TAN della ROM del BASIC. Se il coseno è zero
 ;               la ROM segnala DIVISION BY ZERO ERROR e non ritorna al
-;               chiamante: vedi [NOTA #07 in <fp/fp.asm>].
+;               chiamante: vedi [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07, $12, INDEX, RESHO, $4E-$52,
@@ -499,8 +499,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #15 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #15 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -525,7 +525,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_TAN_FAC {
     !if (__PRESERVE_ARG = 1) {
@@ -552,7 +552,7 @@
 ;
 ;               Chiama la routine TAN della ROM del BASIC. Se il coseno è zero
 ;               la ROM segnala DIVISION BY ZERO ERROR e non ritorna al
-;               chiamante: vedi [NOTA #07 in <fp/fp.asm>].
+;               chiamante: vedi [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07, $12, INDEX, RESHO, $4E-$52,
@@ -565,8 +565,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #15 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #15 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -591,7 +591,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_TAN_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -620,7 +620,7 @@
 ;
 ;               Chiama la routine TAN della ROM del BASIC. Se il coseno è zero
 ;               la ROM segnala DIVISION BY ZERO ERROR e non ritorna al
-;               chiamante: vedi [NOTA #07 in <fp/fp.asm>].
+;               chiamante: vedi [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07, $12, INDEX, RESHO, $4E-$52,
@@ -633,8 +633,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #15 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #15 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -660,7 +660,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_TAN_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -689,7 +689,7 @@
 ;
 ;               Chiama la routine TAN della ROM del BASIC. Se il coseno è zero
 ;               la ROM segnala DIVISION BY ZERO ERROR e non ritorna al
-;               chiamante: vedi [NOTA #07 in <fp/fp.asm>].
+;               chiamante: vedi [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07, $12, INDEX, RESHO, $4E-$52,
@@ -702,8 +702,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #15 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #15 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -730,7 +730,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_TAN_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -767,8 +767,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #16 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #16 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - FAC (7 byte, ZP)               : Registri da FACEXP a FACOV
@@ -786,7 +786,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_ATN_FAC {
     !if (__PRESERVE_ARG = 1) {
@@ -822,8 +822,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #16 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #16 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - ARG (6 byte, ZP)               : Registri da ARGEXP a ARGSGN
@@ -841,7 +841,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_ATN_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -880,8 +880,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #16 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #16 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - .addr_ (1 o 2 byte, Macro)     : Indirizzo del numero
@@ -900,7 +900,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_ATN_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -939,8 +939,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #16 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #16 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - .ptr_ (1 o 2 byte, Macro)      : Indirizzo del puntatore
@@ -960,7 +960,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_ATN_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {

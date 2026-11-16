@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_constants.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per caricare FAC e ARG con un numero in virgola mobile
 ;                 in formato MBF, byte per byte o tra quelle predefinite.
@@ -250,7 +250,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_0_25 {
     +m_Load_FAC_from_Mem FR4
@@ -276,7 +276,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_0_5 {
     +m_Load_FAC_from_Mem FHALF
@@ -302,7 +302,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_1 {
     +m_Load_FAC_from_Mem FONE
@@ -376,7 +376,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_10 {
     +m_Load_FAC_from_Mem TENC
@@ -427,7 +427,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACEXP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_PI4 {
     +m_Load_FAC_with_PI2
@@ -454,7 +454,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_PI2 {
     +m_Load_FAC_from_Mem PI2
@@ -470,7 +470,7 @@
 ;               non è garantito dopo la chiamata.
 ;
 ;               Il valore della ROM non è il più vicino a π:
-;               vedi [NOTA #17 in <fp/fp.asm>].
+;               vedi [NOTA #17 in <math/fp.asm>].
 ;
 ; Input:
 ;   - Nessuno
@@ -483,7 +483,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_PI {
     +m_Load_FAC_from_Mem PIVAL
@@ -509,7 +509,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_2PI {
     +m_Load_FAC_from_Mem TWOPI
@@ -631,7 +631,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_SQR2 {
     +m_Load_FAC_from_Mem FSQR2
@@ -705,7 +705,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_LOG2 {
     +m_Load_FAC_from_Mem FLOG2
@@ -869,7 +869,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_0_25 {
     +m_Load_ARG_from_Mem FR4
@@ -899,7 +899,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_0_5 {
     +m_Load_ARG_from_Mem FHALF
@@ -929,7 +929,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_1 {
     +m_Load_ARG_from_Mem FONE
@@ -1007,7 +1007,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_10 {
     +m_Load_ARG_from_Mem TENC
@@ -1062,7 +1062,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), ARGEXP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_PI4 {
     +m_Load_ARG_with_PI2
@@ -1093,7 +1093,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_PI2 {
     +m_Load_ARG_from_Mem PI2
@@ -1109,7 +1109,7 @@
 ;               non è garantito dopo la chiamata.
 ;
 ;               Il valore della ROM non è il più vicino a π:
-;               vedi [NOTA #17 in <fp/fp.asm>].
+;               vedi [NOTA #17 in <math/fp.asm>].
 ;
 ;               La routine CONUPK della ROM aggiorna anche ARISGN: il bit #7
 ;               vale 1 se i segni di FAC e di ARG sono diversi.
@@ -1126,7 +1126,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_PI {
     +m_Load_ARG_from_Mem PIVAL
@@ -1156,7 +1156,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_2PI {
     +m_Load_ARG_from_Mem TWOPI
@@ -1282,7 +1282,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_SQR2 {
     +m_Load_ARG_from_Mem FSQR2
@@ -1360,7 +1360,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_LOG2 {
     +m_Load_ARG_from_Mem FLOG2

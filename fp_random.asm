@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_random.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per generare numeri pseudocasuali in virgola mobile
 ;                 (formato MBF) con la routine RND della ROM del BASIC, e per
@@ -28,7 +28,7 @@
 ;
 ;               Un seme negativo genera sempre la stessa sequenza: è utile per
 ;               collaudo e debug. Per i limiti del caso FAC = 0 e per le altre
-;               particolarità di RND vedi [NOTA #10 in <fp/fp.asm>].
+;               particolarità di RND vedi [NOTA #10 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, RESHO e $56. Aggiorna inoltre
@@ -41,7 +41,7 @@
 ;               $80, ed è ancora zero.
 ;
 ;               Con FAC > 0 la ROM usa una moltiplicazione: per l'accuratezza
-;               vedi [NOTA #08 in <fp/fp.asm>].
+;               vedi [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - FAC (7 byte, ZP)               : Segno: > 0 numero successivo; = 0 seme
@@ -63,7 +63,7 @@
 ;                       ARISGN, INDEX, RNDX (5 byte), _SCRATCH_2 (se
 ;                       __PRESERVE_ARG = 1)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Load_FAC_with_RND {
     !if (__PRESERVE_ARG = 1) {
@@ -93,7 +93,7 @@
 ;               La macro usa solo i rami di RND con FAC negativo, che non
 ;               alterano ARG: per questo non ha bisogno di preservarlo e
 ;               l'interruttore __PRESERVE_ARG non ha effetto. Per le
-;               particolarità di RND vedi [NOTA #10 in <fp/fp.asm>].
+;               particolarità di RND vedi [NOTA #10 in <math/fp.asm>].
 ;
 ;               La ROM altera la cella di lavoro INDEX, il cui contenuto non è
 ;               garantito dopo la chiamata. Aggiorna inoltre il seme, in RNDX.
@@ -112,8 +112,8 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), INDEX,
 ;                       RNDX (5 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_integers.asm>
-;                       <fp/fp_unary.asm>
+;                       <math/fp_integers.asm>
+;                       <math/fp_unary.asm>
 ; ==============================================================================
 !macro m_Randomize {
     +m_Load_FAC_with_UINT24_Mem TIME  ; FAC = TI, positivo, con MSB della mantissa a 0.

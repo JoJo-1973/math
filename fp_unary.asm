@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_unary.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per le funzioni unarie sui numeri in virgola mobile
 ;                 (formato MBF): cambio di segno, valore assoluto, segno, parte
@@ -129,7 +129,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACSGN
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Negate_Mem .addr_ {
     +m_Load_FAC_from_Mem .addr_
@@ -172,7 +172,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACSGN
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Negate_Ptr .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
@@ -259,7 +259,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACSGN
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_ABS_Mem .addr_ {
     +m_Load_FAC_from_Mem .addr_
@@ -292,7 +292,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACSGN
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_ABS_Ptr .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
@@ -389,7 +389,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Sign_Mem .addr_ {
     +m_Load_FAC_from_Mem .addr_
@@ -426,7 +426,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Sign_Ptr .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
@@ -483,7 +483,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_SGN_ARG {
     +m_Swap_FAC_and_ARG         ; Porta ARG in FAC.
@@ -515,7 +515,7 @@
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_SGN_Mem .addr_ {
     +m_Load_FAC_from_Mem .addr_
@@ -548,7 +548,7 @@
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_SGN_Ptr .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
@@ -619,7 +619,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_INT_ARG {
     +m_Swap_FAC_and_ARG         ; Porta ARG in FAC.
@@ -660,7 +660,7 @@
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_INT_Mem .addr_ {
     +m_Load_FAC_from_Mem .addr_
@@ -701,7 +701,7 @@
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_INT_Ptr .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
@@ -807,7 +807,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACEXP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Multiply_Mem_by_2 .addr_ {
     +m_Load_FAC_from_Mem .addr_
@@ -851,7 +851,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACEXP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Multiply_Ptr_by_2 .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_
@@ -962,7 +962,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACEXP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Divide_Mem_by_2 .addr_ {
     +m_Load_FAC_from_Mem .addr_
@@ -1006,7 +1006,7 @@
 ;
 ; Registri Modificati:  .A, .Y, .P (Negative, oVerflow, Zero, Carry), FACEXP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Divide_Ptr_by_2 .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_

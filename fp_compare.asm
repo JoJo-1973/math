@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_compare.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per confrontare FAC con un altro numero in virgola
 ;                 mobile (formato MBF), che può essere in ARG, a un indirizzo
@@ -51,7 +51,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       INDEX2, STACK (5 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Compare_FAC_to_ARG {
     +m_Store_ARG_to_Mem STACK   ; Scrive ARG in formato MBF in STACK.

@@ -40,8 +40,8 @@
 ;                 SDIV_32X24        Divisione 32x24 bit con segno
 ;                 DIV_32X32         Divisione 32x32 bit senza segno
 ;                 SDIV_32X32        Divisione 32x32 bit con segno
-; DIPENDENZE:     <c64/errors.asm>
-;                 <c64/symbols.asm>
+; DIPENDENZE:     <c64/symbols.asm>
+;                 <system/errors.asm>
 ; REQUISITI ZP:   DIV_1, DIV_2, DIV_QUOT, DIV_REM
 ; ==============================================================================
 
@@ -150,8 +150,8 @@
 ; ******************************************************************************
 
 ; PROVA TEMPORANEA: once sospeso (LIB-01).
-; !source "../c64/errors.asm", once
 ; !source "../c64/symbols.asm", once
+; !source "../system/errors.asm", once
 
 ; ------------------------------------------------------------------------------
 ; Simboli di pagina zero
@@ -820,8 +820,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0, DIV_2+0, DIV_REM+0
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_8X8 = 1) {
   !zone Div_8x8
@@ -885,8 +885,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0, DIV_2+0, DIV_REM+0
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_8X8 = 1) {
   !zone Sdiv_8x8
@@ -997,8 +997,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+1, DIV_2+0, DIV_REM+0
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_16X8 = 1) {
   !zone Div_16x8
@@ -1063,8 +1063,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+1, DIV_2+0, DIV_REM+0
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_16X8 = 1) {
   !zone Sdiv_16x8
@@ -1176,8 +1176,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+2, DIV_2+0, DIV_REM+0
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_24X8 = 1) {
   !zone Div_24x8
@@ -1242,8 +1242,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+2, DIV_2+0, DIV_REM+0
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_24X8 = 1) {
   !zone Sdiv_24x8
@@ -1355,8 +1355,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+3, DIV_2+0, DIV_REM+0
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_32X8 = 1) {
   !zone Div_32x8
@@ -1421,8 +1421,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+3, DIV_2+0, DIV_REM+0
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_32X8 = 1) {
   !zone Sdiv_32x8
@@ -1535,8 +1535,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+1, DIV_2+0 .. DIV_2+1,
 ;                       DIV_REM+0 .. DIV_REM+1
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_16X16 = 1) {
   !zone Div_16x16
@@ -1602,8 +1602,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+1, DIV_2+0 .. DIV_2+1,
 ;                       DIV_REM+0 .. DIV_REM+1
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_16X16 = 1) {
   !zone Sdiv_16x16
@@ -1716,8 +1716,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+2, DIV_2+0 .. DIV_2+1,
 ;                       DIV_REM+0 .. DIV_REM+1
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_24X16 = 1) {
   !zone Div_24x16
@@ -1785,8 +1785,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+2, DIV_2+0 .. DIV_2+1,
 ;                       DIV_REM+0 .. DIV_REM+1
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_24X16 = 1) {
   !zone Sdiv_24x16
@@ -1901,8 +1901,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+3, DIV_2+0 .. DIV_2+1,
 ;                       DIV_REM+0 .. DIV_REM+1
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_32X16 = 1) {
   !zone Div_32x16
@@ -1970,8 +1970,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+3, DIV_2+0 .. DIV_2+1,
 ;                       DIV_REM+0 .. DIV_REM+1
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_32X16 = 1) {
   !zone Sdiv_32x16
@@ -2087,8 +2087,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+2, DIV_2+0 .. DIV_2+2,
 ;                       DIV_REM+0 .. DIV_REM+2
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_24X24 = 1) {
   !zone Div_24x24
@@ -2159,8 +2159,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+2, DIV_2+0 .. DIV_2+2,
 ;                       DIV_REM+0 .. DIV_REM+2
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_24X24 = 1) {
   !zone Sdiv_24x24
@@ -2278,8 +2278,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+3, DIV_2+0 .. DIV_2+2,
 ;                       DIV_REM+0 .. DIV_REM+2
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_32X24 = 1) {
   !zone Div_32x24
@@ -2350,8 +2350,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+3, DIV_2+0 .. DIV_2+2,
 ;                       DIV_REM+0 .. DIV_REM+2
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_32X24 = 1) {
   !zone Sdiv_32x24
@@ -2466,8 +2466,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ;
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+3, DIV_REM+0 .. DIV_REM+3
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_DIV_32X32 = 1) {
   !zone Div_32x32
@@ -2535,8 +2535,8 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       DIV_QUOT+0 .. DIV_QUOT+3, DIV_2+0 .. DIV_2+3,
 ;                       DIV_REM+0 .. DIV_REM+3
-; Dipendenze Esterne:   <c64/errors.asm>
-;                       <c64/symbols.asm>
+; Dipendenze Esterne:   <c64/symbols.asm>
+;                       <system/errors.asm>
 ; ==============================================================================
 !if (__USE_SDIV_32X32 = 1) {
   !zone Sdiv_32x32

@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_arith.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per le quattro operazioni aritmetiche sui numeri in
 ;                 virgola mobile (formato MBF): somma, sottrazione,
@@ -44,7 +44,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -71,7 +71,7 @@
 ;                       ARISGN, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Add_FAC_to_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -112,7 +112,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -140,7 +140,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Add_FAC_to_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -179,7 +179,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -208,7 +208,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Add_FAC_to_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -245,7 +245,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -272,7 +272,7 @@
 ;                       ARISGN, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Subtract_FAC_from_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -309,7 +309,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -337,7 +337,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Subtract_FAC_from_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -376,7 +376,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -405,7 +405,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Subtract_FAC_from_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -441,9 +441,10 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #08 in
+;               <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -499,9 +500,10 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #08 in
+;               <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -529,7 +531,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Multiply_FAC_by_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -568,9 +570,10 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #08 in
+;               <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -599,7 +602,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Multiply_FAC_by_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -640,7 +643,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -667,7 +670,7 @@
 ;                       ARISGN, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Divide_ARG_by_FAC {
     !if (__PRESERVE_ARG = 1) {
@@ -712,7 +715,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -740,7 +743,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Divide_Mem_by_FAC .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -782,7 +785,7 @@
 ;               Se il risultato è troppo grande per il formato MBF la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante; se è troppo
 ;               piccolo il risultato è zero. Per la gestione degli errori vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -811,7 +814,7 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Divide_Ptr_by_FAC .ptr_ {
     !if (__PRESERVE_ARG = 1) {

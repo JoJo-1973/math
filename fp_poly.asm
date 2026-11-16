@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_poly.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per calcolare polinomi e polinomi dispari a coefficienti
 ;                 in virgola mobile (formato MBF). Il punto in cui calcolarli è
@@ -31,7 +31,7 @@
 ;               Chiama la routine POLY2 della ROM del BASIC, che usa il metodo
 ;               di Horner. Se un risultato intermedio è troppo grande la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, RESHO, $56, $5C-$60, $67
@@ -44,7 +44,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #08 in
+;               <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -73,7 +74,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Poly_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -107,7 +108,7 @@
 ;               Chiama la routine POLY2 della ROM del BASIC, che usa il metodo
 ;               di Horner. Se un risultato intermedio è troppo grande la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, RESHO, $56, $5C-$60, $67
@@ -120,7 +121,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #08 in
+;               <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -150,7 +152,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Poly_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -184,7 +186,7 @@
 ;               Chiama la routine POLY1 della ROM del BASIC, che usa il metodo
 ;               di Horner. Se un risultato intermedio è troppo grande la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, RESHO, $56, NUMWRK, $67
@@ -197,7 +199,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #08 in
+;               <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -226,7 +229,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Odd_Poly_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -260,7 +263,7 @@
 ;               Chiama la routine POLY1 della ROM del BASIC, che usa il metodo
 ;               di Horner. Se un risultato intermedio è troppo grande la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, RESHO, $56, NUMWRK, $67
@@ -273,7 +276,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #08 in
+;               <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -303,7 +307,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Odd_Poly_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {

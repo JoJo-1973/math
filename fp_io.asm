@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_io.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per convertire i numeri in virgola mobile (formato MBF)
 ;                 in stringhe e viceversa, e per stamparli. Le macro di
@@ -33,14 +33,14 @@
 ;               ARG. Con m_Store_FAC_in_Scratch e m_Store_ARG_in_Scratch la
 ;               macro salva FAC in _SCRATCH_1 e ARG in _SCRATCH_2 prima della
 ;               chiamata e li ripristina dopo. Per le variabili del BASIC
-;               alterate vedi [NOTA #06 in <fp/fp.asm>].
+;               alterate vedi [NOTA #06 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, INDEX2, RESHO, $47, $56,
 ;               $5D-$5E e $71.
 ;
 ;               Per l'accuratezza della conversione vedi
-;               [NOTA #08 in <fp/fp.asm>].
+;               [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - FAC (7 byte, ZP)     : Registri da FACEXP a FACOV
@@ -56,7 +56,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, _SCRATCH_1, _SCRATCH_2, STACK (16 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_FAC_to_String {
     +m_Store_FAC_in_Scratch     ; Salva FAC e ARG.
@@ -84,14 +84,14 @@
 ;               m_Store_FAC_in_Scratch e m_Store_ARG_in_Scratch la macro salva
 ;               FAC in _SCRATCH_1 e ARG in _SCRATCH_2 prima della copia e li
 ;               ripristina dopo. Per le variabili del BASIC alterate vedi
-;               [NOTA #06 in <fp/fp.asm>].
+;               [NOTA #06 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, INDEX2, RESHO, $47, $56,
 ;               $5D-$5E e $71.
 ;
 ;               Per l'accuratezza della conversione vedi
-;               [NOTA #08 in <fp/fp.asm>].
+;               [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - ARG (6 byte, ZP)     : Registri da ARGEXP a ARGSGN
@@ -107,8 +107,8 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, _SCRATCH_1, _SCRATCH_2, STACK (16 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_common.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_ARG_to_String {
     +m_Store_FAC_in_Scratch     ; Salva FAC e ARG.
@@ -141,10 +141,10 @@
 ;               La macro scrive l'indirizzo della stringa in TXTPTR, il
 ;               puntatore al testo del BASIC, e la ROM lo fa avanzare fino al
 ;               primo carattere dopo il numero. Per le variabili del BASIC
-;               alterate vedi [NOTA #06 in <fp/fp.asm>].
+;               alterate vedi [NOTA #06 in <math/fp.asm>].
 ;
 ;               Se il numero è troppo grande la ROM segnala OVERFLOW ERROR e non
-;               ritorna al chiamante: vedi [NOTA #07 in <fp/fp.asm>].
+;               ritorna al chiamante: vedi [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, RESHO, $56, $5D-$60 e $67.
@@ -181,7 +181,7 @@
 ;                       ARISGN, INDEX, TXTPTR,
 ;                       _SCRATCH_2 (se __PRESERVE_ARG = 1), __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_String_to_FAC .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -225,10 +225,10 @@
 ;               La macro scrive l'indirizzo della stringa in TXTPTR, il
 ;               puntatore al testo del BASIC, e la ROM lo fa avanzare fino al
 ;               primo carattere dopo il numero. Per le variabili del BASIC
-;               alterate vedi [NOTA #06 in <fp/fp.asm>].
+;               alterate vedi [NOTA #06 in <math/fp.asm>].
 ;
 ;               Se il numero è troppo grande la ROM segnala OVERFLOW ERROR e non
-;               ritorna al chiamante: vedi [NOTA #07 in <fp/fp.asm>].
+;               ritorna al chiamante: vedi [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, RESHO, $56, $5D-$60 e $67.
@@ -255,7 +255,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, TXTPTR, _SCRATCH_1, __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_String_to_ARG .addr_ {
     +m_Store_FAC_in_Scratch
@@ -295,7 +295,7 @@
 ;               m_Store_FAC_in_Scratch e m_Store_ARG_in_Scratch la macro salva
 ;               FAC in _SCRATCH_1 e ARG in _SCRATCH_2 prima della chiamata e li
 ;               ripristina dopo. Per le variabili del BASIC alterate vedi
-;               [NOTA #06 in <fp/fp.asm>].
+;               [NOTA #06 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, INDEX2, RESHO, $47, $56,
@@ -305,7 +305,7 @@
 ;               celle, che non sono elencati qui.
 ;
 ;               Per l'accuratezza della conversione vedi
-;               [NOTA #08 in <fp/fp.asm>].
+;               [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - FAC (7 byte, ZP)             : Registri da FACEXP a FACOV
@@ -322,7 +322,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, _SCRATCH_1, _SCRATCH_2, STACK (16 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
+;                       <math/fp_common.asm>
 ; ==============================================================================
 !macro m_Print_FAC {
     +m_Store_FAC_in_Scratch     ; Salva FAC e ARG.
@@ -360,7 +360,7 @@
 ;               m_Store_FAC_in_Scratch e m_Store_ARG_in_Scratch la macro salva
 ;               FAC in _SCRATCH_1 e ARG in _SCRATCH_2 prima della copia e li
 ;               ripristina dopo. Per le variabili del BASIC alterate vedi
-;               [NOTA #06 in <fp/fp.asm>].
+;               [NOTA #06 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: INDEX, INDEX2, RESHO, $47, $56,
@@ -370,7 +370,7 @@
 ;               celle, che non sono elencati qui.
 ;
 ;               Per l'accuratezza della conversione vedi
-;               [NOTA #08 in <fp/fp.asm>].
+;               [NOTA #08 in <math/fp.asm>].
 ;
 ; Input:
 ;   - ARG (6 byte, ZP)             : Registri da ARGEXP a ARGSGN
@@ -387,8 +387,8 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       ARISGN, INDEX, _SCRATCH_1, _SCRATCH_2, STACK (16 byte)
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_common.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Print_ARG {
     +m_Store_FAC_in_Scratch     ; Salva FAC e ARG.

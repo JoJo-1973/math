@@ -1,26 +1,26 @@
 ; ==============================================================================
 ; FILE:           fp.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per l'aritmetica in virgola mobile nel formato MBF del
 ;                 BASIC Commodore, basate sulle routine della ROM.
-; DIPENDENZE:     <c64/errors.asm>
-;                 <c64/symbols.asm>
-;                 <fp/fp_common.asm>
-;                 <fp/fp_arith.asm>
-;                 <fp/fp_boolean.asm>
-;                 <fp/fp_compare.asm>
-;                 <fp/fp_constants.asm>
-;                 <fp/fp_error.asm>
-;                 <fp/fp_integers.asm>
-;                 <fp/fp_io.asm>
-;                 <fp/fp_memory.asm>
-;                 <fp/fp_poly.asm>
-;                 <fp/fp_power.asm>
-;                 <fp/fp_random.asm>
-;                 <fp/fp_transcend.asm>
-;                 <fp/fp_trig.asm>
-;                 <fp/fp_unary.asm>
+; DIPENDENZE:     <c64/symbols.asm>
+;                 <system/errors.asm>
+;                 <math/fp_common.asm>
+;                 <math/fp_arith.asm>
+;                 <math/fp_boolean.asm>
+;                 <math/fp_compare.asm>
+;                 <math/fp_constants.asm>
+;                 <math/fp_error.asm>
+;                 <math/fp_integers.asm>
+;                 <math/fp_io.asm>
+;                 <math/fp_memory.asm>
+;                 <math/fp_poly.asm>
+;                 <math/fp_power.asm>
+;                 <math/fp_random.asm>
+;                 <math/fp_transcend.asm>
+;                 <math/fp_trig.asm>
+;                 <math/fp_unary.asm>
 ; REQUISITI ZP:   __FP_SAVED_SP, _SCRATCH_1, _SCRATCH_2
 ; ==============================================================================
 
@@ -268,8 +268,8 @@
 ; ******************************************************************************
 
 ; PROVA TEMPORANEA: once sospeso (LIB-01).
-!source "../c64/errors.asm"
 ; !source "../c64/symbols.asm", once
+!source "../system/errors.asm"
 !source "fp_common.asm"
 !source "fp_arith.asm"
 !source "fp_boolean.asm"

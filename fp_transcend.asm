@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_transcend.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per le funzioni trascendenti sui numeri in virgola
 ;                 mobile (formato MBF): logaritmo naturale ed esponenziale (e
@@ -28,7 +28,7 @@
 ;
 ;               Chiama la routine LOG della ROM del BASIC. Se il numero è zero o
 ;               negativo la ROM segnala ILLEGAL QUANTITY ERROR e non ritorna al
-;               chiamante: vedi [NOTA #07 in <fp/fp.asm>]. LOG(1) vale zero.
+;               chiamante: vedi [NOTA #07 in <math/fp.asm>]. LOG(1) vale zero.
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07, INDEX, RESHO, $56, NUMWRK, $67
@@ -41,8 +41,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #11 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #11 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -67,7 +67,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_LOG_FAC {
     !if (__PRESERVE_ARG = 1) {
@@ -93,7 +93,7 @@
 ;
 ;               Chiama la routine LOG della ROM del BASIC. Se il numero è zero o
 ;               negativo la ROM segnala ILLEGAL QUANTITY ERROR e non ritorna al
-;               chiamante: vedi [NOTA #07 in <fp/fp.asm>]. LOG(1) vale zero.
+;               chiamante: vedi [NOTA #07 in <math/fp.asm>]. LOG(1) vale zero.
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07, INDEX, RESHO, $56, NUMWRK, $67
@@ -106,8 +106,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #11 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #11 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -132,7 +132,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_LOG_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -161,7 +161,7 @@
 ;
 ;               Chiama la routine LOG della ROM del BASIC. Se il numero è zero o
 ;               negativo la ROM segnala ILLEGAL QUANTITY ERROR e non ritorna al
-;               chiamante: vedi [NOTA #07 in <fp/fp.asm>]. LOG(1) vale zero.
+;               chiamante: vedi [NOTA #07 in <math/fp.asm>]. LOG(1) vale zero.
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07, INDEX, RESHO, $56, NUMWRK, $67
@@ -174,8 +174,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #11 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #11 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -201,7 +201,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_LOG_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -230,7 +230,7 @@
 ;
 ;               Chiama la routine LOG della ROM del BASIC. Se il numero è zero o
 ;               negativo la ROM segnala ILLEGAL QUANTITY ERROR e non ritorna al
-;               chiamante: vedi [NOTA #07 in <fp/fp.asm>]. LOG(1) vale zero.
+;               chiamante: vedi [NOTA #07 in <math/fp.asm>]. LOG(1) vale zero.
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07, INDEX, RESHO, $56, NUMWRK, $67
@@ -243,8 +243,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #11 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #11 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -271,7 +271,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_LOG_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -297,7 +297,7 @@
 ;               Chiama la routine EXP della ROM del BASIC. Se il risultato è
 ;               troppo grande, cioè per un numero da circa 88.03 in su, la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>]; se è troppo piccolo il risultato è
+;               [NOTA #07 in <math/fp.asm>]; se è troppo piccolo il risultato è
 ;               zero. EXP(0) vale 1.
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
@@ -311,8 +311,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #12 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #12 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -337,7 +337,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_EXP_FAC {
     !if (__PRESERVE_ARG = 1) {
@@ -364,7 +364,7 @@
 ;               Chiama la routine EXP della ROM del BASIC. Se il risultato è
 ;               troppo grande, cioè per un numero da circa 88.03 in su, la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>]; se è troppo piccolo il risultato è
+;               [NOTA #07 in <math/fp.asm>]; se è troppo piccolo il risultato è
 ;               zero. EXP(0) vale 1.
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
@@ -378,8 +378,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #12 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #12 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -404,7 +404,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_EXP_ARG {
     !if (__PRESERVE_ARG = 1) {
@@ -434,7 +434,7 @@
 ;               Chiama la routine EXP della ROM del BASIC. Se il risultato è
 ;               troppo grande, cioè per un numero da circa 88.03 in su, la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>]; se è troppo piccolo il risultato è
+;               [NOTA #07 in <math/fp.asm>]; se è troppo piccolo il risultato è
 ;               zero. EXP(0) vale 1.
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
@@ -448,8 +448,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #12 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #12 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -475,7 +475,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_EXP_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -505,7 +505,7 @@
 ;               Chiama la routine EXP della ROM del BASIC. Se il risultato è
 ;               troppo grande, cioè per un numero da circa 88.03 in su, la ROM
 ;               segnala OVERFLOW ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>]; se è troppo piccolo il risultato è
+;               [NOTA #07 in <math/fp.asm>]; se è troppo piccolo il risultato è
 ;               zero. EXP(0) vale 1.
 ;
 ;               La ROM altera molte celle di lavoro, il cui contenuto non è
@@ -519,8 +519,8 @@
 ;               a zero (ARGEXP = 0) torna con ARGHO = $80, ed è ancora zero. Il
 ;               contenuto di STACK non è garantito dopo la chiamata.
 ;
-;               Per l'accuratezza del risultato vedi [NOTA #12 in <fp/fp.asm>] e
-;               [NOTA #08 in <fp/fp.asm>].
+;               Per l'accuratezza del risultato vedi [NOTA #12 in <math/fp.asm>]
+;               e [NOTA #08 in <math/fp.asm>].
 ;
 ;               Prima della chiamata alla ROM la macro salva .S in
 ;               __FP_SAVED_SP, a uso di FP_ERROR_HANDLER.
@@ -547,7 +547,7 @@
 ;                       ARISGN, INDEX, STACK (5 byte, se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_EXP_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {

@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_error.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Gestione delle condizioni d'errore segnalate dalle routine in
 ;                 virgola mobile della ROM del BASIC.
@@ -47,7 +47,7 @@
 ;   - Stabile
 ;
 ; Registri Modificati:  .A, .X, .P (Negative, Zero, Carry), .S
-; Dipendenze Esterne:   <c64/errors.asm>
+; Dipendenze Esterne:   <system/errors.asm>
 ; ==============================================================================
 !if (__USE_FP_ERROR_HANDLER = 1) {
   !zone Fp_Error_Handler

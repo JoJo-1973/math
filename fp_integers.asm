@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_integers.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per caricare FAC e ARG con un intero binario a 8, 16, 24
 ;                 o 32 bit, con o senza segno, e per convertire FAC o ARG in un
@@ -217,7 +217,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT8 .value_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -256,7 +256,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT8_Mem .addr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -294,7 +294,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT8_Ptr .ptr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -459,7 +459,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT8 .value_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -498,7 +498,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT8_Mem .addr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -536,7 +536,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT8_Ptr .ptr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -711,7 +711,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT16 .value_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -750,7 +750,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT16_Mem .addr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -788,7 +788,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT16_Ptr .ptr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -963,7 +963,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT16 .value_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1002,7 +1002,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT16_Mem .addr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1040,7 +1040,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT16_Ptr .ptr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1224,7 +1224,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT24 .value_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1263,7 +1263,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT24_Mem .addr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1301,7 +1301,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT24_Ptr .ptr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1485,7 +1485,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT24 .value_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1524,7 +1524,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT24_Mem .addr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1562,7 +1562,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT24_Ptr .ptr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1754,7 +1754,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT32 .value_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1793,7 +1793,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT32_Mem .addr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -1831,7 +1831,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_UINT32_Ptr .ptr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -2023,7 +2023,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT32 .value_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -2062,7 +2062,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT32_Mem .addr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -2100,7 +2100,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Load_ARG_with_INT32_Ptr .ptr_ {
     +m_Swap_FAC_and_ARG         ; Mette FAC al sicuro in ARG.
@@ -2182,7 +2182,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), FAC,
 ;                       _SCRATCH_2
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_Convert_ARG_into_INT32 {
     +m_Swap_FAC_and_ARG         ; Porta il numero di ARG in FAC.

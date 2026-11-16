@@ -1,6 +1,6 @@
 ; ==============================================================================
 ; FILE:           fp_boolean.asm
-; PROGETTO:       Libreria di Sistema (fp.c64)
+; PROGETTO:       Libreria di Sistema (math.c64)
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per gli operatori booleani bit a bit AND, OR e NOT sui
 ;                 numeri in virgola mobile (formato MBF), convertiti in interi a
@@ -35,7 +35,7 @@
 ;               Chiama la routine ANDOP della ROM del BASIC. Se FAC o l'altro
 ;               numero è fuori dall'intervallo da -32768 a 32767, la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07-$08, $0B e $0D (VALTYP, posto
@@ -85,7 +85,7 @@
 ;               Chiama la routine ANDOP della ROM del BASIC. Se FAC o l'altro
 ;               numero è fuori dall'intervallo da -32768 a 32767, la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07-$08, $0B e $0D (VALTYP, posto
@@ -121,8 +121,8 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_common.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_AND_FAC_with_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -156,7 +156,7 @@
 ;               Chiama la routine ANDOP della ROM del BASIC. Se FAC o l'altro
 ;               numero è fuori dall'intervallo da -32768 a 32767, la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07-$08, $0B e $0D (VALTYP, posto
@@ -193,8 +193,8 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_common.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_AND_FAC_with_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -224,7 +224,7 @@
 ;               Chiama la routine OROP della ROM del BASIC. Se FAC o l'altro
 ;               numero è fuori dall'intervallo da -32768 a 32767, la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07-$08, $0B e $0D (VALTYP, posto
@@ -274,7 +274,7 @@
 ;               Chiama la routine OROP della ROM del BASIC. Se FAC o l'altro
 ;               numero è fuori dall'intervallo da -32768 a 32767, la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07-$08, $0B e $0D (VALTYP, posto
@@ -310,8 +310,8 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_common.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_OR_FAC_with_Mem .addr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -345,7 +345,7 @@
 ;               Chiama la routine OROP della ROM del BASIC. Se FAC o l'altro
 ;               numero è fuori dall'intervallo da -32768 a 32767, la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera queste celle di lavoro, il cui contenuto non è
 ;               garantito dopo la chiamata: $07-$08, $0B e $0D (VALTYP, posto
@@ -382,8 +382,8 @@
 ;                       ARISGN, INDEX, _SCRATCH_2 (se __PRESERVE_ARG = 1),
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_common.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_OR_FAC_with_Ptr .ptr_ {
     !if (__PRESERVE_ARG = 1) {
@@ -413,7 +413,7 @@
 ;               Chiama la routine NOTOP della ROM del BASIC. Se il numero è
 ;               fuori dall'intervallo da -32768 a 32767, la ROM segnala ILLEGAL
 ;               QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera la cella di lavoro $0D (VALTYP), che viene posta
 ;               a zero.
@@ -461,7 +461,7 @@
 ;               Chiama la routine NOTOP della ROM del BASIC. Se il numero
 ;               è fuori dall'intervallo da -32768 a 32767, la ROM segnala
 ;               ILLEGAL QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>]. In questo caso FAC e ARG
+;               [NOTA #07 in <math/fp.asm>]. In questo caso FAC e ARG
 ;               restano scambiati.
 ;
 ;               La ROM altera la cella di lavoro $0D (VALTYP), che viene posta
@@ -486,8 +486,8 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry),
 ;                       _SCRATCH_2, __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_common.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_common.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_NOT_ARG {
     +m_Swap_FAC_and_ARG         ; Porta ARG in FAC.
@@ -514,7 +514,7 @@
 ;               Chiama la routine NOTOP della ROM del BASIC. Se il numero è
 ;               fuori dall'intervallo da -32768 a 32767, la ROM segnala ILLEGAL
 ;               QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera la cella di lavoro $0D (VALTYP), che viene posta
 ;               a zero.
@@ -539,7 +539,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), INDEX,
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_NOT_Mem .addr_ {
     +m_Load_FAC_from_Mem .addr_ ; Carica il numero in FAC.
@@ -565,7 +565,7 @@
 ;               Chiama la routine NOTOP della ROM del BASIC. Se il numero è
 ;               fuori dall'intervallo da -32768 a 32767, la ROM segnala ILLEGAL
 ;               QUANTITY ERROR e non ritorna al chiamante: vedi
-;               [NOTA #07 in <fp/fp.asm>].
+;               [NOTA #07 in <math/fp.asm>].
 ;
 ;               La ROM altera la cella di lavoro $0D (VALTYP), che viene posta
 ;               a zero.
@@ -591,7 +591,7 @@
 ; Registri Modificati:  .A, .X, .Y, .P (Negative, oVerflow, Zero, Carry), INDEX,
 ;                       __FP_SAVED_SP
 ; Dipendenze Esterne:   <c64/symbols.asm>
-;                       <fp/fp_memory.asm>
+;                       <math/fp_memory.asm>
 ; ==============================================================================
 !macro m_NOT_Ptr .ptr_ {
     +m_Load_FAC_from_Ptr .ptr_  ; Carica il numero in FAC.
