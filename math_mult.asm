@@ -263,7 +263,7 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
   .Loop_Mul_Bit:
     ; Il Carry contiene il bit da esaminare: se vale 0 non si
     ; somma nulla.
-    bcc @No_Add                     ; FOR (Corpo)
+    bcc .No_Add                     ; FOR (Corpo); IF: il bit #0 vale 1
 
     !if (.mcand_bytes_ = 1) {
       clc
@@ -294,7 +294,7 @@ MUL_RES             = NUMWRK+4      ; Prodotto, da 2 a 8 byte (sovrapposto a MUL
       adc MUL_1+.mcand_bytes_-1     ; Somma il byte più alto con il riporto.
     }
 
-  @No_Add:
+  .No_Add:
     ; L'accumulatore scorre a destra: il Carry della somma entra
     ; dall'alto e il bit più basso esce nel moltiplicatore.
     !if (.mcand_bytes_ = 1) {

@@ -304,7 +304,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
     ; Carry e al suo posto entra l'ultimo bit di quoziente.
     +m_Div_Roll DIV_1, .dvd_bytes_  ; FOR (Corpo)
     rol a                           ; Il bit uscito entra nel resto parziale.
-    bcs @Remainder_Overflow         ; Se il resto esce da 8 bit supera il divisore.
+    bcs .Remainder_Overflow         ; Se il resto esce da 8 bit supera il divisore.
 
     cmp DIV_2+0                     ; Il Carry vale 1 se resto >= divisore.
     bcc .Next_Div_Bit               ; Resto minore: bit #0 di quoziente e niente sottrazione.
@@ -315,9 +315,9 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
     dex                             ; NEXT: conta i bit del dividendo
     bne .Loop_Div_Bit               ; NEXT: ripete finché .X è diverso da 0
 
-    jmp @Insert_Last_Bit            ; Scavalca il ramo dell'overflow del resto.
+    jmp .Insert_Last_Bit            ; Scavalca il ramo dell'overflow del resto.
 
-  @Remainder_Overflow:
+  .Remainder_Overflow:
     ; Il resto parziale è uscito da 8 bit: ora vale 2^8 più quello
     ; che resta, quindi supera di certo il divisore. Si sottrae
     ; senza confrontare e il bit di quoziente vale 1.
@@ -326,7 +326,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
     dex                             ; NEXT: conta i bit del dividendo
     bne .Loop_Div_Bit               ; NEXT: ripete finché .X è diverso da 0
 
-  @Insert_Last_Bit:
+  .Insert_Last_Bit:
     ; L'ultimo bit di quoziente è nel Carry: una rotazione finale
     ; lo porta nel dividendo, che diventa il quoziente.
     sta DIV_REM+0                   ; Il resto è l'ultimo valore di .A.
@@ -388,7 +388,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
     ; uscito entra poi nel resto parziale.
     +m_Div_Roll DIV_1, .dvd_bytes_  ; FOR (Corpo)
     +m_Div_Roll DIV_REM, .dvs_bytes_
-    bcs @Remainder_Overflow         ; Se il resto esce dai suoi byte supera il divisore.
+    bcs .Remainder_Overflow         ; Se il resto esce dai suoi byte supera il divisore.
 
     ; Il resto si confronta con il divisore dal byte più alto:
     ; appena due byte differiscono l'esito è noto. Il Carry finale
@@ -397,14 +397,14 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
     cmp DIV_2+.dvs_bytes_-1
     bcc .Next_Div_Multi_Bit         ; Resto minore: bit #0 di quoziente.
 
-    bne @Subtract                   ; Resto maggiore: si sottrae.
+    bne .Subtract                   ; Resto maggiore: si sottrae.
 
     !if (.dvs_bytes_ > 2) {
       lda DIV_REM+.dvs_bytes_-2
       cmp DIV_2+.dvs_bytes_-2
       bcc .Next_Div_Multi_Bit
 
-      bne @Subtract
+      bne .Subtract
     } else if (.dvs_bytes_ = 2) {
       lda DIV_REM+.dvs_bytes_-2
       cmp DIV_2+.dvs_bytes_-2
@@ -416,7 +416,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       cmp DIV_2+.dvs_bytes_-3
       bcc .Next_Div_Multi_Bit
 
-      bne @Subtract
+      bne .Subtract
     } else if (.dvs_bytes_ = 3) {
       lda DIV_REM+.dvs_bytes_-3
       cmp DIV_2+.dvs_bytes_-3
@@ -429,7 +429,7 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
       bcc .Next_Div_Multi_Bit
     }
 
-  @Subtract:
+  .Subtract:
     lda DIV_REM+0                   ; Resto meno divisore, il Carry vale già 1.
     sbc DIV_2+0
     sta DIV_REM+0
@@ -456,9 +456,9 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
     dex                             ; NEXT: conta i bit del dividendo
     bne .Loop_Div_Multi_Bit         ; NEXT: ripete finché .X è diverso da 0
 
-    jmp @Insert_Last_Bit            ; Scavalca il ramo dell'overflow del resto.
+    jmp .Insert_Last_Bit            ; Scavalca il ramo dell'overflow del resto.
 
-  @Remainder_Overflow:
+  .Remainder_Overflow:
     ; Il resto parziale è uscito dai suoi byte: ora vale 2 elevato
     ; al numero dei suoi bit più quello che resta, quindi supera
     ; di certo il divisore. Si sottrae senza confrontare e il bit
@@ -489,9 +489,11 @@ DIV_REM             = NUMWRK+8      ; Resto, da 1 a 4 byte
 
     sec                             ; Bit 1 di quoziente.
     dex                             ; NEXT: conta i bit del dividendo
-    bne .Loop_Div_Multi_Bit         ; NEXT: ripete finché .X è diverso da 0
+    beq .Insert_Last_Bit            ; Dividendo esaurito: ultimo bit di quoziente.
 
-  @Insert_Last_Bit:
+    jmp .Loop_Div_Multi_Bit         ; NEXT: ripete finché .X è diverso da 0
+
+  .Insert_Last_Bit:
     ; L'ultimo bit di quoziente è nel Carry: una rotazione finale
     ; lo porta nel dividendo, che diventa il quoziente.
     +m_Div_Roll DIV_1, .dvd_bytes_
