@@ -40,8 +40,7 @@
 ;                 SDIV_32X24        Divisione 32x24 bit con segno
 ;                 DIV_32X32         Divisione 32x32 bit senza segno
 ;                 SDIV_32X32        Divisione 32x32 bit con segno
-; DIPENDENZE:     <c64/symbols.asm>
-;                 <system/errors.asm>
+; DIPENDENZE:     Nessuna
 ; REQUISITI ZP:   DIV_1, DIV_2, DIV_QUOT, DIV_REM
 ; ==============================================================================
 
@@ -148,10 +147,6 @@
 ; ricostruisce con un byte in più a zero. In tutti gli altri casi il flag di
 ; oVerflow vale 0.
 ; ******************************************************************************
-
-; PROVA TEMPORANEA: once sospeso (LIB-01).
-; !source "../c64/symbols.asm", once
-; !source "../system/errors.asm", once
 
 ; ------------------------------------------------------------------------------
 ; Simboli di pagina zero

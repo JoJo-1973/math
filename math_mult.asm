@@ -38,7 +38,7 @@
 ;                 SMUL_32X24        Prodotto 32x24 bit con segno
 ;                 MUL_32X32         Prodotto 32x32 bit senza segno
 ;                 SMUL_32X32        Prodotto 32x32 bit con segno
-; DIPENDENZE:     <c64/symbols.asm>
+; DIPENDENZE:     Nessuna
 ; REQUISITI ZP:   MUL_1, MUL_2, MUL_RES
 ; ==============================================================================
 
@@ -120,9 +120,6 @@
 ;   32x24         1222      1234
 ;   32x32         1582      1624
 ; ******************************************************************************
-
-; PROVA TEMPORANEA: once sospeso (LIB-01).
-; !source "../c64/symbols.asm", once
 
 ; ------------------------------------------------------------------------------
 ; Simboli di pagina zero

@@ -4,23 +4,21 @@
 ; TARGET:         ACME Assembler / MOS 6510 (Commodore 64)
 ; DESCRIZIONE:    Macro per l'aritmetica in virgola mobile nel formato MBF del
 ;                 BASIC Commodore, basate sulle routine della ROM.
-; DIPENDENZE:     <c64/symbols.asm>
-;                 <system/errors.asm>
-;                 <math/fp_common.asm>
+; DIPENDENZE:     <math/fp_common.asm>
 ;                 <math/fp_arith.asm>
+;                 <math/fp_error.asm>
+;                 <math/fp_memory.asm>
 ;                 <math/fp_boolean.asm>
 ;                 <math/fp_compare.asm>
 ;                 <math/fp_constants.asm>
-;                 <math/fp_error.asm>
 ;                 <math/fp_integers.asm>
 ;                 <math/fp_io.asm>
-;                 <math/fp_memory.asm>
 ;                 <math/fp_poly.asm>
 ;                 <math/fp_power.asm>
-;                 <math/fp_random.asm>
 ;                 <math/fp_transcend.asm>
 ;                 <math/fp_trig.asm>
 ;                 <math/fp_unary.asm>
+;                 <math/fp_random.asm>
 ; REQUISITI ZP:   __FP_SAVED_SP, _SCRATCH_1, _SCRATCH_2
 ; ==============================================================================
 
@@ -267,21 +265,18 @@
 ; Fonte: https://www.c64-wiki.com/wiki/Pi
 ; ******************************************************************************
 
-; PROVA TEMPORANEA: once sospeso (LIB-01).
-; !source "../c64/symbols.asm", once
-!source "../system/errors.asm"
-!source "fp_common.asm"
-!source "fp_arith.asm"
-!source "fp_boolean.asm"
-!source "fp_compare.asm"
-!source "fp_constants.asm"
-!source "fp_error.asm"
-!source "fp_integers.asm"
-!source "fp_io.asm"
-!source "fp_memory.asm"
-!source "fp_poly.asm"
-!source "fp_power.asm"
-!source "fp_random.asm"
-!source "fp_transcend.asm"
-!source "fp_trig.asm"
-!source "fp_unary.asm"
+!source "fp_common.asm", once
+!source "fp_arith.asm", once
+!source "fp_error.asm", once
+!source "fp_memory.asm", once
+!source "fp_boolean.asm", once
+!source "fp_compare.asm", once
+!source "fp_constants.asm", once
+!source "fp_integers.asm", once
+!source "fp_io.asm", once
+!source "fp_poly.asm", once
+!source "fp_power.asm", once
+!source "fp_transcend.asm", once
+!source "fp_trig.asm", once
+!source "fp_unary.asm", once
+!source "fp_random.asm", once

@@ -9,12 +9,9 @@
 ;                 m_AsrS  Scorrimento aritmetico a destra con segno
 ;                 m_Rl8   Rotazione a sinistra senza passare per il Carry
 ;                 m_Rr8   Rotazione a destra senza passare per il Carry
-; DIPENDENZE:     <c64/symbols.asm>
+; DIPENDENZE:     Nessuna
 ; REQUISITI ZP:   Nessuno
 ; ==============================================================================
-
-; PROVA TEMPORANEA: once sospeso (LIB-01).
-; !source "../c64/symbols.asm", once
 
 ; ==============================================================================
 ; MACRO: m_Neg
