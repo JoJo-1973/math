@@ -265,18 +265,18 @@
 ; Fonte: https://www.c64-wiki.com/wiki/Pi
 ; ******************************************************************************
 
-!source "fp_common.asm", once
-!source "fp_arith.asm", once
-!source "fp_error.asm", once
-!source "fp_memory.asm", once
-!source "fp_boolean.asm", once
-!source "fp_compare.asm", once
-!source "fp_constants.asm", once
-!source "fp_integers.asm", once
-!source "fp_io.asm", once
-!source "fp_poly.asm", once
-!source "fp_power.asm", once
-!source "fp_transcend.asm", once
-!source "fp_trig.asm", once
-!source "fp_unary.asm", once
-!source "fp_random.asm", once
+!source <math/fp_common.asm>, once
+!source <math/fp_arith.asm>, once
+!source <math/fp_error.asm>, once
+!source <math/fp_memory.asm>, once
+!source <math/fp_boolean.asm>, once
+!source <math/fp_compare.asm>, once
+!source <math/fp_constants.asm>, once
+!source <math/fp_integers.asm>, once
+!source <math/fp_io.asm>, once
+!source <math/fp_poly.asm>, once
+!source <math/fp_power.asm>, once
+!source <math/fp_transcend.asm>, once
+!source <math/fp_trig.asm>, once
+!source <math/fp_unary.asm>, once
+!source <math/fp_random.asm>, once
